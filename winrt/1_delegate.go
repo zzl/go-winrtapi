@@ -99,7 +99,6 @@ func NewIDelegate(impl IDelegateInterface) *IDelegate {
 	return NewIDelegateComObj(impl).IDelegate()
 }
 
-//
 type IDelegateByFuncImpl struct {
 	IDelegateImpl
 	handlerFunc func(arg1, arg2, arg3 uintptr) com.Error
@@ -122,30 +121,18 @@ func NewNoArgFuncDelegate(anyFunc func() com.Error) *IDelegate {
 
 func NewOneArgFuncDelegate[TArg any](anyFunc func(arg TArg) com.Error) *IDelegate {
 	return NewIDelegateByFunc(func(arg1, arg2, arg3 uintptr) com.Error {
-		var arg TArg
-		*(*uintptr)(unsafe.Pointer(&arg)) = arg1
-		return anyFunc(arg)
+		return anyFunc(*(*TArg)(unsafe.Pointer(&arg1)))
 	})
 }
 
 func NewTwoArgFuncDelegate[TArg1 any, TArg2 any](anyFunc func(arg1 TArg1, arg2 TArg2) com.Error) *IDelegate {
 	return NewIDelegateByFunc(func(arg1, arg2, arg3 uintptr) com.Error {
-		var tArg1 TArg1
-		var tArg2 TArg2
-		*(*uintptr)(unsafe.Pointer(&tArg1)) = arg1
-		*(*uintptr)(unsafe.Pointer(&tArg2)) = arg2
-		return anyFunc(tArg1, tArg2)
+		return anyFunc(*(*TArg1)(unsafe.Pointer(&arg1)), *(*TArg2)(unsafe.Pointer(&arg2)))
 	})
 }
 
 func NewThreeArgFuncDelegate[TArg1 any, TArg2 any, TArg3 any](anyFunc func(arg1 TArg1, arg2 TArg2, arg3 TArg3) com.Error) *IDelegate {
 	return NewIDelegateByFunc(func(arg1, arg2, arg3 uintptr) com.Error {
-		var tArg1 TArg1
-		var tArg2 TArg2
-		var tArg3 TArg3
-		*(*uintptr)(unsafe.Pointer(&tArg1)) = arg1
-		*(*uintptr)(unsafe.Pointer(&tArg2)) = arg2
-		*(*uintptr)(unsafe.Pointer(&tArg3)) = arg3
-		return anyFunc(tArg1, tArg2, tArg3)
+		return anyFunc(*(*TArg1)(unsafe.Pointer(&arg1)), *(*TArg2)(unsafe.Pointer(&arg2)), *(*TArg3)(unsafe.Pointer(&arg3)))
 	})
 }
