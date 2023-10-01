@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -22,10 +22,10 @@ const (
 
 // func types
 
-//179517F3-94EE-41F8-BDDC-768A895544F3
+// 179517F3-94EE-41F8-BDDC-768A895544F3
 type MapChangedEventHandler[K any, V any] func(sender *IObservableMap[K, V], event *IMapChangedEventArgs[K]) com.Error
 
-//0C051752-9FBF-4C70-AA0C-0E4C82D9A761
+// 0C051752-9FBF-4C70-AA0C-0E4C82D9A761
 type VectorChangedEventHandler[T any] func(sender *IObservableVector[T], event *IVectorChangedEventArgs) com.Error
 
 // interfaces

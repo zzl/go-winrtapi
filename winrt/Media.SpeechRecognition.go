@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -1647,19 +1647,19 @@ func NewSpeechRecognizer_Create(language *ILanguage) *SpeechRecognizer {
 	return result
 }
 
-func NewISpeechRecognizerStatics2() *ISpeechRecognizerStatics2 {
-	var p *ISpeechRecognizerStatics2
+func NewISpeechRecognizerStatics() *ISpeechRecognizerStatics {
+	var p *ISpeechRecognizerStatics
 	hs := NewHStr("Windows.Media.SpeechRecognition.SpeechRecognizer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpeechRecognizerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpeechRecognizerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewISpeechRecognizerStatics() *ISpeechRecognizerStatics {
-	var p *ISpeechRecognizerStatics
+func NewISpeechRecognizerStatics2() *ISpeechRecognizerStatics2 {
+	var p *ISpeechRecognizerStatics2
 	hs := NewHStr("Windows.Media.SpeechRecognition.SpeechRecognizer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpeechRecognizerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpeechRecognizerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

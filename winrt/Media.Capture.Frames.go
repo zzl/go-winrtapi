@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -1204,35 +1204,6 @@ func (this *IMediaFrameSourceInfo3) Vtbl() *IMediaFrameSourceInfo3Vtbl {
 func (this *IMediaFrameSourceInfo3) GetRelativePanel(displayRegion unsafe.Pointer) Panel {
 	var _result Panel
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetRelativePanel, uintptr(unsafe.Pointer(this)), uintptr(displayRegion), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 4817D721-85EB-470C-8F37-43CA5498E41D
-var IID_IMediaFrameSourceInfo4 = syscall.GUID{0x4817D721, 0x85EB, 0x470C,
-	[8]byte{0x8F, 0x37, 0x43, 0xCA, 0x54, 0x98, 0xE4, 0x1D}}
-
-type IMediaFrameSourceInfo4Interface interface {
-	win32.IInspectableInterface
-	Get_IsShareable() bool
-}
-
-type IMediaFrameSourceInfo4Vtbl struct {
-	win32.IInspectableVtbl
-	Get_IsShareable uintptr
-}
-
-type IMediaFrameSourceInfo4 struct {
-	win32.IInspectable
-}
-
-func (this *IMediaFrameSourceInfo4) Vtbl() *IMediaFrameSourceInfo4Vtbl {
-	return (*IMediaFrameSourceInfo4Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IMediaFrameSourceInfo4) Get_IsShareable() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsShareable, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }

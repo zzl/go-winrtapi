@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -4035,19 +4035,19 @@ type RadialControllerConfiguration struct {
 	*IRadialControllerConfiguration
 }
 
-func NewIRadialControllerConfigurationStatics() *IRadialControllerConfigurationStatics {
-	var p *IRadialControllerConfigurationStatics
+func NewIRadialControllerConfigurationStatics2() *IRadialControllerConfigurationStatics2 {
+	var p *IRadialControllerConfigurationStatics2
 	hs := NewHStr("Windows.UI.Input.RadialControllerConfiguration")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerConfigurationStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerConfigurationStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIRadialControllerConfigurationStatics2() *IRadialControllerConfigurationStatics2 {
-	var p *IRadialControllerConfigurationStatics2
+func NewIRadialControllerConfigurationStatics() *IRadialControllerConfigurationStatics {
+	var p *IRadialControllerConfigurationStatics
 	hs := NewHStr("Windows.UI.Input.RadialControllerConfiguration")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerConfigurationStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerConfigurationStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4068,19 +4068,19 @@ type RadialControllerMenuItem struct {
 	*IRadialControllerMenuItem
 }
 
-func NewIRadialControllerMenuItemStatics2() *IRadialControllerMenuItemStatics2 {
-	var p *IRadialControllerMenuItemStatics2
+func NewIRadialControllerMenuItemStatics() *IRadialControllerMenuItemStatics {
+	var p *IRadialControllerMenuItemStatics
 	hs := NewHStr("Windows.UI.Input.RadialControllerMenuItem")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerMenuItemStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerMenuItemStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIRadialControllerMenuItemStatics() *IRadialControllerMenuItemStatics {
-	var p *IRadialControllerMenuItemStatics
+func NewIRadialControllerMenuItemStatics2() *IRadialControllerMenuItemStatics2 {
+	var p *IRadialControllerMenuItemStatics2
 	hs := NewHStr("Windows.UI.Input.RadialControllerMenuItem")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerMenuItemStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRadialControllerMenuItemStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

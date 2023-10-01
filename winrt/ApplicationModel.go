@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -29,24 +29,6 @@ const (
 )
 
 // enum
-type AppInstallerPolicySource int32
-
-const (
-	AppInstallerPolicySource_Default AppInstallerPolicySource = 0
-	AppInstallerPolicySource_System  AppInstallerPolicySource = 1
-)
-
-// enum
-type FullTrustLaunchResult int32
-
-const (
-	FullTrustLaunchResult_Success      FullTrustLaunchResult = 0
-	FullTrustLaunchResult_AccessDenied FullTrustLaunchResult = 1
-	FullTrustLaunchResult_FileNotFound FullTrustLaunchResult = 2
-	FullTrustLaunchResult_Unknown      FullTrustLaunchResult = 3
-)
-
-// enum
 type LimitedAccessFeatureStatus int32
 
 const (
@@ -64,15 +46,6 @@ const (
 	PackageContentGroupState_Queued    PackageContentGroupState = 1
 	PackageContentGroupState_Staging   PackageContentGroupState = 2
 	PackageContentGroupState_Staged    PackageContentGroupState = 3
-)
-
-// enum
-type PackageRelationship int32
-
-const (
-	PackageRelationship_Dependencies PackageRelationship = 0
-	PackageRelationship_Dependents   PackageRelationship = 1
-	PackageRelationship_All          PackageRelationship = 2
 )
 
 // enum
@@ -402,166 +375,6 @@ func (this *IAppInstallerInfo) Get_Uri() *IUriRuntimeClass {
 	return _result
 }
 
-// D20F1388-8256-597C-8511-C84EC50D5E2B
-var IID_IAppInstallerInfo2 = syscall.GUID{0xD20F1388, 0x8256, 0x597C,
-	[8]byte{0x85, 0x11, 0xC8, 0x4E, 0xC5, 0x0D, 0x5E, 0x2B}}
-
-type IAppInstallerInfo2Interface interface {
-	win32.IInspectableInterface
-	Get_OnLaunch() bool
-	Get_HoursBetweenUpdateChecks() uint32
-	Get_ShowPrompt() bool
-	Get_UpdateBlocksActivation() bool
-	Get_AutomaticBackgroundTask() bool
-	Get_ForceUpdateFromAnyVersion() bool
-	Get_IsAutoRepairEnabled() bool
-	Get_Version() PackageVersion
-	Get_LastChecked() DateTime
-	Get_PausedUntil() *IReference[DateTime]
-	Get_UpdateUris() *IVectorView[*IUriRuntimeClass]
-	Get_RepairUris() *IVectorView[*IUriRuntimeClass]
-	Get_DependencyPackageUris() *IVectorView[*IUriRuntimeClass]
-	Get_OptionalPackageUris() *IVectorView[*IUriRuntimeClass]
-	Get_PolicySource() AppInstallerPolicySource
-}
-
-type IAppInstallerInfo2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_OnLaunch                  uintptr
-	Get_HoursBetweenUpdateChecks  uintptr
-	Get_ShowPrompt                uintptr
-	Get_UpdateBlocksActivation    uintptr
-	Get_AutomaticBackgroundTask   uintptr
-	Get_ForceUpdateFromAnyVersion uintptr
-	Get_IsAutoRepairEnabled       uintptr
-	Get_Version                   uintptr
-	Get_LastChecked               uintptr
-	Get_PausedUntil               uintptr
-	Get_UpdateUris                uintptr
-	Get_RepairUris                uintptr
-	Get_DependencyPackageUris     uintptr
-	Get_OptionalPackageUris       uintptr
-	Get_PolicySource              uintptr
-}
-
-type IAppInstallerInfo2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppInstallerInfo2) Vtbl() *IAppInstallerInfo2Vtbl {
-	return (*IAppInstallerInfo2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppInstallerInfo2) Get_OnLaunch() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_OnLaunch, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_HoursBetweenUpdateChecks() uint32 {
-	var _result uint32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_HoursBetweenUpdateChecks, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_ShowPrompt() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ShowPrompt, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_UpdateBlocksActivation() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_UpdateBlocksActivation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_AutomaticBackgroundTask() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AutomaticBackgroundTask, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_ForceUpdateFromAnyVersion() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ForceUpdateFromAnyVersion, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_IsAutoRepairEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsAutoRepairEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_Version() PackageVersion {
-	var _result PackageVersion
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Version, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_LastChecked() DateTime {
-	var _result DateTime
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LastChecked, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_PausedUntil() *IReference[DateTime] {
-	var _result *IReference[DateTime]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PausedUntil, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_UpdateUris() *IVectorView[*IUriRuntimeClass] {
-	var _result *IVectorView[*IUriRuntimeClass]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_UpdateUris, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_RepairUris() *IVectorView[*IUriRuntimeClass] {
-	var _result *IVectorView[*IUriRuntimeClass]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RepairUris, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_DependencyPackageUris() *IVectorView[*IUriRuntimeClass] {
-	var _result *IVectorView[*IUriRuntimeClass]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DependencyPackageUris, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_OptionalPackageUris() *IVectorView[*IUriRuntimeClass] {
-	var _result *IVectorView[*IUriRuntimeClass]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_OptionalPackageUris, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppInstallerInfo2) Get_PolicySource() AppInstallerPolicySource {
-	var _result AppInstallerPolicySource
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PolicySource, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
 // 675F2B47-F25F-4532-9FD6-3633E0634D01
 var IID_IAppInstance = syscall.GUID{0x675F2B47, 0xF25F, 0x4532,
 	[8]byte{0x9F, 0xD6, 0x36, 0x33, 0xE0, 0x63, 0x4D, 0x01}}
@@ -789,174 +602,6 @@ func (this *IEnteredBackgroundEventArgs) GetDeferral() *IDeferral {
 	return _result
 }
 
-// 41DD7EEA-B335-521F-B96C-5EA07F5B7329
-var IID_IFindRelatedPackagesOptions = syscall.GUID{0x41DD7EEA, 0xB335, 0x521F,
-	[8]byte{0xB9, 0x6C, 0x5E, 0xA0, 0x7F, 0x5B, 0x73, 0x29}}
-
-type IFindRelatedPackagesOptionsInterface interface {
-	win32.IInspectableInterface
-	Get_Relationship() PackageRelationship
-	Put_Relationship(value PackageRelationship)
-	Get_IncludeFrameworks() bool
-	Put_IncludeFrameworks(value bool)
-	Get_IncludeHostRuntimes() bool
-	Put_IncludeHostRuntimes(value bool)
-	Get_IncludeOptionals() bool
-	Put_IncludeOptionals(value bool)
-	Get_IncludeResources() bool
-	Put_IncludeResources(value bool)
-}
-
-type IFindRelatedPackagesOptionsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Relationship        uintptr
-	Put_Relationship        uintptr
-	Get_IncludeFrameworks   uintptr
-	Put_IncludeFrameworks   uintptr
-	Get_IncludeHostRuntimes uintptr
-	Put_IncludeHostRuntimes uintptr
-	Get_IncludeOptionals    uintptr
-	Put_IncludeOptionals    uintptr
-	Get_IncludeResources    uintptr
-	Put_IncludeResources    uintptr
-}
-
-type IFindRelatedPackagesOptions struct {
-	win32.IInspectable
-}
-
-func (this *IFindRelatedPackagesOptions) Vtbl() *IFindRelatedPackagesOptionsVtbl {
-	return (*IFindRelatedPackagesOptionsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IFindRelatedPackagesOptions) Get_Relationship() PackageRelationship {
-	var _result PackageRelationship
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Relationship, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFindRelatedPackagesOptions) Put_Relationship(value PackageRelationship) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Relationship, uintptr(unsafe.Pointer(this)), uintptr(value))
-	_ = _hr
-}
-
-func (this *IFindRelatedPackagesOptions) Get_IncludeFrameworks() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IncludeFrameworks, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFindRelatedPackagesOptions) Put_IncludeFrameworks(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IncludeFrameworks, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *IFindRelatedPackagesOptions) Get_IncludeHostRuntimes() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IncludeHostRuntimes, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFindRelatedPackagesOptions) Put_IncludeHostRuntimes(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IncludeHostRuntimes, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *IFindRelatedPackagesOptions) Get_IncludeOptionals() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IncludeOptionals, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFindRelatedPackagesOptions) Put_IncludeOptionals(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IncludeOptionals, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *IFindRelatedPackagesOptions) Get_IncludeResources() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IncludeResources, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFindRelatedPackagesOptions) Put_IncludeResources(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IncludeResources, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-// D7D17254-A4FD-55C4-98CF-F2710B7D8BE2
-var IID_IFindRelatedPackagesOptionsFactory = syscall.GUID{0xD7D17254, 0xA4FD, 0x55C4,
-	[8]byte{0x98, 0xCF, 0xF2, 0x71, 0x0B, 0x7D, 0x8B, 0xE2}}
-
-type IFindRelatedPackagesOptionsFactoryInterface interface {
-	win32.IInspectableInterface
-	CreateInstance(Relationship PackageRelationship) *IFindRelatedPackagesOptions
-}
-
-type IFindRelatedPackagesOptionsFactoryVtbl struct {
-	win32.IInspectableVtbl
-	CreateInstance uintptr
-}
-
-type IFindRelatedPackagesOptionsFactory struct {
-	win32.IInspectable
-}
-
-func (this *IFindRelatedPackagesOptionsFactory) Vtbl() *IFindRelatedPackagesOptionsFactoryVtbl {
-	return (*IFindRelatedPackagesOptionsFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IFindRelatedPackagesOptionsFactory) CreateInstance(Relationship PackageRelationship) *IFindRelatedPackagesOptions {
-	var _result *IFindRelatedPackagesOptions
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateInstance, uintptr(unsafe.Pointer(this)), uintptr(Relationship), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 8917D888-EDFB-515F-8E22-5EBCEB69DFD9
-var IID_IFullTrustProcessLaunchResult = syscall.GUID{0x8917D888, 0xEDFB, 0x515F,
-	[8]byte{0x8E, 0x22, 0x5E, 0xBC, 0xEB, 0x69, 0xDF, 0xD9}}
-
-type IFullTrustProcessLaunchResultInterface interface {
-	win32.IInspectableInterface
-	Get_LaunchResult() FullTrustLaunchResult
-	Get_ExtendedError() HResult
-}
-
-type IFullTrustProcessLaunchResultVtbl struct {
-	win32.IInspectableVtbl
-	Get_LaunchResult  uintptr
-	Get_ExtendedError uintptr
-}
-
-type IFullTrustProcessLaunchResult struct {
-	win32.IInspectable
-}
-
-func (this *IFullTrustProcessLaunchResult) Vtbl() *IFullTrustProcessLaunchResultVtbl {
-	return (*IFullTrustProcessLaunchResultVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IFullTrustProcessLaunchResult) Get_LaunchResult() FullTrustLaunchResult {
-	var _result FullTrustLaunchResult
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LaunchResult, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IFullTrustProcessLaunchResult) Get_ExtendedError() HResult {
-	var _result HResult
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ExtendedError, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
 // D784837F-1100-3C6B-A455-F6262CC331B6
 var IID_IFullTrustProcessLauncherStatics = syscall.GUID{0xD784837F, 0x1100, 0x3C6B,
 	[8]byte{0xA4, 0x55, 0xF6, 0x26, 0x2C, 0xC3, 0x31, 0xB6}}
@@ -1012,46 +657,6 @@ func (this *IFullTrustProcessLauncherStatics) LaunchFullTrustProcessForAppAsync(
 func (this *IFullTrustProcessLauncherStatics) LaunchFullTrustProcessForAppWithParametersAsync(fullTrustPackageRelativeAppId string, parameterGroupId string) *IAsyncAction {
 	var _result *IAsyncAction
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().LaunchFullTrustProcessForAppWithParametersAsync, uintptr(unsafe.Pointer(this)), NewHStr(fullTrustPackageRelativeAppId).Ptr, NewHStr(parameterGroupId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 8B8ED72F-B65C-56CF-A1A7-2BF77CBC6EA8
-var IID_IFullTrustProcessLauncherStatics2 = syscall.GUID{0x8B8ED72F, 0xB65C, 0x56CF,
-	[8]byte{0xA1, 0xA7, 0x2B, 0xF7, 0x7C, 0xBC, 0x6E, 0xA8}}
-
-type IFullTrustProcessLauncherStatics2Interface interface {
-	win32.IInspectableInterface
-	LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(commandLine string) *IAsyncOperation[*IFullTrustProcessLaunchResult]
-	LaunchFullTrustProcessForAppWithArgumentsAsync(fullTrustPackageRelativeAppId string, commandLine string) *IAsyncOperation[*IFullTrustProcessLaunchResult]
-}
-
-type IFullTrustProcessLauncherStatics2Vtbl struct {
-	win32.IInspectableVtbl
-	LaunchFullTrustProcessForCurrentAppWithArgumentsAsync uintptr
-	LaunchFullTrustProcessForAppWithArgumentsAsync        uintptr
-}
-
-type IFullTrustProcessLauncherStatics2 struct {
-	win32.IInspectable
-}
-
-func (this *IFullTrustProcessLauncherStatics2) Vtbl() *IFullTrustProcessLauncherStatics2Vtbl {
-	return (*IFullTrustProcessLauncherStatics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IFullTrustProcessLauncherStatics2) LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(commandLine string) *IAsyncOperation[*IFullTrustProcessLaunchResult] {
-	var _result *IAsyncOperation[*IFullTrustProcessLaunchResult]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().LaunchFullTrustProcessForCurrentAppWithArgumentsAsync, uintptr(unsafe.Pointer(this)), NewHStr(commandLine).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IFullTrustProcessLauncherStatics2) LaunchFullTrustProcessForAppWithArgumentsAsync(fullTrustPackageRelativeAppId string, commandLine string) *IAsyncOperation[*IFullTrustProcessLaunchResult] {
-	var _result *IAsyncOperation[*IFullTrustProcessLaunchResult]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().LaunchFullTrustProcessForAppWithArgumentsAsync, uintptr(unsafe.Pointer(this)), NewHStr(fullTrustPackageRelativeAppId).Ptr, NewHStr(commandLine).Ptr, uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -1688,45 +1293,6 @@ func (this *IPackage8) Get_IsStub() bool {
 	return _result
 }
 
-// D5AB224F-D7E1-49EC-90CE-720CDBD02E9C
-var IID_IPackage9 = syscall.GUID{0xD5AB224F, 0xD7E1, 0x49EC,
-	[8]byte{0x90, 0xCE, 0x72, 0x0C, 0xDB, 0xD0, 0x2E, 0x9C}}
-
-type IPackage9Interface interface {
-	win32.IInspectableInterface
-	FindRelatedPackages(options *IFindRelatedPackagesOptions) *IVector[*IPackage]
-	Get_SourceUriSchemeName() string
-}
-
-type IPackage9Vtbl struct {
-	win32.IInspectableVtbl
-	FindRelatedPackages     uintptr
-	Get_SourceUriSchemeName uintptr
-}
-
-type IPackage9 struct {
-	win32.IInspectable
-}
-
-func (this *IPackage9) Vtbl() *IPackage9Vtbl {
-	return (*IPackage9Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IPackage9) FindRelatedPackages(options *IFindRelatedPackagesOptions) *IVector[*IPackage] {
-	var _result *IVector[*IPackage]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().FindRelatedPackages, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(options)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IPackage9) Get_SourceUriSchemeName() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SourceUriSchemeName, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
 // 230A3751-9DE3-4445-BE74-91FB325ABEFE
 var IID_IPackageCatalog = syscall.GUID{0x230A3751, 0x9DE3, 0x4445,
 	[8]byte{0xBE, 0x74, 0x91, 0xFB, 0x32, 0x5A, 0xBE, 0xFE}}
@@ -2143,36 +1709,6 @@ func (this *IPackageCatalogStatics) OpenForCurrentPackage() *IPackageCatalog {
 func (this *IPackageCatalogStatics) OpenForCurrentUser() *IPackageCatalog {
 	var _result *IPackageCatalog
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().OpenForCurrentUser, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 4C11C159-9A28-598C-B185-55E1899B2BE4
-var IID_IPackageCatalogStatics2 = syscall.GUID{0x4C11C159, 0x9A28, 0x598C,
-	[8]byte{0xB1, 0x85, 0x55, 0xE1, 0x89, 0x9B, 0x2B, 0xE4}}
-
-type IPackageCatalogStatics2Interface interface {
-	win32.IInspectableInterface
-	OpenForPackage(package_ *IPackage) *IPackageCatalog
-}
-
-type IPackageCatalogStatics2Vtbl struct {
-	win32.IInspectableVtbl
-	OpenForPackage uintptr
-}
-
-type IPackageCatalogStatics2 struct {
-	win32.IInspectable
-}
-
-func (this *IPackageCatalogStatics2) Vtbl() *IPackageCatalogStatics2Vtbl {
-	return (*IPackageCatalogStatics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IPackageCatalogStatics2) OpenForPackage(package_ *IPackage) *IPackageCatalog {
-	var _result *IPackageCatalog
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().OpenForPackage, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(package_)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result

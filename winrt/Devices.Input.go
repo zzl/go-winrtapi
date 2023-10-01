@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -376,36 +376,6 @@ func (this *IPenDevice) Get_PenId() syscall.GUID {
 	var _result syscall.GUID
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PenId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
-	return _result
-}
-
-// 0207D327-7FB8-5566-8C34-F8342037B7F9
-var IID_IPenDevice2 = syscall.GUID{0x0207D327, 0x7FB8, 0x5566,
-	[8]byte{0x8C, 0x34, 0xF8, 0x34, 0x20, 0x37, 0xB7, 0xF9}}
-
-type IPenDevice2Interface interface {
-	win32.IInspectableInterface
-	Get_SimpleHapticsController() *ISimpleHapticsController
-}
-
-type IPenDevice2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_SimpleHapticsController uintptr
-}
-
-type IPenDevice2 struct {
-	win32.IInspectable
-}
-
-func (this *IPenDevice2) Vtbl() *IPenDevice2Vtbl {
-	return (*IPenDevice2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IPenDevice2) Get_SimpleHapticsController() *ISimpleHapticsController {
-	var _result *ISimpleHapticsController
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SimpleHapticsController, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
 	return _result
 }
 

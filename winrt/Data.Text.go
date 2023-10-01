@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -86,10 +86,10 @@ type TextSegment struct {
 
 // func types
 
-//3A3DFC9C-AEDE-4DC7-9E6C-41C044BD3592
+// 3A3DFC9C-AEDE-4DC7-9E6C-41C044BD3592
 type SelectableWordSegmentsTokenizingHandler func(precedingWords *IIterable[*ISelectableWordSegment], words *IIterable[*ISelectableWordSegment]) com.Error
 
-//A5DD6357-BF2A-4C4F-A31F-29E71C6F8B35
+// A5DD6357-BF2A-4C4F-A31F-29E71C6F8B35
 type WordSegmentsTokenizingHandler func(precedingWords *IIterable[*IWordSegment], words *IIterable[*IWordSegment]) com.Error
 
 // interfaces

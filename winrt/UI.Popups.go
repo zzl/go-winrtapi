@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -31,7 +31,7 @@ const (
 
 // func types
 
-//DAF77A4F-C27A-4298-9AC6-2922C45E7DA6
+// DAF77A4F-C27A-4298-9AC6-2922C45E7DA6
 type UICommandInvokedHandler func(command *IUICommand) com.Error
 
 // interfaces

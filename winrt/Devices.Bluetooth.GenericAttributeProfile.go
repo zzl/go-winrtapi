@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -4535,19 +4535,19 @@ type GattCharacteristicUuids struct {
 	RtClass
 }
 
-func NewIGattCharacteristicUuidsStatics2() *IGattCharacteristicUuidsStatics2 {
-	var p *IGattCharacteristicUuidsStatics2
+func NewIGattCharacteristicUuidsStatics() *IGattCharacteristicUuidsStatics {
+	var p *IGattCharacteristicUuidsStatics
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattCharacteristicUuidsStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattCharacteristicUuidsStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIGattCharacteristicUuidsStatics() *IGattCharacteristicUuidsStatics {
-	var p *IGattCharacteristicUuidsStatics
+func NewIGattCharacteristicUuidsStatics2() *IGattCharacteristicUuidsStatics2 {
+	var p *IGattCharacteristicUuidsStatics2
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattCharacteristicUuidsStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattCharacteristicUuidsStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4600,19 +4600,19 @@ type GattDeviceService struct {
 	*IGattDeviceService
 }
 
-func NewIGattDeviceServiceStatics2() *IGattDeviceServiceStatics2 {
-	var p *IGattDeviceServiceStatics2
+func NewIGattDeviceServiceStatics() *IGattDeviceServiceStatics {
+	var p *IGattDeviceServiceStatics
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattDeviceServiceStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattDeviceServiceStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIGattDeviceServiceStatics() *IGattDeviceServiceStatics {
-	var p *IGattDeviceServiceStatics
+func NewIGattDeviceServiceStatics2() *IGattDeviceServiceStatics2 {
+	var p *IGattDeviceServiceStatics2
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattDeviceServiceStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattDeviceServiceStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4691,19 +4691,19 @@ type GattPresentationFormat struct {
 	*IGattPresentationFormat
 }
 
-func NewIGattPresentationFormatStatics() *IGattPresentationFormatStatics {
-	var p *IGattPresentationFormatStatics
+func NewIGattPresentationFormatStatics2() *IGattPresentationFormatStatics2 {
+	var p *IGattPresentationFormatStatics2
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattPresentationFormatStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattPresentationFormatStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIGattPresentationFormatStatics2() *IGattPresentationFormatStatics2 {
-	var p *IGattPresentationFormatStatics2
+func NewIGattPresentationFormatStatics() *IGattPresentationFormatStatics {
+	var p *IGattPresentationFormatStatics
 	hs := NewHStr("Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattPresentationFormatStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGattPresentationFormatStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -1411,10 +1411,10 @@ var IID_IAudioNodeEmitter = syscall.GUID{0x3676971D, 0x880A, 0x47B8,
 
 type IAudioNodeEmitterInterface interface {
 	win32.IInspectableInterface
-	Get_Position() unsafe.Pointer
-	Put_Position(value unsafe.Pointer)
-	Get_Direction() unsafe.Pointer
-	Put_Direction(value unsafe.Pointer)
+	Get_Position() Vector3
+	Put_Position(value Vector3)
+	Get_Direction() Vector3
+	Put_Direction(value Vector3)
 	Get_Shape() *IAudioNodeEmitterShape
 	Get_DecayModel() *IAudioNodeEmitterDecayModel
 	Get_Gain() float64
@@ -1423,8 +1423,8 @@ type IAudioNodeEmitterInterface interface {
 	Put_DistanceScale(value float64)
 	Get_DopplerScale() float64
 	Put_DopplerScale(value float64)
-	Get_DopplerVelocity() unsafe.Pointer
-	Put_DopplerVelocity(value unsafe.Pointer)
+	Get_DopplerVelocity() Vector3
+	Put_DopplerVelocity(value Vector3)
 	Get_IsDopplerDisabled() bool
 }
 
@@ -1455,27 +1455,27 @@ func (this *IAudioNodeEmitter) Vtbl() *IAudioNodeEmitterVtbl {
 	return (*IAudioNodeEmitterVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IAudioNodeEmitter) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeEmitter) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeEmitter) Put_Position(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Position, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeEmitter) Put_Position(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IAudioNodeEmitter) Get_Direction() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeEmitter) Get_Direction() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeEmitter) Put_Direction(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeEmitter) Put_Direction(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1531,15 +1531,15 @@ func (this *IAudioNodeEmitter) Put_DopplerScale(value float64) {
 	_ = _hr
 }
 
-func (this *IAudioNodeEmitter) Get_DopplerVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeEmitter) Get_DopplerVelocity() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeEmitter) Put_DopplerVelocity(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeEmitter) Put_DopplerVelocity(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1883,14 +1883,14 @@ var IID_IAudioNodeListener = syscall.GUID{0xD9722E16, 0x0C0A, 0x41DA,
 
 type IAudioNodeListenerInterface interface {
 	win32.IInspectableInterface
-	Get_Position() unsafe.Pointer
-	Put_Position(value unsafe.Pointer)
-	Get_Orientation() unsafe.Pointer
-	Put_Orientation(value unsafe.Pointer)
+	Get_Position() Vector3
+	Put_Position(value Vector3)
+	Get_Orientation() Quaternion
+	Put_Orientation(value Quaternion)
 	Get_SpeedOfSound() float64
 	Put_SpeedOfSound(value float64)
-	Get_DopplerVelocity() unsafe.Pointer
-	Put_DopplerVelocity(value unsafe.Pointer)
+	Get_DopplerVelocity() Vector3
+	Put_DopplerVelocity(value Vector3)
 }
 
 type IAudioNodeListenerVtbl struct {
@@ -1913,27 +1913,27 @@ func (this *IAudioNodeListener) Vtbl() *IAudioNodeListenerVtbl {
 	return (*IAudioNodeListenerVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IAudioNodeListener) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeListener) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeListener) Put_Position(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Position, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeListener) Put_Position(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IAudioNodeListener) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeListener) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeListener) Put_Orientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeListener) Put_Orientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1949,15 +1949,15 @@ func (this *IAudioNodeListener) Put_SpeedOfSound(value float64) {
 	_ = _hr
 }
 
-func (this *IAudioNodeListener) Get_DopplerVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IAudioNodeListener) Get_DopplerVelocity() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IAudioNodeListener) Put_DopplerVelocity(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IAudioNodeListener) Put_DopplerVelocity(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_DopplerVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4326,19 +4326,19 @@ type SpatialAudioFormatSubtype struct {
 	RtClass
 }
 
-func NewISpatialAudioFormatSubtypeStatics2() *ISpatialAudioFormatSubtypeStatics2 {
-	var p *ISpatialAudioFormatSubtypeStatics2
+func NewISpatialAudioFormatSubtypeStatics() *ISpatialAudioFormatSubtypeStatics {
+	var p *ISpatialAudioFormatSubtypeStatics
 	hs := NewHStr("Windows.Media.Audio.SpatialAudioFormatSubtype")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialAudioFormatSubtypeStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialAudioFormatSubtypeStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewISpatialAudioFormatSubtypeStatics() *ISpatialAudioFormatSubtypeStatics {
-	var p *ISpatialAudioFormatSubtypeStatics
+func NewISpatialAudioFormatSubtypeStatics2() *ISpatialAudioFormatSubtypeStatics2 {
+	var p *ISpatialAudioFormatSubtypeStatics2
 	hs := NewHStr("Windows.Media.Audio.SpatialAudioFormatSubtype")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialAudioFormatSubtypeStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialAudioFormatSubtypeStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

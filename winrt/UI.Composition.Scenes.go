@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -55,11 +55,11 @@ var IID_ISceneBoundingBox = syscall.GUID{0x5D8FFC70, 0xC618, 0x4083,
 
 type ISceneBoundingBoxInterface interface {
 	win32.IInspectableInterface
-	Get_Center() unsafe.Pointer
-	Get_Extents() unsafe.Pointer
-	Get_Max() unsafe.Pointer
-	Get_Min() unsafe.Pointer
-	Get_Size() unsafe.Pointer
+	Get_Center() Vector3
+	Get_Extents() Vector3
+	Get_Max() Vector3
+	Get_Min() Vector3
+	Get_Size() Vector3
 }
 
 type ISceneBoundingBoxVtbl struct {
@@ -79,36 +79,36 @@ func (this *ISceneBoundingBox) Vtbl() *ISceneBoundingBoxVtbl {
 	return (*ISceneBoundingBoxVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISceneBoundingBox) Get_Center() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneBoundingBox) Get_Center() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Center, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneBoundingBox) Get_Extents() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneBoundingBox) Get_Extents() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Extents, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneBoundingBox) Get_Max() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneBoundingBox) Get_Max() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Max, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneBoundingBox) Get_Min() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneBoundingBox) Get_Min() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Min, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneBoundingBox) Get_Size() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneBoundingBox) Get_Size() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Size, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -468,8 +468,8 @@ type ISceneMetallicRoughnessMaterialInterface interface {
 	win32.IInspectableInterface
 	Get_BaseColorInput() *ISceneMaterialInput
 	Put_BaseColorInput(value *ISceneMaterialInput)
-	Get_BaseColorFactor() unsafe.Pointer
-	Put_BaseColorFactor(value unsafe.Pointer)
+	Get_BaseColorFactor() Vector4
+	Put_BaseColorFactor(value Vector4)
 	Get_MetallicFactor() float32
 	Put_MetallicFactor(value float32)
 	Get_MetallicRoughnessInput() *ISceneMaterialInput
@@ -513,15 +513,15 @@ func (this *ISceneMetallicRoughnessMaterial) Put_BaseColorInput(value *ISceneMat
 	_ = _hr
 }
 
-func (this *ISceneMetallicRoughnessMaterial) Get_BaseColorFactor() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneMetallicRoughnessMaterial) Get_BaseColorFactor() Vector4 {
+	var _result Vector4
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_BaseColorFactor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneMetallicRoughnessMaterial) Put_BaseColorFactor(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BaseColorFactor, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISceneMetallicRoughnessMaterial) Put_BaseColorFactor(value Vector4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BaseColorFactor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -598,18 +598,18 @@ var IID_ISceneModelTransform = syscall.GUID{0xC05576C2, 0x32B1, 0x4269,
 
 type ISceneModelTransformInterface interface {
 	win32.IInspectableInterface
-	Get_Orientation() unsafe.Pointer
-	Put_Orientation(value unsafe.Pointer)
+	Get_Orientation() Quaternion
+	Put_Orientation(value Quaternion)
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_RotationAxis() unsafe.Pointer
-	Put_RotationAxis(value unsafe.Pointer)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_Translation() unsafe.Pointer
-	Put_Translation(value unsafe.Pointer)
+	Get_RotationAxis() Vector3
+	Put_RotationAxis(value Vector3)
+	Get_Scale() Vector3
+	Put_Scale(value Vector3)
+	Get_Translation() Vector3
+	Put_Translation(value Vector3)
 }
 
 type ISceneModelTransformVtbl struct {
@@ -636,15 +636,15 @@ func (this *ISceneModelTransform) Vtbl() *ISceneModelTransformVtbl {
 	return (*ISceneModelTransformVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISceneModelTransform) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneModelTransform) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneModelTransform) Put_Orientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISceneModelTransform) Put_Orientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -672,39 +672,39 @@ func (this *ISceneModelTransform) Put_RotationAngleInDegrees(value float32) {
 	_ = _hr
 }
 
-func (this *ISceneModelTransform) Get_RotationAxis() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneModelTransform) Get_RotationAxis() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneModelTransform) Put_RotationAxis(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISceneModelTransform) Put_RotationAxis(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ISceneModelTransform) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneModelTransform) Get_Scale() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneModelTransform) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISceneModelTransform) Put_Scale(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ISceneModelTransform) Get_Translation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISceneModelTransform) Get_Translation() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Translation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISceneModelTransform) Put_Translation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Translation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISceneModelTransform) Put_Translation(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Translation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -880,8 +880,8 @@ type IScenePbrMaterialInterface interface {
 	Put_AlphaMode(value SceneAlphaMode)
 	Get_EmissiveInput() *ISceneMaterialInput
 	Put_EmissiveInput(value *ISceneMaterialInput)
-	Get_EmissiveFactor() unsafe.Pointer
-	Put_EmissiveFactor(value unsafe.Pointer)
+	Get_EmissiveFactor() Vector3
+	Put_EmissiveFactor(value Vector3)
 	Get_IsDoubleSided() bool
 	Put_IsDoubleSided(value bool)
 	Get_NormalInput() *ISceneMaterialInput
@@ -961,15 +961,15 @@ func (this *IScenePbrMaterial) Put_EmissiveInput(value *ISceneMaterialInput) {
 	_ = _hr
 }
 
-func (this *IScenePbrMaterial) Get_EmissiveFactor() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IScenePbrMaterial) Get_EmissiveFactor() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EmissiveFactor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IScenePbrMaterial) Put_EmissiveFactor(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EmissiveFactor, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IScenePbrMaterial) Put_EmissiveFactor(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EmissiveFactor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 

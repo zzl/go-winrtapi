@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -652,7 +652,7 @@ type IPerceptionColorFrameSourceInterface interface {
 	AcquireControlSession() *IPerceptionControlSession
 	CanControlIndependentlyFrom(targetId string) bool
 	IsCorrelatedWith(targetId string) bool
-	TryGetTransformTo(targetId string, result unsafe.Pointer) bool
+	TryGetTransformTo(targetId string, result Matrix4x4) bool
 	TryGetDepthCorrelatedCameraIntrinsicsAsync(correlatedDepthFrameSource *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCameraIntrinsics]
 	TryGetDepthCorrelatedCoordinateMapperAsync(targetSourceId string, correlatedDepthFrameSource *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCoordinateMapper]
 	TrySetVideoProfileAsync(controlSession *IPerceptionControlSession, profile *IPerceptionVideoProfile) *IAsyncOperation[*IPerceptionFrameSourcePropertyChangeResult]
@@ -864,9 +864,9 @@ func (this *IPerceptionColorFrameSource) IsCorrelatedWith(targetId string) bool 
 	return _result
 }
 
-func (this *IPerceptionColorFrameSource) TryGetTransformTo(targetId string, result unsafe.Pointer) bool {
+func (this *IPerceptionColorFrameSource) TryGetTransformTo(targetId string, result Matrix4x4) bool {
 	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(result), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(unsafe.Pointer(&result)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -1211,10 +1211,10 @@ var IID_IPerceptionDepthCorrelatedCameraIntrinsics = syscall.GUID{0x6548CA01, 0x
 
 type IPerceptionDepthCorrelatedCameraIntrinsicsInterface interface {
 	win32.IInspectableInterface
-	UnprojectPixelAtCorrelatedDepth(pixelCoordinate Point, depthFrame *IPerceptionDepthFrame) unsafe.Pointer
-	UnprojectPixelsAtCorrelatedDepth(sourceCoordinatesLength uint32, sourceCoordinates *Point, depthFrame *IPerceptionDepthFrame, results unsafe.Pointer)
-	UnprojectRegionPixelsAtCorrelatedDepthAsync(region Rect, depthFrame *IPerceptionDepthFrame, results unsafe.Pointer) *IAsyncAction
-	UnprojectAllPixelsAtCorrelatedDepthAsync(depthFrame *IPerceptionDepthFrame, results unsafe.Pointer) *IAsyncAction
+	UnprojectPixelAtCorrelatedDepth(pixelCoordinate Point, depthFrame *IPerceptionDepthFrame) Vector3
+	UnprojectPixelsAtCorrelatedDepth(sourceCoordinatesLength uint32, sourceCoordinates *Point, depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3)
+	UnprojectRegionPixelsAtCorrelatedDepthAsync(region Rect, depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3) *IAsyncAction
+	UnprojectAllPixelsAtCorrelatedDepthAsync(depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3) *IAsyncAction
 }
 
 type IPerceptionDepthCorrelatedCameraIntrinsicsVtbl struct {
@@ -1233,29 +1233,29 @@ func (this *IPerceptionDepthCorrelatedCameraIntrinsics) Vtbl() *IPerceptionDepth
 	return (*IPerceptionDepthCorrelatedCameraIntrinsicsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectPixelAtCorrelatedDepth(pixelCoordinate Point, depthFrame *IPerceptionDepthFrame) unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectPixelAtCorrelatedDepth(pixelCoordinate Point, depthFrame *IPerceptionDepthFrame) Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPixelAtCorrelatedDepth, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&pixelCoordinate)), uintptr(unsafe.Pointer(depthFrame)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectPixelsAtCorrelatedDepth(sourceCoordinatesLength uint32, sourceCoordinates *Point, depthFrame *IPerceptionDepthFrame, results unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPixelsAtCorrelatedDepth, uintptr(unsafe.Pointer(this)), uintptr(sourceCoordinatesLength), uintptr(unsafe.Pointer(sourceCoordinates)), uintptr(unsafe.Pointer(depthFrame)), uintptr(results))
+func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectPixelsAtCorrelatedDepth(sourceCoordinatesLength uint32, sourceCoordinates *Point, depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPixelsAtCorrelatedDepth, uintptr(unsafe.Pointer(this)), uintptr(sourceCoordinatesLength), uintptr(unsafe.Pointer(sourceCoordinates)), uintptr(unsafe.Pointer(depthFrame)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)))
 	_ = _hr
 }
 
-func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectRegionPixelsAtCorrelatedDepthAsync(region Rect, depthFrame *IPerceptionDepthFrame, results unsafe.Pointer) *IAsyncAction {
+func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectRegionPixelsAtCorrelatedDepthAsync(region Rect, depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3) *IAsyncAction {
 	var _result *IAsyncAction
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectRegionPixelsAtCorrelatedDepthAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&region)), uintptr(unsafe.Pointer(depthFrame)), uintptr(results), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectRegionPixelsAtCorrelatedDepthAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&region)), uintptr(unsafe.Pointer(depthFrame)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectAllPixelsAtCorrelatedDepthAsync(depthFrame *IPerceptionDepthFrame, results unsafe.Pointer) *IAsyncAction {
+func (this *IPerceptionDepthCorrelatedCameraIntrinsics) UnprojectAllPixelsAtCorrelatedDepthAsync(depthFrame *IPerceptionDepthFrame, resultsLength uint32, results *Vector3) *IAsyncAction {
 	var _result *IAsyncAction
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectAllPixelsAtCorrelatedDepthAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(depthFrame)), uintptr(results), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectAllPixelsAtCorrelatedDepthAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(depthFrame)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -1488,7 +1488,7 @@ type IPerceptionDepthFrameSourceInterface interface {
 	AcquireControlSession() *IPerceptionControlSession
 	CanControlIndependentlyFrom(targetId string) bool
 	IsCorrelatedWith(targetId string) bool
-	TryGetTransformTo(targetId string, result unsafe.Pointer) bool
+	TryGetTransformTo(targetId string, result Matrix4x4) bool
 	TryGetDepthCorrelatedCameraIntrinsicsAsync(target *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCameraIntrinsics]
 	TryGetDepthCorrelatedCoordinateMapperAsync(targetId string, depthFrameSourceToMapWith *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCoordinateMapper]
 	TrySetVideoProfileAsync(controlSession *IPerceptionControlSession, profile *IPerceptionVideoProfile) *IAsyncOperation[*IPerceptionFrameSourcePropertyChangeResult]
@@ -1700,9 +1700,9 @@ func (this *IPerceptionDepthFrameSource) IsCorrelatedWith(targetId string) bool 
 	return _result
 }
 
-func (this *IPerceptionDepthFrameSource) TryGetTransformTo(targetId string, result unsafe.Pointer) bool {
+func (this *IPerceptionDepthFrameSource) TryGetTransformTo(targetId string, result Matrix4x4) bool {
 	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(result), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(unsafe.Pointer(&result)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -2242,7 +2242,7 @@ type IPerceptionInfraredFrameSourceInterface interface {
 	AcquireControlSession() *IPerceptionControlSession
 	CanControlIndependentlyFrom(targetId string) bool
 	IsCorrelatedWith(targetId string) bool
-	TryGetTransformTo(targetId string, result unsafe.Pointer) bool
+	TryGetTransformTo(targetId string, result Matrix4x4) bool
 	TryGetDepthCorrelatedCameraIntrinsicsAsync(target *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCameraIntrinsics]
 	TryGetDepthCorrelatedCoordinateMapperAsync(targetId string, depthFrameSourceToMapWith *IPerceptionDepthFrameSource) *IAsyncOperation[*IPerceptionDepthCorrelatedCoordinateMapper]
 	TrySetVideoProfileAsync(controlSession *IPerceptionControlSession, profile *IPerceptionVideoProfile) *IAsyncOperation[*IPerceptionFrameSourcePropertyChangeResult]
@@ -2454,9 +2454,9 @@ func (this *IPerceptionInfraredFrameSource) IsCorrelatedWith(targetId string) bo
 	return _result
 }
 
-func (this *IPerceptionInfraredFrameSource) TryGetTransformTo(targetId string, result unsafe.Pointer) bool {
+func (this *IPerceptionInfraredFrameSource) TryGetTransformTo(targetId string, result Matrix4x4) bool {
 	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(result), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(unsafe.Pointer(&result)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -2868,19 +2868,19 @@ type KnownPerceptionFrameSourceProperties struct {
 	RtClass
 }
 
-func NewIKnownPerceptionFrameSourcePropertiesStatics() *IKnownPerceptionFrameSourcePropertiesStatics {
-	var p *IKnownPerceptionFrameSourcePropertiesStatics
+func NewIKnownPerceptionFrameSourcePropertiesStatics2() *IKnownPerceptionFrameSourcePropertiesStatics2 {
+	var p *IKnownPerceptionFrameSourcePropertiesStatics2
 	hs := NewHStr("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownPerceptionFrameSourcePropertiesStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownPerceptionFrameSourcePropertiesStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIKnownPerceptionFrameSourcePropertiesStatics2() *IKnownPerceptionFrameSourcePropertiesStatics2 {
-	var p *IKnownPerceptionFrameSourcePropertiesStatics2
+func NewIKnownPerceptionFrameSourcePropertiesStatics() *IKnownPerceptionFrameSourcePropertiesStatics {
+	var p *IKnownPerceptionFrameSourcePropertiesStatics
 	hs := NewHStr("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownPerceptionFrameSourcePropertiesStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownPerceptionFrameSourcePropertiesStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

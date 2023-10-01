@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -552,19 +552,19 @@ type GameControllerFactoryManager struct {
 	RtClass
 }
 
-func NewIGameControllerFactoryManagerStatics2() *IGameControllerFactoryManagerStatics2 {
-	var p *IGameControllerFactoryManagerStatics2
+func NewIGameControllerFactoryManagerStatics() *IGameControllerFactoryManagerStatics {
+	var p *IGameControllerFactoryManagerStatics
 	hs := NewHStr("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGameControllerFactoryManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGameControllerFactoryManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIGameControllerFactoryManagerStatics() *IGameControllerFactoryManagerStatics {
-	var p *IGameControllerFactoryManagerStatics
+func NewIGameControllerFactoryManagerStatics2() *IGameControllerFactoryManagerStatics2 {
+	var p *IGameControllerFactoryManagerStatics2
 	hs := NewHStr("Windows.Gaming.Input.Custom.GameControllerFactoryManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGameControllerFactoryManagerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGameControllerFactoryManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

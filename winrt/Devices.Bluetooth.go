@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -49,16 +49,6 @@ const (
 	BluetoothError_DisabledByUser        BluetoothError = 7
 	BluetoothError_ConsentRequired       BluetoothError = 8
 	BluetoothError_TransportNotSupported BluetoothError = 9
-)
-
-// enum
-type BluetoothLEPreferredConnectionParametersRequestStatus int32
-
-const (
-	BluetoothLEPreferredConnectionParametersRequestStatus_Unspecified        BluetoothLEPreferredConnectionParametersRequestStatus = 0
-	BluetoothLEPreferredConnectionParametersRequestStatus_Success            BluetoothLEPreferredConnectionParametersRequestStatus = 1
-	BluetoothLEPreferredConnectionParametersRequestStatus_DeviceNotAvailable BluetoothLEPreferredConnectionParametersRequestStatus = 2
-	BluetoothLEPreferredConnectionParametersRequestStatus_AccessDenied       BluetoothLEPreferredConnectionParametersRequestStatus = 3
 )
 
 // enum
@@ -1578,140 +1568,6 @@ func (this *IBluetoothLEAppearanceSubcategoriesStatics) Get_LocationNavigationPo
 	return _result
 }
 
-// 33CB0771-8DA9-508F-A366-1CA388C929AB
-var IID_IBluetoothLEConnectionParameters = syscall.GUID{0x33CB0771, 0x8DA9, 0x508F,
-	[8]byte{0xA3, 0x66, 0x1C, 0xA3, 0x88, 0xC9, 0x29, 0xAB}}
-
-type IBluetoothLEConnectionParametersInterface interface {
-	win32.IInspectableInterface
-	Get_LinkTimeout() uint16
-	Get_ConnectionLatency() uint16
-	Get_ConnectionInterval() uint16
-}
-
-type IBluetoothLEConnectionParametersVtbl struct {
-	win32.IInspectableVtbl
-	Get_LinkTimeout        uintptr
-	Get_ConnectionLatency  uintptr
-	Get_ConnectionInterval uintptr
-}
-
-type IBluetoothLEConnectionParameters struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEConnectionParameters) Vtbl() *IBluetoothLEConnectionParametersVtbl {
-	return (*IBluetoothLEConnectionParametersVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEConnectionParameters) Get_LinkTimeout() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LinkTimeout, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEConnectionParameters) Get_ConnectionLatency() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ConnectionLatency, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEConnectionParameters) Get_ConnectionInterval() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ConnectionInterval, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 781E5E48-621E-5A7E-8BE6-1B9561FF63C9
-var IID_IBluetoothLEConnectionPhy = syscall.GUID{0x781E5E48, 0x621E, 0x5A7E,
-	[8]byte{0x8B, 0xE6, 0x1B, 0x95, 0x61, 0xFF, 0x63, 0xC9}}
-
-type IBluetoothLEConnectionPhyInterface interface {
-	win32.IInspectableInterface
-	Get_TransmitInfo() *IBluetoothLEConnectionPhyInfo
-	Get_ReceiveInfo() *IBluetoothLEConnectionPhyInfo
-}
-
-type IBluetoothLEConnectionPhyVtbl struct {
-	win32.IInspectableVtbl
-	Get_TransmitInfo uintptr
-	Get_ReceiveInfo  uintptr
-}
-
-type IBluetoothLEConnectionPhy struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEConnectionPhy) Vtbl() *IBluetoothLEConnectionPhyVtbl {
-	return (*IBluetoothLEConnectionPhyVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEConnectionPhy) Get_TransmitInfo() *IBluetoothLEConnectionPhyInfo {
-	var _result *IBluetoothLEConnectionPhyInfo
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransmitInfo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEConnectionPhy) Get_ReceiveInfo() *IBluetoothLEConnectionPhyInfo {
-	var _result *IBluetoothLEConnectionPhyInfo
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ReceiveInfo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 9A100BDD-602E-5C27-A1AE-B230015A6394
-var IID_IBluetoothLEConnectionPhyInfo = syscall.GUID{0x9A100BDD, 0x602E, 0x5C27,
-	[8]byte{0xA1, 0xAE, 0xB2, 0x30, 0x01, 0x5A, 0x63, 0x94}}
-
-type IBluetoothLEConnectionPhyInfoInterface interface {
-	win32.IInspectableInterface
-	Get_IsUncoded1MPhy() bool
-	Get_IsUncoded2MPhy() bool
-	Get_IsCodedPhy() bool
-}
-
-type IBluetoothLEConnectionPhyInfoVtbl struct {
-	win32.IInspectableVtbl
-	Get_IsUncoded1MPhy uintptr
-	Get_IsUncoded2MPhy uintptr
-	Get_IsCodedPhy     uintptr
-}
-
-type IBluetoothLEConnectionPhyInfo struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEConnectionPhyInfo) Vtbl() *IBluetoothLEConnectionPhyInfoVtbl {
-	return (*IBluetoothLEConnectionPhyInfoVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEConnectionPhyInfo) Get_IsUncoded1MPhy() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsUncoded1MPhy, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEConnectionPhyInfo) Get_IsUncoded2MPhy() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsUncoded2MPhy, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEConnectionPhyInfo) Get_IsCodedPhy() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsCodedPhy, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
 // B5EE2F7B-4AD8-4642-AC48-80A0B500E887
 var IID_IBluetoothLEDevice = syscall.GUID{0xB5EE2F7B, 0x4AD8, 0x4642,
 	[8]byte{0xAC, 0x48, 0x80, 0xA0, 0xB5, 0x00, 0xE8, 0x87}}
@@ -2024,88 +1880,6 @@ func (this *IBluetoothLEDevice5) Get_WasSecureConnectionUsedForPairing() bool {
 	return _result
 }
 
-// CA7190EF-0CAE-573C-A1CA-E1FC5BFC39E2
-var IID_IBluetoothLEDevice6 = syscall.GUID{0xCA7190EF, 0x0CAE, 0x573C,
-	[8]byte{0xA1, 0xCA, 0xE1, 0xFC, 0x5B, 0xFC, 0x39, 0xE2}}
-
-type IBluetoothLEDevice6Interface interface {
-	win32.IInspectableInterface
-	GetConnectionParameters() *IBluetoothLEConnectionParameters
-	GetConnectionPhy() *IBluetoothLEConnectionPhy
-	RequestPreferredConnectionParameters(preferredConnectionParameters *IBluetoothLEPreferredConnectionParameters) *IBluetoothLEPreferredConnectionParametersRequest
-	Add_ConnectionParametersChanged(handler TypedEventHandler[*IBluetoothLEDevice, interface{}]) EventRegistrationToken
-	Remove_ConnectionParametersChanged(token EventRegistrationToken)
-	Add_ConnectionPhyChanged(handler TypedEventHandler[*IBluetoothLEDevice, interface{}]) EventRegistrationToken
-	Remove_ConnectionPhyChanged(token EventRegistrationToken)
-}
-
-type IBluetoothLEDevice6Vtbl struct {
-	win32.IInspectableVtbl
-	GetConnectionParameters              uintptr
-	GetConnectionPhy                     uintptr
-	RequestPreferredConnectionParameters uintptr
-	Add_ConnectionParametersChanged      uintptr
-	Remove_ConnectionParametersChanged   uintptr
-	Add_ConnectionPhyChanged             uintptr
-	Remove_ConnectionPhyChanged          uintptr
-}
-
-type IBluetoothLEDevice6 struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEDevice6) Vtbl() *IBluetoothLEDevice6Vtbl {
-	return (*IBluetoothLEDevice6Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEDevice6) GetConnectionParameters() *IBluetoothLEConnectionParameters {
-	var _result *IBluetoothLEConnectionParameters
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetConnectionParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEDevice6) GetConnectionPhy() *IBluetoothLEConnectionPhy {
-	var _result *IBluetoothLEConnectionPhy
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetConnectionPhy, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEDevice6) RequestPreferredConnectionParameters(preferredConnectionParameters *IBluetoothLEPreferredConnectionParameters) *IBluetoothLEPreferredConnectionParametersRequest {
-	var _result *IBluetoothLEPreferredConnectionParametersRequest
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().RequestPreferredConnectionParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(preferredConnectionParameters)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEDevice6) Add_ConnectionParametersChanged(handler TypedEventHandler[*IBluetoothLEDevice, interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_ConnectionParametersChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEDevice6) Remove_ConnectionParametersChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_ConnectionParametersChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-func (this *IBluetoothLEDevice6) Add_ConnectionPhyChanged(handler TypedEventHandler[*IBluetoothLEDevice, interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_ConnectionPhyChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEDevice6) Remove_ConnectionPhyChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_ConnectionPhyChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
 // C8CF1A19-F0B6-4BF0-8689-41303DE2D9F4
 var IID_IBluetoothLEDeviceStatics = syscall.GUID{0xC8CF1A19, 0xF0B6, 0x4BF0,
 	[8]byte{0x86, 0x89, 0x41, 0x30, 0x3D, 0xE2, 0xD9, 0xF4}}
@@ -2234,141 +2008,6 @@ func (this *IBluetoothLEDeviceStatics2) GetDeviceSelectorFromAppearance(appearan
 func (this *IBluetoothLEDeviceStatics2) FromBluetoothAddressWithBluetoothAddressTypeAsync(bluetoothAddress uint64, bluetoothAddressType BluetoothAddressType) *IAsyncOperation[*IBluetoothLEDevice] {
 	var _result *IAsyncOperation[*IBluetoothLEDevice]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().FromBluetoothAddressWithBluetoothAddressTypeAsync, uintptr(unsafe.Pointer(this)), uintptr(bluetoothAddress), uintptr(bluetoothAddressType), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// F2F44344-7372-5F7B-9B34-29C944F5A715
-var IID_IBluetoothLEPreferredConnectionParameters = syscall.GUID{0xF2F44344, 0x7372, 0x5F7B,
-	[8]byte{0x9B, 0x34, 0x29, 0xC9, 0x44, 0xF5, 0xA7, 0x15}}
-
-type IBluetoothLEPreferredConnectionParametersInterface interface {
-	win32.IInspectableInterface
-	Get_LinkTimeout() uint16
-	Get_ConnectionLatency() uint16
-	Get_MinConnectionInterval() uint16
-	Get_MaxConnectionInterval() uint16
-}
-
-type IBluetoothLEPreferredConnectionParametersVtbl struct {
-	win32.IInspectableVtbl
-	Get_LinkTimeout           uintptr
-	Get_ConnectionLatency     uintptr
-	Get_MinConnectionInterval uintptr
-	Get_MaxConnectionInterval uintptr
-}
-
-type IBluetoothLEPreferredConnectionParameters struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEPreferredConnectionParameters) Vtbl() *IBluetoothLEPreferredConnectionParametersVtbl {
-	return (*IBluetoothLEPreferredConnectionParametersVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEPreferredConnectionParameters) Get_LinkTimeout() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LinkTimeout, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEPreferredConnectionParameters) Get_ConnectionLatency() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ConnectionLatency, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEPreferredConnectionParameters) Get_MinConnectionInterval() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MinConnectionInterval, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBluetoothLEPreferredConnectionParameters) Get_MaxConnectionInterval() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MaxConnectionInterval, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 8A375276-A528-5266-B661-CCE6A5FF9739
-var IID_IBluetoothLEPreferredConnectionParametersRequest = syscall.GUID{0x8A375276, 0xA528, 0x5266,
-	[8]byte{0xB6, 0x61, 0xCC, 0xE6, 0xA5, 0xFF, 0x97, 0x39}}
-
-type IBluetoothLEPreferredConnectionParametersRequestInterface interface {
-	win32.IInspectableInterface
-	Get_Status() BluetoothLEPreferredConnectionParametersRequestStatus
-}
-
-type IBluetoothLEPreferredConnectionParametersRequestVtbl struct {
-	win32.IInspectableVtbl
-	Get_Status uintptr
-}
-
-type IBluetoothLEPreferredConnectionParametersRequest struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersRequest) Vtbl() *IBluetoothLEPreferredConnectionParametersRequestVtbl {
-	return (*IBluetoothLEPreferredConnectionParametersRequestVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersRequest) Get_Status() BluetoothLEPreferredConnectionParametersRequestStatus {
-	var _result BluetoothLEPreferredConnectionParametersRequestStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Status, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 0E3E8EDC-2751-55AA-A838-8FAEEE818D72
-var IID_IBluetoothLEPreferredConnectionParametersStatics = syscall.GUID{0x0E3E8EDC, 0x2751, 0x55AA,
-	[8]byte{0xA8, 0x38, 0x8F, 0xAE, 0xEE, 0x81, 0x8D, 0x72}}
-
-type IBluetoothLEPreferredConnectionParametersStaticsInterface interface {
-	win32.IInspectableInterface
-	Get_Balanced() *IBluetoothLEPreferredConnectionParameters
-	Get_ThroughputOptimized() *IBluetoothLEPreferredConnectionParameters
-	Get_PowerOptimized() *IBluetoothLEPreferredConnectionParameters
-}
-
-type IBluetoothLEPreferredConnectionParametersStaticsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Balanced            uintptr
-	Get_ThroughputOptimized uintptr
-	Get_PowerOptimized      uintptr
-}
-
-type IBluetoothLEPreferredConnectionParametersStatics struct {
-	win32.IInspectable
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersStatics) Vtbl() *IBluetoothLEPreferredConnectionParametersStaticsVtbl {
-	return (*IBluetoothLEPreferredConnectionParametersStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersStatics) Get_Balanced() *IBluetoothLEPreferredConnectionParameters {
-	var _result *IBluetoothLEPreferredConnectionParameters
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Balanced, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersStatics) Get_ThroughputOptimized() *IBluetoothLEPreferredConnectionParameters {
-	var _result *IBluetoothLEPreferredConnectionParameters
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ThroughputOptimized, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBluetoothLEPreferredConnectionParametersStatics) Get_PowerOptimized() *IBluetoothLEPreferredConnectionParameters {
-	var _result *IBluetoothLEPreferredConnectionParameters
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PowerOptimized, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -2608,33 +2247,9 @@ func NewIBluetoothLEAppearanceSubcategoriesStatics() *IBluetoothLEAppearanceSubc
 	return p
 }
 
-type BluetoothLEConnectionParameters struct {
-	RtClass
-	*IBluetoothLEConnectionParameters
-}
-
-type BluetoothLEConnectionPhy struct {
-	RtClass
-	*IBluetoothLEConnectionPhy
-}
-
-type BluetoothLEConnectionPhyInfo struct {
-	RtClass
-	*IBluetoothLEConnectionPhyInfo
-}
-
 type BluetoothLEDevice struct {
 	RtClass
 	*IBluetoothLEDevice
-}
-
-func NewIBluetoothLEDeviceStatics() *IBluetoothLEDeviceStatics {
-	var p *IBluetoothLEDeviceStatics
-	hs := NewHStr("Windows.Devices.Bluetooth.BluetoothLEDevice")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IBluetoothLEDeviceStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
 }
 
 func NewIBluetoothLEDeviceStatics2() *IBluetoothLEDeviceStatics2 {
@@ -2646,23 +2261,13 @@ func NewIBluetoothLEDeviceStatics2() *IBluetoothLEDeviceStatics2 {
 	return p
 }
 
-type BluetoothLEPreferredConnectionParameters struct {
-	RtClass
-	*IBluetoothLEPreferredConnectionParameters
-}
-
-func NewIBluetoothLEPreferredConnectionParametersStatics() *IBluetoothLEPreferredConnectionParametersStatics {
-	var p *IBluetoothLEPreferredConnectionParametersStatics
-	hs := NewHStr("Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IBluetoothLEPreferredConnectionParametersStatics, unsafe.Pointer(&p))
+func NewIBluetoothLEDeviceStatics() *IBluetoothLEDeviceStatics {
+	var p *IBluetoothLEDeviceStatics
+	hs := NewHStr("Windows.Devices.Bluetooth.BluetoothLEDevice")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IBluetoothLEDeviceStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
-}
-
-type BluetoothLEPreferredConnectionParametersRequest struct {
-	RtClass
-	*IBluetoothLEPreferredConnectionParametersRequest
 }
 
 type BluetoothSignalStrengthFilter struct {

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -963,43 +963,6 @@ func (this *IOutputStream) FlushAsync() *IAsyncOperation[bool] {
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// 6E8EBF1C-EF3D-4376-B20E-5BE638AEAC77
-var IID_IPropertySetSerializer = syscall.GUID{0x6E8EBF1C, 0xEF3D, 0x4376,
-	[8]byte{0xB2, 0x0E, 0x5B, 0xE6, 0x38, 0xAE, 0xAC, 0x77}}
-
-type IPropertySetSerializerInterface interface {
-	win32.IInspectableInterface
-	Serialize(propertySet *IPropertySet) *IBuffer
-	Deserialize(propertySet *IPropertySet, buffer *IBuffer)
-}
-
-type IPropertySetSerializerVtbl struct {
-	win32.IInspectableVtbl
-	Serialize   uintptr
-	Deserialize uintptr
-}
-
-type IPropertySetSerializer struct {
-	win32.IInspectable
-}
-
-func (this *IPropertySetSerializer) Vtbl() *IPropertySetSerializerVtbl {
-	return (*IPropertySetSerializerVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IPropertySetSerializer) Serialize(propertySet *IPropertySet) *IBuffer {
-	var _result *IBuffer
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Serialize, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(propertySet)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IPropertySetSerializer) Deserialize(propertySet *IPropertySet, buffer *IBuffer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Deserialize, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(propertySet)), uintptr(unsafe.Pointer(buffer)))
-	_ = _hr
 }
 
 // 905A0FE1-BC53-11DF-8C49-001E4FC686DA

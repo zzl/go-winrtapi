@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -169,10 +169,10 @@ const (
 
 // func types
 
-//A05791E6-CC9F-4687-ACAB-A364FD785463
+// A05791E6-CC9F-4687-ACAB-A364FD785463
 type ApplicationDataSetVersionHandler func(setVersionRequest *ISetVersionRequest) com.Error
 
-//FEF6A824-2FE1-4D07-A35B-B77C50B5F4CC
+// FEF6A824-2FE1-4D07-A35B-B77C50B5F4CC
 type StreamedFileDataRequestedHandler func(stream *IOutputStream) com.Error
 
 // interfaces
@@ -4040,19 +4040,19 @@ type ApplicationData struct {
 	*IApplicationData
 }
 
-func NewIApplicationDataStatics2() *IApplicationDataStatics2 {
-	var p *IApplicationDataStatics2
+func NewIApplicationDataStatics() *IApplicationDataStatics {
+	var p *IApplicationDataStatics
 	hs := NewHStr("Windows.Storage.ApplicationData")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IApplicationDataStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IApplicationDataStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIApplicationDataStatics() *IApplicationDataStatics {
-	var p *IApplicationDataStatics
+func NewIApplicationDataStatics2() *IApplicationDataStatics2 {
+	var p *IApplicationDataStatics2
 	hs := NewHStr("Windows.Storage.ApplicationData")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IApplicationDataStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IApplicationDataStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -14,8 +14,7 @@ import (
 type GraphicsCaptureAccessKind int32
 
 const (
-	GraphicsCaptureAccessKind_Borderless   GraphicsCaptureAccessKind = 0
-	GraphicsCaptureAccessKind_Programmatic GraphicsCaptureAccessKind = 1
+	GraphicsCaptureAccessKind_Borderless GraphicsCaptureAccessKind = 0
 )
 
 // interfaces
@@ -524,19 +523,19 @@ type Direct3D11CaptureFramePool struct {
 	*IDirect3D11CaptureFramePool
 }
 
-func NewIDirect3D11CaptureFramePoolStatics() *IDirect3D11CaptureFramePoolStatics {
-	var p *IDirect3D11CaptureFramePoolStatics
+func NewIDirect3D11CaptureFramePoolStatics2() *IDirect3D11CaptureFramePoolStatics2 {
+	var p *IDirect3D11CaptureFramePoolStatics2
 	hs := NewHStr("Windows.Graphics.Capture.Direct3D11CaptureFramePool")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IDirect3D11CaptureFramePoolStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IDirect3D11CaptureFramePoolStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIDirect3D11CaptureFramePoolStatics2() *IDirect3D11CaptureFramePoolStatics2 {
-	var p *IDirect3D11CaptureFramePoolStatics2
+func NewIDirect3D11CaptureFramePoolStatics() *IDirect3D11CaptureFramePoolStatics {
+	var p *IDirect3D11CaptureFramePoolStatics
 	hs := NewHStr("Windows.Graphics.Capture.Direct3D11CaptureFramePool")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IDirect3D11CaptureFramePoolStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IDirect3D11CaptureFramePoolStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

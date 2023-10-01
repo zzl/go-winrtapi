@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -370,7 +370,7 @@ type IBluetoothLEAdvertisementDataTypesStaticsInterface interface {
 	Get_ShortenedLocalName() byte
 	Get_CompleteLocalName() byte
 	Get_TxPowerLevel() byte
-	Get_PeripheralConnectionIntervalRange() byte
+	Get_SlaveConnectionIntervalRange() byte
 	Get_ServiceSolicitation16BitUuids() byte
 	Get_ServiceSolicitation32BitUuids() byte
 	Get_ServiceSolicitation128BitUuids() byte
@@ -386,28 +386,28 @@ type IBluetoothLEAdvertisementDataTypesStaticsInterface interface {
 
 type IBluetoothLEAdvertisementDataTypesStaticsVtbl struct {
 	win32.IInspectableVtbl
-	Get_Flags                             uintptr
-	Get_IncompleteService16BitUuids       uintptr
-	Get_CompleteService16BitUuids         uintptr
-	Get_IncompleteService32BitUuids       uintptr
-	Get_CompleteService32BitUuids         uintptr
-	Get_IncompleteService128BitUuids      uintptr
-	Get_CompleteService128BitUuids        uintptr
-	Get_ShortenedLocalName                uintptr
-	Get_CompleteLocalName                 uintptr
-	Get_TxPowerLevel                      uintptr
-	Get_PeripheralConnectionIntervalRange uintptr
-	Get_ServiceSolicitation16BitUuids     uintptr
-	Get_ServiceSolicitation32BitUuids     uintptr
-	Get_ServiceSolicitation128BitUuids    uintptr
-	Get_ServiceData16BitUuids             uintptr
-	Get_ServiceData32BitUuids             uintptr
-	Get_ServiceData128BitUuids            uintptr
-	Get_PublicTargetAddress               uintptr
-	Get_RandomTargetAddress               uintptr
-	Get_Appearance                        uintptr
-	Get_AdvertisingInterval               uintptr
-	Get_ManufacturerSpecificData          uintptr
+	Get_Flags                          uintptr
+	Get_IncompleteService16BitUuids    uintptr
+	Get_CompleteService16BitUuids      uintptr
+	Get_IncompleteService32BitUuids    uintptr
+	Get_CompleteService32BitUuids      uintptr
+	Get_IncompleteService128BitUuids   uintptr
+	Get_CompleteService128BitUuids     uintptr
+	Get_ShortenedLocalName             uintptr
+	Get_CompleteLocalName              uintptr
+	Get_TxPowerLevel                   uintptr
+	Get_SlaveConnectionIntervalRange   uintptr
+	Get_ServiceSolicitation16BitUuids  uintptr
+	Get_ServiceSolicitation32BitUuids  uintptr
+	Get_ServiceSolicitation128BitUuids uintptr
+	Get_ServiceData16BitUuids          uintptr
+	Get_ServiceData32BitUuids          uintptr
+	Get_ServiceData128BitUuids         uintptr
+	Get_PublicTargetAddress            uintptr
+	Get_RandomTargetAddress            uintptr
+	Get_Appearance                     uintptr
+	Get_AdvertisingInterval            uintptr
+	Get_ManufacturerSpecificData       uintptr
 }
 
 type IBluetoothLEAdvertisementDataTypesStatics struct {
@@ -488,9 +488,9 @@ func (this *IBluetoothLEAdvertisementDataTypesStatics) Get_TxPowerLevel() byte {
 	return _result
 }
 
-func (this *IBluetoothLEAdvertisementDataTypesStatics) Get_PeripheralConnectionIntervalRange() byte {
+func (this *IBluetoothLEAdvertisementDataTypesStatics) Get_SlaveConnectionIntervalRange() byte {
 	var _result byte
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PeripheralConnectionIntervalRange, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SlaveConnectionIntervalRange, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }

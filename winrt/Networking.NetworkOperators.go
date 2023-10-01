@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -619,36 +619,6 @@ func (this *IESim2) DiscoverAsync() *IAsyncOperation[*IESimDiscoverResult] {
 func (this *IESim2) DiscoverWithServerAddressAndMatchingIdAsync(serverAddress string, matchingId string) *IAsyncOperation[*IESimDiscoverResult] {
 	var _result *IAsyncOperation[*IESimDiscoverResult]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().DiscoverWithServerAddressAndMatchingIdAsync, uintptr(unsafe.Pointer(this)), NewHStr(serverAddress).Ptr, NewHStr(matchingId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// FE1EDF45-01B8-5D31-B8D3-D9CBEBB2B831
-var IID_IESim3 = syscall.GUID{0xFE1EDF45, 0x01B8, 0x5D31,
-	[8]byte{0xB8, 0xD3, 0xD9, 0xCB, 0xEB, 0xB2, 0xB8, 0x31}}
-
-type IESim3Interface interface {
-	win32.IInspectableInterface
-	Get_SlotIndex() *IReference[int32]
-}
-
-type IESim3Vtbl struct {
-	win32.IInspectableVtbl
-	Get_SlotIndex uintptr
-}
-
-type IESim3 struct {
-	win32.IInspectable
-}
-
-func (this *IESim3) Vtbl() *IESim3Vtbl {
-	return (*IESim3Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IESim3) Get_SlotIndex() *IReference[int32] {
-	var _result *IReference[int32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SlotIndex, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -3782,35 +3752,6 @@ func (this *IMobileBroadbandDeviceServiceTriggerDetails) Get_ReceivedData() *IBu
 	return _result
 }
 
-// D83D5F16-336A-553F-94BB-0CD1A2FF0C81
-var IID_IMobileBroadbandDeviceServiceTriggerDetails2 = syscall.GUID{0xD83D5F16, 0x336A, 0x553F,
-	[8]byte{0x94, 0xBB, 0x0C, 0xD1, 0xA2, 0xFF, 0x0C, 0x81}}
-
-type IMobileBroadbandDeviceServiceTriggerDetails2Interface interface {
-	win32.IInspectableInterface
-	Get_EventId() uint32
-}
-
-type IMobileBroadbandDeviceServiceTriggerDetails2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_EventId uintptr
-}
-
-type IMobileBroadbandDeviceServiceTriggerDetails2 struct {
-	win32.IInspectable
-}
-
-func (this *IMobileBroadbandDeviceServiceTriggerDetails2) Vtbl() *IMobileBroadbandDeviceServiceTriggerDetails2Vtbl {
-	return (*IMobileBroadbandDeviceServiceTriggerDetails2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IMobileBroadbandDeviceServiceTriggerDetails2) Get_EventId() uint32 {
-	var _result uint32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EventId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
 // D0356912-E9F9-4F67-A03D-43189A316BF1
 var IID_IMobileBroadbandModem = syscall.GUID{0xD0356912, 0xE9F9, 0x4F67,
 	[8]byte{0xA0, 0x3D, 0x43, 0x18, 0x9A, 0x31, 0x6B, 0xF1}}
@@ -4021,64 +3962,6 @@ func (this *IMobileBroadbandModem3) Add_IsInEmergencyCallModeChanged(handler Typ
 func (this *IMobileBroadbandModem3) Remove_IsInEmergencyCallModeChanged(token EventRegistrationToken) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_IsInEmergencyCallModeChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
 	_ = _hr
-}
-
-// 4A0398C2-91BE-412B-B569-586E9F0030D1
-var IID_IMobileBroadbandModem4 = syscall.GUID{0x4A0398C2, 0x91BE, 0x412B,
-	[8]byte{0xB5, 0x69, 0x58, 0x6E, 0x9F, 0x00, 0x30, 0xD1}}
-
-type IMobileBroadbandModem4Interface interface {
-	win32.IInspectableInterface
-	SetIsPassthroughEnabledWithSlotIndexAsync(value bool, slotindex int32) *IAsyncOperation[MobileBroadbandModemStatus]
-	GetIsPassthroughEnabledWithSlotIndexAsync(slotindex int32) *IAsyncOperation[bool]
-	SetIsPassthroughEnabledWithSlotIndex(value bool, slotindex int32) MobileBroadbandModemStatus
-	GetIsPassthroughEnabledWithSlotIndex(slotindex int32) bool
-}
-
-type IMobileBroadbandModem4Vtbl struct {
-	win32.IInspectableVtbl
-	SetIsPassthroughEnabledWithSlotIndexAsync uintptr
-	GetIsPassthroughEnabledWithSlotIndexAsync uintptr
-	SetIsPassthroughEnabledWithSlotIndex      uintptr
-	GetIsPassthroughEnabledWithSlotIndex      uintptr
-}
-
-type IMobileBroadbandModem4 struct {
-	win32.IInspectable
-}
-
-func (this *IMobileBroadbandModem4) Vtbl() *IMobileBroadbandModem4Vtbl {
-	return (*IMobileBroadbandModem4Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IMobileBroadbandModem4) SetIsPassthroughEnabledWithSlotIndexAsync(value bool, slotindex int32) *IAsyncOperation[MobileBroadbandModemStatus] {
-	var _result *IAsyncOperation[MobileBroadbandModemStatus]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetIsPassthroughEnabledWithSlotIndexAsync, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))), uintptr(slotindex), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IMobileBroadbandModem4) GetIsPassthroughEnabledWithSlotIndexAsync(slotindex int32) *IAsyncOperation[bool] {
-	var _result *IAsyncOperation[bool]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetIsPassthroughEnabledWithSlotIndexAsync, uintptr(unsafe.Pointer(this)), uintptr(slotindex), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IMobileBroadbandModem4) SetIsPassthroughEnabledWithSlotIndex(value bool, slotindex int32) MobileBroadbandModemStatus {
-	var _result MobileBroadbandModemStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetIsPassthroughEnabledWithSlotIndex, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))), uintptr(slotindex), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IMobileBroadbandModem4) GetIsPassthroughEnabledWithSlotIndex(slotindex int32) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetIsPassthroughEnabledWithSlotIndex, uintptr(unsafe.Pointer(this)), uintptr(slotindex), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
 }
 
 // FCE035A3-D6CD-4320-B982-BE9D3EC7890F
@@ -5166,35 +5049,6 @@ func (this *IMobileBroadbandSlotInfo) Get_State() MobileBroadbandSlotState {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_State, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
-}
-
-// 393CB039-CA44-524C-822D-83A3620F0EFC
-var IID_IMobileBroadbandSlotInfo2 = syscall.GUID{0x393CB039, 0xCA44, 0x524C,
-	[8]byte{0x82, 0x2D, 0x83, 0xA3, 0x62, 0x0F, 0x0E, 0xFC}}
-
-type IMobileBroadbandSlotInfo2Interface interface {
-	win32.IInspectableInterface
-	Get_IccId() string
-}
-
-type IMobileBroadbandSlotInfo2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_IccId uintptr
-}
-
-type IMobileBroadbandSlotInfo2 struct {
-	win32.IInspectable
-}
-
-func (this *IMobileBroadbandSlotInfo2) Vtbl() *IMobileBroadbandSlotInfo2Vtbl {
-	return (*IMobileBroadbandSlotInfo2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IMobileBroadbandSlotInfo2) Get_IccId() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IccId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
 }
 
 // 3158839F-950C-54CE-A48D-BA4529B48F0F
@@ -6863,24 +6717,6 @@ type NetworkOperatorTetheringManager struct {
 	*INetworkOperatorTetheringManager
 }
 
-func NewINetworkOperatorTetheringManagerStatics4() *INetworkOperatorTetheringManagerStatics4 {
-	var p *INetworkOperatorTetheringManagerStatics4
-	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkOperatorTetheringManagerStatics4, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewINetworkOperatorTetheringManagerStatics() *INetworkOperatorTetheringManagerStatics {
-	var p *INetworkOperatorTetheringManagerStatics
-	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkOperatorTetheringManagerStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 func NewINetworkOperatorTetheringManagerStatics3() *INetworkOperatorTetheringManagerStatics3 {
 	var p *INetworkOperatorTetheringManagerStatics3
 	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
@@ -6890,10 +6726,28 @@ func NewINetworkOperatorTetheringManagerStatics3() *INetworkOperatorTetheringMan
 	return p
 }
 
+func NewINetworkOperatorTetheringManagerStatics4() *INetworkOperatorTetheringManagerStatics4 {
+	var p *INetworkOperatorTetheringManagerStatics4
+	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkOperatorTetheringManagerStatics4, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
 func NewINetworkOperatorTetheringManagerStatics2() *INetworkOperatorTetheringManagerStatics2 {
 	var p *INetworkOperatorTetheringManagerStatics2
 	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkOperatorTetheringManagerStatics2, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
+func NewINetworkOperatorTetheringManagerStatics() *INetworkOperatorTetheringManagerStatics {
+	var p *INetworkOperatorTetheringManagerStatics
+	hs := NewHStr("Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkOperatorTetheringManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

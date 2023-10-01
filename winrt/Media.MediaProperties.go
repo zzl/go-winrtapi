@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -2275,19 +2275,19 @@ func NewAudioEncodingProperties() *AudioEncodingProperties {
 	return result
 }
 
-func NewIAudioEncodingPropertiesStatics() *IAudioEncodingPropertiesStatics {
-	var p *IAudioEncodingPropertiesStatics
+func NewIAudioEncodingPropertiesStatics2() *IAudioEncodingPropertiesStatics2 {
+	var p *IAudioEncodingPropertiesStatics2
 	hs := NewHStr("Windows.Media.MediaProperties.AudioEncodingProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAudioEncodingPropertiesStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAudioEncodingPropertiesStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIAudioEncodingPropertiesStatics2() *IAudioEncodingPropertiesStatics2 {
-	var p *IAudioEncodingPropertiesStatics2
+func NewIAudioEncodingPropertiesStatics() *IAudioEncodingPropertiesStatics {
+	var p *IAudioEncodingPropertiesStatics
 	hs := NewHStr("Windows.Media.MediaProperties.AudioEncodingProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAudioEncodingPropertiesStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAudioEncodingPropertiesStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2331,19 +2331,19 @@ func NewImageEncodingProperties() *ImageEncodingProperties {
 	return result
 }
 
-func NewIImageEncodingPropertiesStatics3() *IImageEncodingPropertiesStatics3 {
-	var p *IImageEncodingPropertiesStatics3
+func NewIImageEncodingPropertiesStatics() *IImageEncodingPropertiesStatics {
+	var p *IImageEncodingPropertiesStatics
 	hs := NewHStr("Windows.Media.MediaProperties.ImageEncodingProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IImageEncodingPropertiesStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IImageEncodingPropertiesStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIImageEncodingPropertiesStatics() *IImageEncodingPropertiesStatics {
-	var p *IImageEncodingPropertiesStatics
+func NewIImageEncodingPropertiesStatics3() *IImageEncodingPropertiesStatics3 {
+	var p *IImageEncodingPropertiesStatics3
 	hs := NewHStr("Windows.Media.MediaProperties.ImageEncodingProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IImageEncodingPropertiesStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IImageEncodingPropertiesStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2377,10 +2377,10 @@ func NewMediaEncodingProfile() *MediaEncodingProfile {
 	return result
 }
 
-func NewIMediaEncodingProfileStatics3() *IMediaEncodingProfileStatics3 {
-	var p *IMediaEncodingProfileStatics3
+func NewIMediaEncodingProfileStatics2() *IMediaEncodingProfileStatics2 {
+	var p *IMediaEncodingProfileStatics2
 	hs := NewHStr("Windows.Media.MediaProperties.MediaEncodingProfile")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaEncodingProfileStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaEncodingProfileStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2395,10 +2395,10 @@ func NewIMediaEncodingProfileStatics() *IMediaEncodingProfileStatics {
 	return p
 }
 
-func NewIMediaEncodingProfileStatics2() *IMediaEncodingProfileStatics2 {
-	var p *IMediaEncodingProfileStatics2
+func NewIMediaEncodingProfileStatics3() *IMediaEncodingProfileStatics3 {
+	var p *IMediaEncodingProfileStatics3
 	hs := NewHStr("Windows.Media.MediaProperties.MediaEncodingProfile")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaEncodingProfileStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaEncodingProfileStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

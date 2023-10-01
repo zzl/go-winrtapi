@@ -1,6 +1,6 @@
-github.com/zzl/go-com v1.3.0 h1:fe7XXz44GZAAp4MRDop1qub2mobfiy+2kkbV95DKW84=
-github.com/zzl/go-com v1.3.0/go.mod h1:c2A94vW3PFJsssDNCI4V9kgOTzLZ/UdCTgFFiqU6cCs=
-github.com/zzl/go-win32api v1.2.0 h1:8cUPn/io9S0H/Ah4pnuM7xmElL2MDR9bKgl8AREG/AE=
-github.com/zzl/go-win32api v1.2.0/go.mod h1:iWVjU/KzuwzqGpgBZdQ6Z4JqFXeSPIzantVIkcyD4b4=
+github.com/zzl/go-com v1.5.0 h1:ANiyOsvP1XfUugoZBIvCbvqh+Ns1DLSJ9lBF1zgHSak=
+github.com/zzl/go-com v1.5.0/go.mod h1:Q0gh9d2jtlY//GbUXVPD+dzc0te32p3cetGM6am2Ooo=
+github.com/zzl/go-win32api/v2 v2.1.0 h1:BwXsEl3iycRhG4lpe3JsnNACyQH/U7RTBhJwyCaIB/g=
+github.com/zzl/go-win32api/v2 v2.1.0/go.mod h1:doi6ewHPdh9tDmqe837Ro7IwqtB9yE+1fC8suK/Ssj0=
 golang.org/x/sys v0.0.0-20220330033206-e17cdc41300f h1:rlezHXNlxYWvBCzNses9Dlc7nGFaNMJeqLolcmQSSZY=
 golang.org/x/sys v0.0.0-20220330033206-e17cdc41300f/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -294,19 +294,19 @@ type PwmController struct {
 	*IPwmController
 }
 
-func NewIPwmControllerStatics() *IPwmControllerStatics {
-	var p *IPwmControllerStatics
+func NewIPwmControllerStatics2() *IPwmControllerStatics2 {
+	var p *IPwmControllerStatics2
 	hs := NewHStr("Windows.Devices.Pwm.PwmController")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPwmControllerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPwmControllerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIPwmControllerStatics2() *IPwmControllerStatics2 {
-	var p *IPwmControllerStatics2
+func NewIPwmControllerStatics() *IPwmControllerStatics {
+	var p *IPwmControllerStatics
 	hs := NewHStr("Windows.Devices.Pwm.PwmController")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPwmControllerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPwmControllerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

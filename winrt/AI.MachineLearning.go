@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -29,15 +29,6 @@ const (
 	LearningModelFeatureKind_Sequence LearningModelFeatureKind = 1
 	LearningModelFeatureKind_Map      LearningModelFeatureKind = 2
 	LearningModelFeatureKind_Image    LearningModelFeatureKind = 3
-)
-
-// enum
-type LearningModelPixelRange int32
-
-const (
-	LearningModelPixelRange_ZeroTo255     LearningModelPixelRange = 0
-	LearningModelPixelRange_ZeroToOne     LearningModelPixelRange = 1
-	LearningModelPixelRange_MinusOneToOne LearningModelPixelRange = 2
 )
 
 // enum
@@ -121,35 +112,6 @@ func (this *IImageFeatureDescriptor) Get_Width() uint32 {
 func (this *IImageFeatureDescriptor) Get_Height() uint32 {
 	var _result uint32
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Height, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 2B27CCA7-D533-5862-BB98-1611B155B0E1
-var IID_IImageFeatureDescriptor2 = syscall.GUID{0x2B27CCA7, 0xD533, 0x5862,
-	[8]byte{0xBB, 0x98, 0x16, 0x11, 0xB1, 0x55, 0xB0, 0xE1}}
-
-type IImageFeatureDescriptor2Interface interface {
-	win32.IInspectableInterface
-	Get_PixelRange() LearningModelPixelRange
-}
-
-type IImageFeatureDescriptor2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_PixelRange uintptr
-}
-
-type IImageFeatureDescriptor2 struct {
-	win32.IInspectable
-}
-
-func (this *IImageFeatureDescriptor2) Vtbl() *IImageFeatureDescriptor2Vtbl {
-	return (*IImageFeatureDescriptor2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IImageFeatureDescriptor2) Get_PixelRange() LearningModelPixelRange {
-	var _result LearningModelPixelRange
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PixelRange, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -2975,19 +2937,19 @@ type TensorBoolean struct {
 	*ITensorBoolean
 }
 
-func NewITensorBooleanStatics() *ITensorBooleanStatics {
-	var p *ITensorBooleanStatics
+func NewITensorBooleanStatics2() *ITensorBooleanStatics2 {
+	var p *ITensorBooleanStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorBoolean")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorBooleanStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorBooleanStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorBooleanStatics2() *ITensorBooleanStatics2 {
-	var p *ITensorBooleanStatics2
+func NewITensorBooleanStatics() *ITensorBooleanStatics {
+	var p *ITensorBooleanStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorBoolean")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorBooleanStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorBooleanStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2998,19 +2960,19 @@ type TensorDouble struct {
 	*ITensorDouble
 }
 
-func NewITensorDoubleStatics2() *ITensorDoubleStatics2 {
-	var p *ITensorDoubleStatics2
+func NewITensorDoubleStatics() *ITensorDoubleStatics {
+	var p *ITensorDoubleStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorDouble")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorDoubleStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorDoubleStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorDoubleStatics() *ITensorDoubleStatics {
-	var p *ITensorDoubleStatics
+func NewITensorDoubleStatics2() *ITensorDoubleStatics2 {
+	var p *ITensorDoubleStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorDouble")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorDoubleStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorDoubleStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3026,19 +2988,19 @@ type TensorFloat struct {
 	*ITensorFloat
 }
 
-func NewITensorFloatStatics() *ITensorFloatStatics {
-	var p *ITensorFloatStatics
+func NewITensorFloatStatics2() *ITensorFloatStatics2 {
+	var p *ITensorFloatStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorFloat")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorFloatStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorFloatStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorFloatStatics2() *ITensorFloatStatics2 {
-	var p *ITensorFloatStatics2
+func NewITensorFloatStatics() *ITensorFloatStatics {
+	var p *ITensorFloatStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorFloat")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorFloatStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorFloatStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3095,19 +3057,19 @@ type TensorInt32Bit struct {
 	*ITensorInt32Bit
 }
 
-func NewITensorInt32BitStatics2() *ITensorInt32BitStatics2 {
-	var p *ITensorInt32BitStatics2
+func NewITensorInt32BitStatics() *ITensorInt32BitStatics {
+	var p *ITensorInt32BitStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorInt32Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt32BitStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt32BitStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorInt32BitStatics() *ITensorInt32BitStatics {
-	var p *ITensorInt32BitStatics
+func NewITensorInt32BitStatics2() *ITensorInt32BitStatics2 {
+	var p *ITensorInt32BitStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorInt32Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt32BitStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt32BitStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3141,19 +3103,19 @@ type TensorInt8Bit struct {
 	*ITensorInt8Bit
 }
 
-func NewITensorInt8BitStatics() *ITensorInt8BitStatics {
-	var p *ITensorInt8BitStatics
+func NewITensorInt8BitStatics2() *ITensorInt8BitStatics2 {
+	var p *ITensorInt8BitStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorInt8Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt8BitStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt8BitStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorInt8BitStatics2() *ITensorInt8BitStatics2 {
-	var p *ITensorInt8BitStatics2
+func NewITensorInt8BitStatics() *ITensorInt8BitStatics {
+	var p *ITensorInt8BitStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorInt8Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt8BitStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorInt8BitStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3210,19 +3172,19 @@ type TensorUInt32Bit struct {
 	*ITensorUInt32Bit
 }
 
-func NewITensorUInt32BitStatics() *ITensorUInt32BitStatics {
-	var p *ITensorUInt32BitStatics
+func NewITensorUInt32BitStatics2() *ITensorUInt32BitStatics2 {
+	var p *ITensorUInt32BitStatics2
 	hs := NewHStr("Windows.AI.MachineLearning.TensorUInt32Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorUInt32BitStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorUInt32BitStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITensorUInt32BitStatics2() *ITensorUInt32BitStatics2 {
-	var p *ITensorUInt32BitStatics2
+func NewITensorUInt32BitStatics() *ITensorUInt32BitStatics {
+	var p *ITensorUInt32BitStatics
 	hs := NewHStr("Windows.AI.MachineLearning.TensorUInt32Bit")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorUInt32BitStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITensorUInt32BitStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

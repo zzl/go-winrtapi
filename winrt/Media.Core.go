@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -6737,19 +6737,10 @@ type MediaSource struct {
 	*IMediaSource2
 }
 
-func NewIMediaSourceStatics3() *IMediaSourceStatics3 {
-	var p *IMediaSourceStatics3
+func NewIMediaSourceStatics4() *IMediaSourceStatics4 {
+	var p *IMediaSourceStatics4
 	hs := NewHStr("Windows.Media.Core.MediaSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics3, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewIMediaSourceStatics2() *IMediaSourceStatics2 {
-	var p *IMediaSourceStatics2
-	hs := NewHStr("Windows.Media.Core.MediaSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics4, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6764,10 +6755,19 @@ func NewIMediaSourceStatics() *IMediaSourceStatics {
 	return p
 }
 
-func NewIMediaSourceStatics4() *IMediaSourceStatics4 {
-	var p *IMediaSourceStatics4
+func NewIMediaSourceStatics3() *IMediaSourceStatics3 {
+	var p *IMediaSourceStatics3
 	hs := NewHStr("Windows.Media.Core.MediaSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics4, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics3, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
+func NewIMediaSourceStatics2() *IMediaSourceStatics2 {
+	var p *IMediaSourceStatics2
+	hs := NewHStr("Windows.Media.Core.MediaSource")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMediaSourceStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -7115,19 +7115,19 @@ type TimedTextSource struct {
 	*ITimedTextSource
 }
 
-func NewITimedTextSourceStatics2() *ITimedTextSourceStatics2 {
-	var p *ITimedTextSourceStatics2
+func NewITimedTextSourceStatics() *ITimedTextSourceStatics {
+	var p *ITimedTextSourceStatics
 	hs := NewHStr("Windows.Media.Core.TimedTextSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITimedTextSourceStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITimedTextSourceStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewITimedTextSourceStatics() *ITimedTextSourceStatics {
-	var p *ITimedTextSourceStatics
+func NewITimedTextSourceStatics2() *ITimedTextSourceStatics2 {
+	var p *ITimedTextSourceStatics2
 	hs := NewHStr("Windows.Media.Core.TimedTextSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITimedTextSourceStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ITimedTextSourceStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

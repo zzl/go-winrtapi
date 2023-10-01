@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -94,35 +94,6 @@ func (this *IAppExtension) GetPublicFolderAsync() *IAsyncOperation[*IStorageFold
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// AB3B15F0-14F9-4B9F-9419-A349A242EF38
-var IID_IAppExtension2 = syscall.GUID{0xAB3B15F0, 0x14F9, 0x4B9F,
-	[8]byte{0x94, 0x19, 0xA3, 0x49, 0xA2, 0x42, 0xEF, 0x38}}
-
-type IAppExtension2Interface interface {
-	win32.IInspectableInterface
-	Get_AppUserModelId() string
-}
-
-type IAppExtension2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_AppUserModelId uintptr
-}
-
-type IAppExtension2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppExtension2) Vtbl() *IAppExtension2Vtbl {
-	return (*IAppExtension2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppExtension2) Get_AppUserModelId() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AppUserModelId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
 }
 
 // 97872032-8426-4AD1-9084-92E88C2DA200

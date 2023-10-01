@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -220,8 +220,8 @@ var IID_IInkDrawingAttributes2 = syscall.GUID{0x7CAB6508, 0x8EC4, 0x42FD,
 
 type IInkDrawingAttributes2Interface interface {
 	win32.IInspectableInterface
-	Get_PenTipTransform() unsafe.Pointer
-	Put_PenTipTransform(value unsafe.Pointer)
+	Get_PenTipTransform() Matrix3x2
+	Put_PenTipTransform(value Matrix3x2)
 	Get_DrawAsHighlighter() bool
 	Put_DrawAsHighlighter(value bool)
 }
@@ -242,15 +242,15 @@ func (this *IInkDrawingAttributes2) Vtbl() *IInkDrawingAttributes2Vtbl {
 	return (*IInkDrawingAttributes2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInkDrawingAttributes2) Get_PenTipTransform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInkDrawingAttributes2) Get_PenTipTransform() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PenTipTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInkDrawingAttributes2) Put_PenTipTransform(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PenTipTransform, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IInkDrawingAttributes2) Put_PenTipTransform(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PenTipTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -486,42 +486,6 @@ func (this *IInkInputConfiguration) Get_IsEraserInputEnabled() bool {
 
 func (this *IInkInputConfiguration) Put_IsEraserInputEnabled(value bool) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsEraserInputEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-// 6AC2272E-81B4-5CC4-A36D-D057C387DFDA
-var IID_IInkInputConfiguration2 = syscall.GUID{0x6AC2272E, 0x81B4, 0x5CC4,
-	[8]byte{0xA3, 0x6D, 0xD0, 0x57, 0xC3, 0x87, 0xDF, 0xDA}}
-
-type IInkInputConfiguration2Interface interface {
-	win32.IInspectableInterface
-	Get_IsPenHapticFeedbackEnabled() bool
-	Put_IsPenHapticFeedbackEnabled(value bool)
-}
-
-type IInkInputConfiguration2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_IsPenHapticFeedbackEnabled uintptr
-	Put_IsPenHapticFeedbackEnabled uintptr
-}
-
-type IInkInputConfiguration2 struct {
-	win32.IInspectable
-}
-
-func (this *IInkInputConfiguration2) Vtbl() *IInkInputConfiguration2Vtbl {
-	return (*IInkInputConfiguration2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IInkInputConfiguration2) Get_IsPenHapticFeedbackEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsPenHapticFeedbackEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IInkInputConfiguration2) Put_IsPenHapticFeedbackEnabled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsPenHapticFeedbackEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
 	_ = _hr
 }
 
@@ -1428,8 +1392,8 @@ type IInkPresenterStencilInterface interface {
 	Put_BackgroundColor(value unsafe.Pointer)
 	Get_ForegroundColor() unsafe.Pointer
 	Put_ForegroundColor(value unsafe.Pointer)
-	Get_Transform() unsafe.Pointer
-	Put_Transform(value unsafe.Pointer)
+	Get_Transform() Matrix3x2
+	Put_Transform(value Matrix3x2)
 }
 
 type IInkPresenterStencilVtbl struct {
@@ -1496,15 +1460,15 @@ func (this *IInkPresenterStencil) Put_ForegroundColor(value unsafe.Pointer) {
 	_ = _hr
 }
 
-func (this *IInkPresenterStencil) Get_Transform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInkPresenterStencil) Get_Transform() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Transform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInkPresenterStencil) Put_Transform(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Transform, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IInkPresenterStencil) Put_Transform(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Transform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1730,8 +1694,8 @@ var IID_IInkStroke2 = syscall.GUID{0x5DB9E4F4, 0xBAFA, 0x4DE1,
 
 type IInkStroke2Interface interface {
 	win32.IInspectableInterface
-	Get_PointTransform() unsafe.Pointer
-	Put_PointTransform(value unsafe.Pointer)
+	Get_PointTransform() Matrix3x2
+	Put_PointTransform(value Matrix3x2)
 	GetInkPoints() *IVectorView[*IInkPoint]
 }
 
@@ -1750,15 +1714,15 @@ func (this *IInkStroke2) Vtbl() *IInkStroke2Vtbl {
 	return (*IInkStroke2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInkStroke2) Get_PointTransform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInkStroke2) Get_PointTransform() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PointTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInkStroke2) Put_PointTransform(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PointTransform, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IInkStroke2) Put_PointTransform(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PointTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1833,35 +1797,6 @@ func (this *IInkStroke3) Put_StrokeDuration(value *IReference[TimeSpan]) {
 	_ = _hr
 }
 
-// CD5B62E5-B6E9-5B91-A577-1921D2348690
-var IID_IInkStroke4 = syscall.GUID{0xCD5B62E5, 0xB6E9, 0x5B91,
-	[8]byte{0xA5, 0x77, 0x19, 0x21, 0xD2, 0x34, 0x86, 0x90}}
-
-type IInkStroke4Interface interface {
-	win32.IInspectableInterface
-	Get_PointerId() uint32
-}
-
-type IInkStroke4Vtbl struct {
-	win32.IInspectableVtbl
-	Get_PointerId uintptr
-}
-
-type IInkStroke4 struct {
-	win32.IInspectable
-}
-
-func (this *IInkStroke4) Vtbl() *IInkStroke4Vtbl {
-	return (*IInkStroke4Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IInkStroke4) Get_PointerId() uint32 {
-	var _result uint32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PointerId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
 // 82BBD1DC-1C63-41DC-9E07-4B4A70CED801
 var IID_IInkStrokeBuilder = syscall.GUID{0x82BBD1DC, 0x1C63, 0x41DC,
 	[8]byte{0x9E, 0x07, 0x4B, 0x4A, 0x70, 0xCE, 0xD8, 0x01}}
@@ -1932,7 +1867,7 @@ var IID_IInkStrokeBuilder2 = syscall.GUID{0xBD82BC27, 0x731F, 0x4CBC,
 
 type IInkStrokeBuilder2Interface interface {
 	win32.IInspectableInterface
-	CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform unsafe.Pointer) *IInkStroke
+	CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform Matrix3x2) *IInkStroke
 }
 
 type IInkStrokeBuilder2Vtbl struct {
@@ -1948,9 +1883,9 @@ func (this *IInkStrokeBuilder2) Vtbl() *IInkStrokeBuilder2Vtbl {
 	return (*IInkStrokeBuilder2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInkStrokeBuilder2) CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform unsafe.Pointer) *IInkStroke {
+func (this *IInkStrokeBuilder2) CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform Matrix3x2) *IInkStroke {
 	var _result *IInkStroke
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStrokeFromInkPoints, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(inkPoints)), uintptr(transform), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStrokeFromInkPoints, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(inkPoints)), uintptr(unsafe.Pointer(&transform)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -1962,7 +1897,7 @@ var IID_IInkStrokeBuilder3 = syscall.GUID{0xB2C71FCD, 0x5472, 0x46B1,
 
 type IInkStrokeBuilder3Interface interface {
 	win32.IInspectableInterface
-	CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform unsafe.Pointer, strokeStartedTime *IReference[DateTime], strokeDuration *IReference[TimeSpan]) *IInkStroke
+	CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform Matrix3x2, strokeStartedTime *IReference[DateTime], strokeDuration *IReference[TimeSpan]) *IInkStroke
 }
 
 type IInkStrokeBuilder3Vtbl struct {
@@ -1978,9 +1913,9 @@ func (this *IInkStrokeBuilder3) Vtbl() *IInkStrokeBuilder3Vtbl {
 	return (*IInkStrokeBuilder3Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInkStrokeBuilder3) CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform unsafe.Pointer, strokeStartedTime *IReference[DateTime], strokeDuration *IReference[TimeSpan]) *IInkStroke {
+func (this *IInkStrokeBuilder3) CreateStrokeFromInkPoints(inkPoints *IIterable[*IInkPoint], transform Matrix3x2, strokeStartedTime *IReference[DateTime], strokeDuration *IReference[TimeSpan]) *IInkStroke {
 	var _result *IInkStroke
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStrokeFromInkPoints, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(inkPoints)), uintptr(transform), uintptr(unsafe.Pointer(strokeStartedTime)), uintptr(unsafe.Pointer(strokeDuration)), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStrokeFromInkPoints, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(inkPoints)), uintptr(unsafe.Pointer(&transform)), uintptr(unsafe.Pointer(strokeStartedTime)), uintptr(unsafe.Pointer(strokeDuration)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -2820,15 +2755,15 @@ type InkPoint struct {
 	*IInkPoint
 }
 
-func NewInkPoint_CreateInkPoint(position Point, pressure float32) *InkPoint {
+func NewInkPoint_CreateInkPointWithTiltAndTimestamp(position Point, pressure float32, tiltX float32, tiltY float32, timestamp uint64) *InkPoint {
 	hs := NewHStr("Windows.UI.Input.Inking.InkPoint")
-	var pFac *IInkPointFactory
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInkPointFactory, unsafe.Pointer(&pFac))
+	var pFac *IInkPointFactory2
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInkPointFactory2, unsafe.Pointer(&pFac))
 	if win32.FAILED(hr) {
 		log.Panic("?")
 	}
 	var p *IInkPoint
-	p = pFac.CreateInkPoint(position, pressure)
+	p = pFac.CreateInkPointWithTiltAndTimestamp(position, pressure, tiltX, tiltY, timestamp)
 	result := &InkPoint{
 		RtClass:   RtClass{PInspect: &p.IInspectable},
 		IInkPoint: p,

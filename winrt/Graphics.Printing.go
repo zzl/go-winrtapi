@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -379,7 +379,7 @@ type PrintPageDescription struct {
 
 // func types
 
-//6C109FA8-5CB6-4B3A-8663-F39CB02DC9B4
+// 6C109FA8-5CB6-4B3A-8663-F39CB02DC9B4
 type PrintTaskSourceRequestedHandler func(args *IPrintTaskSourceRequestedArgs) com.Error
 
 // interfaces
@@ -1812,10 +1812,10 @@ type StandardPrintTaskOptions struct {
 	RtClass
 }
 
-func NewIStandardPrintTaskOptionsStatic() *IStandardPrintTaskOptionsStatic {
-	var p *IStandardPrintTaskOptionsStatic
+func NewIStandardPrintTaskOptionsStatic3() *IStandardPrintTaskOptionsStatic3 {
+	var p *IStandardPrintTaskOptionsStatic3
 	hs := NewHStr("Windows.Graphics.Printing.StandardPrintTaskOptions")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardPrintTaskOptionsStatic, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardPrintTaskOptionsStatic3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -1830,10 +1830,10 @@ func NewIStandardPrintTaskOptionsStatic2() *IStandardPrintTaskOptionsStatic2 {
 	return p
 }
 
-func NewIStandardPrintTaskOptionsStatic3() *IStandardPrintTaskOptionsStatic3 {
-	var p *IStandardPrintTaskOptionsStatic3
+func NewIStandardPrintTaskOptionsStatic() *IStandardPrintTaskOptionsStatic {
+	var p *IStandardPrintTaskOptionsStatic
 	hs := NewHStr("Windows.Graphics.Printing.StandardPrintTaskOptions")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardPrintTaskOptionsStatic3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardPrintTaskOptionsStatic, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

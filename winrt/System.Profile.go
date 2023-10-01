@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -704,51 +704,6 @@ func (this *ISharedModeSettingsStatics2) Get_ShouldAvoidLocalStorage() bool {
 	return _result
 }
 
-// 5FF8C75B-073E-5015-8D98-5FF224180A0B
-var IID_ISmartAppControlPolicyStatics = syscall.GUID{0x5FF8C75B, 0x073E, 0x5015,
-	[8]byte{0x8D, 0x98, 0x5F, 0xF2, 0x24, 0x18, 0x0A, 0x0B}}
-
-type ISmartAppControlPolicyStaticsInterface interface {
-	win32.IInspectableInterface
-	Get_IsEnabled() bool
-	Add_Changed(handler EventHandler[interface{}]) EventRegistrationToken
-	Remove_Changed(token EventRegistrationToken)
-}
-
-type ISmartAppControlPolicyStaticsVtbl struct {
-	win32.IInspectableVtbl
-	Get_IsEnabled  uintptr
-	Add_Changed    uintptr
-	Remove_Changed uintptr
-}
-
-type ISmartAppControlPolicyStatics struct {
-	win32.IInspectable
-}
-
-func (this *ISmartAppControlPolicyStatics) Vtbl() *ISmartAppControlPolicyStaticsVtbl {
-	return (*ISmartAppControlPolicyStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ISmartAppControlPolicyStatics) Get_IsEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ISmartAppControlPolicyStatics) Add_Changed(handler EventHandler[interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_Changed, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ISmartAppControlPolicyStatics) Remove_Changed(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_Changed, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
 // 0C659E7D-C3C2-4D33-A2DF-21BC41916EB3
 var IID_ISystemIdentificationInfo = syscall.GUID{0x0C659E7D, 0xC3C2, 0x4D33,
 	[8]byte{0xA2, 0xDF, 0x21, 0xBC, 0x41, 0x91, 0x6E, 0xB3}}
@@ -828,9 +783,9 @@ func (this *ISystemIdentificationStatics) GetSystemIdForUser(user *IUser) *ISyst
 	return _result
 }
 
-// B8366A4B-FB6A-4571-BE0A-9A0F67954123
-var IID_ISystemSetupInfoStatics = syscall.GUID{0xB8366A4B, 0xFB6A, 0x4571,
-	[8]byte{0xBE, 0x0A, 0x9A, 0x0F, 0x67, 0x95, 0x41, 0x23}}
+// 2C9620A8-1D88-5E2D-A324-A543AF4247EE
+var IID_ISystemSetupInfoStatics = syscall.GUID{0x2C9620A8, 0x1D88, 0x5E2D,
+	[8]byte{0xA3, 0x24, 0xA5, 0x43, 0xAF, 0x42, 0x47, 0xEE}}
 
 type ISystemSetupInfoStaticsInterface interface {
 	win32.IInspectableInterface
@@ -1002,15 +957,6 @@ type SharedModeSettings struct {
 	RtClass
 }
 
-func NewISharedModeSettingsStatics() *ISharedModeSettingsStatics {
-	var p *ISharedModeSettingsStatics
-	hs := NewHStr("Windows.System.Profile.SharedModeSettings")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISharedModeSettingsStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 func NewISharedModeSettingsStatics2() *ISharedModeSettingsStatics2 {
 	var p *ISharedModeSettingsStatics2
 	hs := NewHStr("Windows.System.Profile.SharedModeSettings")
@@ -1020,14 +966,10 @@ func NewISharedModeSettingsStatics2() *ISharedModeSettingsStatics2 {
 	return p
 }
 
-type SystemIdentification struct {
-	RtClass
-}
-
-func NewISystemIdentificationStatics() *ISystemIdentificationStatics {
-	var p *ISystemIdentificationStatics
-	hs := NewHStr("Windows.System.Profile.SystemIdentification")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISystemIdentificationStatics, unsafe.Pointer(&p))
+func NewISharedModeSettingsStatics() *ISharedModeSettingsStatics {
+	var p *ISharedModeSettingsStatics
+	hs := NewHStr("Windows.System.Profile.SharedModeSettings")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISharedModeSettingsStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -630,19 +630,19 @@ type JsonValue struct {
 	*IJsonValue
 }
 
-func NewIJsonValueStatics() *IJsonValueStatics {
-	var p *IJsonValueStatics
+func NewIJsonValueStatics2() *IJsonValueStatics2 {
+	var p *IJsonValueStatics2
 	hs := NewHStr("Windows.Data.Json.JsonValue")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IJsonValueStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IJsonValueStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIJsonValueStatics2() *IJsonValueStatics2 {
-	var p *IJsonValueStatics2
+func NewIJsonValueStatics() *IJsonValueStatics {
+	var p *IJsonValueStatics
 	hs := NewHStr("Windows.Data.Json.JsonValue")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IJsonValueStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IJsonValueStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

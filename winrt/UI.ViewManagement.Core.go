@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -19,7 +19,6 @@ const (
 	CoreInputViewKind_Emoji       CoreInputViewKind = 3
 	CoreInputViewKind_Symbols     CoreInputViewKind = 4
 	CoreInputViewKind_Clipboard   CoreInputViewKind = 5
-	CoreInputViewKind_Dictation   CoreInputViewKind = 6
 )
 
 // enum
@@ -42,185 +41,6 @@ const (
 )
 
 // interfaces
-
-// D77C94AE-46B8-5D4A-9489-8DDEC3D639A6
-var IID_ICoreFrameworkInputView = syscall.GUID{0xD77C94AE, 0x46B8, 0x5D4A,
-	[8]byte{0x94, 0x89, 0x8D, 0xDE, 0xC3, 0xD6, 0x39, 0xA6}}
-
-type ICoreFrameworkInputViewInterface interface {
-	win32.IInspectableInterface
-	Add_PrimaryViewAnimationStarting(handler TypedEventHandler[*ICoreFrameworkInputView, *ICoreFrameworkInputViewAnimationStartingEventArgs]) EventRegistrationToken
-	Remove_PrimaryViewAnimationStarting(token EventRegistrationToken)
-	Add_OcclusionsChanged(handler TypedEventHandler[*ICoreFrameworkInputView, *ICoreFrameworkInputViewOcclusionsChangedEventArgs]) EventRegistrationToken
-	Remove_OcclusionsChanged(token EventRegistrationToken)
-}
-
-type ICoreFrameworkInputViewVtbl struct {
-	win32.IInspectableVtbl
-	Add_PrimaryViewAnimationStarting    uintptr
-	Remove_PrimaryViewAnimationStarting uintptr
-	Add_OcclusionsChanged               uintptr
-	Remove_OcclusionsChanged            uintptr
-}
-
-type ICoreFrameworkInputView struct {
-	win32.IInspectable
-}
-
-func (this *ICoreFrameworkInputView) Vtbl() *ICoreFrameworkInputViewVtbl {
-	return (*ICoreFrameworkInputViewVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreFrameworkInputView) Add_PrimaryViewAnimationStarting(handler TypedEventHandler[*ICoreFrameworkInputView, *ICoreFrameworkInputViewAnimationStartingEventArgs]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_PrimaryViewAnimationStarting, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreFrameworkInputView) Remove_PrimaryViewAnimationStarting(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_PrimaryViewAnimationStarting, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-func (this *ICoreFrameworkInputView) Add_OcclusionsChanged(handler TypedEventHandler[*ICoreFrameworkInputView, *ICoreFrameworkInputViewOcclusionsChangedEventArgs]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_OcclusionsChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreFrameworkInputView) Remove_OcclusionsChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_OcclusionsChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-// C0EC901C-BBA4-501B-AE8B-65C9E756A719
-var IID_ICoreFrameworkInputViewAnimationStartingEventArgs = syscall.GUID{0xC0EC901C, 0xBBA4, 0x501B,
-	[8]byte{0xAE, 0x8B, 0x65, 0xC9, 0xE7, 0x56, 0xA7, 0x19}}
-
-type ICoreFrameworkInputViewAnimationStartingEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion]
-	Get_FrameworkAnimationRecommended() bool
-	Get_AnimationDuration() TimeSpan
-}
-
-type ICoreFrameworkInputViewAnimationStartingEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Occlusions                    uintptr
-	Get_FrameworkAnimationRecommended uintptr
-	Get_AnimationDuration             uintptr
-}
-
-type ICoreFrameworkInputViewAnimationStartingEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *ICoreFrameworkInputViewAnimationStartingEventArgs) Vtbl() *ICoreFrameworkInputViewAnimationStartingEventArgsVtbl {
-	return (*ICoreFrameworkInputViewAnimationStartingEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreFrameworkInputViewAnimationStartingEventArgs) Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion] {
-	var _result *IVectorView[*ICoreInputViewOcclusion]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Occlusions, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICoreFrameworkInputViewAnimationStartingEventArgs) Get_FrameworkAnimationRecommended() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_FrameworkAnimationRecommended, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreFrameworkInputViewAnimationStartingEventArgs) Get_AnimationDuration() TimeSpan {
-	var _result TimeSpan
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnimationDuration, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// F36F4949-C82C-53D1-A75D-2B2BAF0D9B0D
-var IID_ICoreFrameworkInputViewOcclusionsChangedEventArgs = syscall.GUID{0xF36F4949, 0xC82C, 0x53D1,
-	[8]byte{0xA7, 0x5D, 0x2B, 0x2B, 0xAF, 0x0D, 0x9B, 0x0D}}
-
-type ICoreFrameworkInputViewOcclusionsChangedEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion]
-	Get_Handled() bool
-}
-
-type ICoreFrameworkInputViewOcclusionsChangedEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Occlusions uintptr
-	Get_Handled    uintptr
-}
-
-type ICoreFrameworkInputViewOcclusionsChangedEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *ICoreFrameworkInputViewOcclusionsChangedEventArgs) Vtbl() *ICoreFrameworkInputViewOcclusionsChangedEventArgsVtbl {
-	return (*ICoreFrameworkInputViewOcclusionsChangedEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreFrameworkInputViewOcclusionsChangedEventArgs) Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion] {
-	var _result *IVectorView[*ICoreInputViewOcclusion]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Occlusions, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICoreFrameworkInputViewOcclusionsChangedEventArgs) Get_Handled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Handled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 6EEBD9B6-EAC2-5F8B-975F-772EE3E42EEB
-var IID_ICoreFrameworkInputViewStatics = syscall.GUID{0x6EEBD9B6, 0xEAC2, 0x5F8B,
-	[8]byte{0x97, 0x5F, 0x77, 0x2E, 0xE3, 0xE4, 0x2E, 0xEB}}
-
-type ICoreFrameworkInputViewStaticsInterface interface {
-	win32.IInspectableInterface
-	GetForUIContext(context unsafe.Pointer) *ICoreFrameworkInputView
-	GetForCurrentView() *ICoreFrameworkInputView
-}
-
-type ICoreFrameworkInputViewStaticsVtbl struct {
-	win32.IInspectableVtbl
-	GetForUIContext   uintptr
-	GetForCurrentView uintptr
-}
-
-type ICoreFrameworkInputViewStatics struct {
-	win32.IInspectable
-}
-
-func (this *ICoreFrameworkInputViewStatics) Vtbl() *ICoreFrameworkInputViewStaticsVtbl {
-	return (*ICoreFrameworkInputViewStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreFrameworkInputViewStatics) GetForUIContext(context unsafe.Pointer) *ICoreFrameworkInputView {
-	var _result *ICoreFrameworkInputView
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetForUIContext, uintptr(unsafe.Pointer(this)), uintptr(context), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICoreFrameworkInputViewStatics) GetForCurrentView() *ICoreFrameworkInputView {
-	var _result *ICoreFrameworkInputView
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetForCurrentView, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
 
 // C770CD7A-7001-4C32-BF94-25C1F554CBF1
 var IID_ICoreInputView = syscall.GUID{0xC770CD7A, 0x7001, 0x4C32,
@@ -444,122 +264,6 @@ func (this *ICoreInputView4) Add_PrimaryViewHiding(handler TypedEventHandler[*IC
 func (this *ICoreInputView4) Remove_PrimaryViewHiding(token EventRegistrationToken) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_PrimaryViewHiding, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
 	_ = _hr
-}
-
-// 136316E0-C6D5-5C57-811E-1AD8A99BA6AB
-var IID_ICoreInputView5 = syscall.GUID{0x136316E0, 0xC6D5, 0x5C57,
-	[8]byte{0x81, 0x1E, 0x1A, 0xD8, 0xA9, 0x9B, 0xA6, 0xAB}}
-
-type ICoreInputView5Interface interface {
-	win32.IInspectableInterface
-	IsKindSupported(type_ CoreInputViewKind) bool
-	Add_SupportedKindsChanged(handler TypedEventHandler[*ICoreInputView, interface{}]) EventRegistrationToken
-	Remove_SupportedKindsChanged(token EventRegistrationToken)
-	Add_PrimaryViewAnimationStarting(handler TypedEventHandler[*ICoreInputView, *ICoreInputViewAnimationStartingEventArgs]) EventRegistrationToken
-	Remove_PrimaryViewAnimationStarting(token EventRegistrationToken)
-}
-
-type ICoreInputView5Vtbl struct {
-	win32.IInspectableVtbl
-	IsKindSupported                     uintptr
-	Add_SupportedKindsChanged           uintptr
-	Remove_SupportedKindsChanged        uintptr
-	Add_PrimaryViewAnimationStarting    uintptr
-	Remove_PrimaryViewAnimationStarting uintptr
-}
-
-type ICoreInputView5 struct {
-	win32.IInspectable
-}
-
-func (this *ICoreInputView5) Vtbl() *ICoreInputView5Vtbl {
-	return (*ICoreInputView5Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreInputView5) IsKindSupported(type_ CoreInputViewKind) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().IsKindSupported, uintptr(unsafe.Pointer(this)), uintptr(type_), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreInputView5) Add_SupportedKindsChanged(handler TypedEventHandler[*ICoreInputView, interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_SupportedKindsChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreInputView5) Remove_SupportedKindsChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_SupportedKindsChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-func (this *ICoreInputView5) Add_PrimaryViewAnimationStarting(handler TypedEventHandler[*ICoreInputView, *ICoreInputViewAnimationStartingEventArgs]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_PrimaryViewAnimationStarting, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreInputView5) Remove_PrimaryViewAnimationStarting(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_PrimaryViewAnimationStarting, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-// A9144AF2-B55C-5EA1-B8AB-5340F3E94897
-var IID_ICoreInputViewAnimationStartingEventArgs = syscall.GUID{0xA9144AF2, 0xB55C, 0x5EA1,
-	[8]byte{0xB8, 0xAB, 0x53, 0x40, 0xF3, 0xE9, 0x48, 0x97}}
-
-type ICoreInputViewAnimationStartingEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion]
-	Get_Handled() bool
-	Put_Handled(value bool)
-	Get_AnimationDuration() TimeSpan
-}
-
-type ICoreInputViewAnimationStartingEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Occlusions        uintptr
-	Get_Handled           uintptr
-	Put_Handled           uintptr
-	Get_AnimationDuration uintptr
-}
-
-type ICoreInputViewAnimationStartingEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *ICoreInputViewAnimationStartingEventArgs) Vtbl() *ICoreInputViewAnimationStartingEventArgsVtbl {
-	return (*ICoreInputViewAnimationStartingEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreInputViewAnimationStartingEventArgs) Get_Occlusions() *IVectorView[*ICoreInputViewOcclusion] {
-	var _result *IVectorView[*ICoreInputViewOcclusion]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Occlusions, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICoreInputViewAnimationStartingEventArgs) Get_Handled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Handled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreInputViewAnimationStartingEventArgs) Put_Handled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Handled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *ICoreInputViewAnimationStartingEventArgs) Get_AnimationDuration() TimeSpan {
-	var _result TimeSpan
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnimationDuration, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
 }
 
 // EADA47BD-BAC5-5336-848D-41083584DAAD
@@ -921,30 +625,6 @@ func (this *IUISettingsControllerStatics) RequestDefaultAsync() *IAsyncOperation
 
 // classes
 
-type CoreFrameworkInputView struct {
-	RtClass
-	*ICoreFrameworkInputView
-}
-
-func NewICoreFrameworkInputViewStatics() *ICoreFrameworkInputViewStatics {
-	var p *ICoreFrameworkInputViewStatics
-	hs := NewHStr("Windows.UI.ViewManagement.Core.CoreFrameworkInputView")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICoreFrameworkInputViewStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-type CoreFrameworkInputViewAnimationStartingEventArgs struct {
-	RtClass
-	*ICoreFrameworkInputViewAnimationStartingEventArgs
-}
-
-type CoreFrameworkInputViewOcclusionsChangedEventArgs struct {
-	RtClass
-	*ICoreFrameworkInputViewOcclusionsChangedEventArgs
-}
-
 type CoreInputView struct {
 	RtClass
 	*ICoreInputView
@@ -968,16 +648,6 @@ func NewICoreInputViewStatics() *ICoreInputViewStatics {
 	return p
 }
 
-type CoreInputViewAnimationStartingEventArgs struct {
-	RtClass
-	*ICoreInputViewAnimationStartingEventArgs
-}
-
-type CoreInputViewHidingEventArgs struct {
-	RtClass
-	*ICoreInputViewHidingEventArgs
-}
-
 type CoreInputViewOcclusion struct {
 	RtClass
 	*ICoreInputViewOcclusion
@@ -986,11 +656,6 @@ type CoreInputViewOcclusion struct {
 type CoreInputViewOcclusionsChangedEventArgs struct {
 	RtClass
 	*ICoreInputViewOcclusionsChangedEventArgs
-}
-
-type CoreInputViewShowingEventArgs struct {
-	RtClass
-	*ICoreInputViewShowingEventArgs
 }
 
 type CoreInputViewTransferringXYFocusEventArgs struct {

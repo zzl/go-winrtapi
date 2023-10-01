@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -872,14 +872,14 @@ type ICompositionAnimationInterface interface {
 	ClearAllParameters()
 	ClearParameter(key string)
 	SetColorParameter(key string, value unsafe.Pointer)
-	SetMatrix3x2Parameter(key string, value unsafe.Pointer)
-	SetMatrix4x4Parameter(key string, value unsafe.Pointer)
-	SetQuaternionParameter(key string, value unsafe.Pointer)
+	SetMatrix3x2Parameter(key string, value Matrix3x2)
+	SetMatrix4x4Parameter(key string, value Matrix4x4)
+	SetQuaternionParameter(key string, value Quaternion)
 	SetReferenceParameter(key string, compositionObject *ICompositionObject)
 	SetScalarParameter(key string, value float32)
-	SetVector2Parameter(key string, value unsafe.Pointer)
-	SetVector3Parameter(key string, value unsafe.Pointer)
-	SetVector4Parameter(key string, value unsafe.Pointer)
+	SetVector2Parameter(key string, value Vector2)
+	SetVector3Parameter(key string, value Vector3)
+	SetVector4Parameter(key string, value Vector4)
 }
 
 type ICompositionAnimationVtbl struct {
@@ -920,18 +920,18 @@ func (this *ICompositionAnimation) SetColorParameter(key string, value unsafe.Po
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetMatrix3x2Parameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetMatrix3x2Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetMatrix3x2Parameter(key string, value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetMatrix3x2Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetMatrix4x4Parameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetMatrix4x4Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetMatrix4x4Parameter(key string, value Matrix4x4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetMatrix4x4Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetQuaternionParameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetQuaternionParameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetQuaternionParameter(key string, value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetQuaternionParameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -945,18 +945,18 @@ func (this *ICompositionAnimation) SetScalarParameter(key string, value float32)
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetVector2Parameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector2Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetVector2Parameter(key string, value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector2Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetVector3Parameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector3Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetVector3Parameter(key string, value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector3Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionAnimation) SetVector4Parameter(key string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector4Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(value))
+func (this *ICompositionAnimation) SetVector4Parameter(key string, value Vector4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetVector4Parameter, uintptr(unsafe.Pointer(this)), NewHStr(key).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1340,20 +1340,20 @@ var IID_ICompositionClip2 = syscall.GUID{0x5893E069, 0x3516, 0x40E1,
 
 type ICompositionClip2Interface interface {
 	win32.IInspectableInterface
-	Get_AnchorPoint() unsafe.Pointer
-	Put_AnchorPoint(value unsafe.Pointer)
-	Get_CenterPoint() unsafe.Pointer
-	Put_CenterPoint(value unsafe.Pointer)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_AnchorPoint() Vector2
+	Put_AnchorPoint(value Vector2)
+	Get_CenterPoint() Vector2
+	Put_CenterPoint(value Vector2)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_TransformMatrix() unsafe.Pointer
-	Put_TransformMatrix(value unsafe.Pointer)
+	Get_Scale() Vector2
+	Put_Scale(value Vector2)
+	Get_TransformMatrix() Matrix3x2
+	Put_TransformMatrix(value Matrix3x2)
 }
 
 type ICompositionClip2Vtbl struct {
@@ -1382,39 +1382,39 @@ func (this *ICompositionClip2) Vtbl() *ICompositionClip2Vtbl {
 	return (*ICompositionClip2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionClip2) Get_AnchorPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionClip2) Get_AnchorPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionClip2) Put_AnchorPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionClip2) Put_AnchorPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionClip2) Get_CenterPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionClip2) Get_CenterPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionClip2) Put_CenterPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionClip2) Put_CenterPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionClip2) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionClip2) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionClip2) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionClip2) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1442,27 +1442,27 @@ func (this *ICompositionClip2) Put_RotationAngleInDegrees(value float32) {
 	_ = _hr
 }
 
-func (this *ICompositionClip2) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionClip2) Get_Scale() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionClip2) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionClip2) Put_Scale(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionClip2) Get_TransformMatrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionClip2) Get_TransformMatrix() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionClip2) Put_TransformMatrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionClip2) Put_TransformMatrix(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1855,7 +1855,7 @@ var IID_ICompositionEasingFunctionStatics = syscall.GUID{0x17A766B6, 0x2936, 0x5
 
 type ICompositionEasingFunctionStaticsInterface interface {
 	win32.IInspectableInterface
-	CreateCubicBezierEasingFunction(owner *ICompositor, controlPoint1 unsafe.Pointer, controlPoint2 unsafe.Pointer) *ICubicBezierEasingFunction
+	CreateCubicBezierEasingFunction(owner *ICompositor, controlPoint1 Vector2, controlPoint2 Vector2) *ICubicBezierEasingFunction
 	CreateLinearEasingFunction(owner *ICompositor) *ILinearEasingFunction
 	CreateStepEasingFunction(owner *ICompositor) *IStepEasingFunction
 	CreateStepEasingFunctionWithStepCount(owner *ICompositor, stepCount int32) *IStepEasingFunction
@@ -1891,9 +1891,9 @@ func (this *ICompositionEasingFunctionStatics) Vtbl() *ICompositionEasingFunctio
 	return (*ICompositionEasingFunctionStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionEasingFunctionStatics) CreateCubicBezierEasingFunction(owner *ICompositor, controlPoint1 unsafe.Pointer, controlPoint2 unsafe.Pointer) *ICubicBezierEasingFunction {
+func (this *ICompositionEasingFunctionStatics) CreateCubicBezierEasingFunction(owner *ICompositor, controlPoint1 Vector2, controlPoint2 Vector2) *ICubicBezierEasingFunction {
 	var _result *ICubicBezierEasingFunction
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateCubicBezierEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(owner)), uintptr(controlPoint1), uintptr(controlPoint2), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateCubicBezierEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(owner)), *(*uintptr)(unsafe.Pointer(&controlPoint1)), *(*uintptr)(unsafe.Pointer(&controlPoint2)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -2129,10 +2129,10 @@ var IID_ICompositionEllipseGeometry = syscall.GUID{0x4801F884, 0xF6AD, 0x4B93,
 
 type ICompositionEllipseGeometryInterface interface {
 	win32.IInspectableInterface
-	Get_Center() unsafe.Pointer
-	Put_Center(value unsafe.Pointer)
-	Get_Radius() unsafe.Pointer
-	Put_Radius(value unsafe.Pointer)
+	Get_Center() Vector2
+	Put_Center(value Vector2)
+	Get_Radius() Vector2
+	Put_Radius(value Vector2)
 }
 
 type ICompositionEllipseGeometryVtbl struct {
@@ -2151,27 +2151,27 @@ func (this *ICompositionEllipseGeometry) Vtbl() *ICompositionEllipseGeometryVtbl
 	return (*ICompositionEllipseGeometryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionEllipseGeometry) Get_Center() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionEllipseGeometry) Get_Center() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Center, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionEllipseGeometry) Put_Center(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Center, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionEllipseGeometry) Put_Center(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Center, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionEllipseGeometry) Get_Radius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionEllipseGeometry) Get_Radius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Radius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionEllipseGeometry) Put_Radius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Radius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionEllipseGeometry) Put_Radius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Radius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -2323,25 +2323,25 @@ var IID_ICompositionGradientBrush = syscall.GUID{0x1D9709E0, 0xFFC6, 0x4C0E,
 
 type ICompositionGradientBrushInterface interface {
 	win32.IInspectableInterface
-	Get_AnchorPoint() unsafe.Pointer
-	Put_AnchorPoint(value unsafe.Pointer)
-	Get_CenterPoint() unsafe.Pointer
-	Put_CenterPoint(value unsafe.Pointer)
+	Get_AnchorPoint() Vector2
+	Put_AnchorPoint(value Vector2)
+	Get_CenterPoint() Vector2
+	Put_CenterPoint(value Vector2)
 	Get_ColorStops() *ICompositionColorGradientStopCollection
 	Get_ExtendMode() CompositionGradientExtendMode
 	Put_ExtendMode(value CompositionGradientExtendMode)
 	Get_InterpolationSpace() CompositionColorSpace
 	Put_InterpolationSpace(value CompositionColorSpace)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_TransformMatrix() unsafe.Pointer
-	Put_TransformMatrix(value unsafe.Pointer)
+	Get_Scale() Vector2
+	Put_Scale(value Vector2)
+	Get_TransformMatrix() Matrix3x2
+	Put_TransformMatrix(value Matrix3x2)
 }
 
 type ICompositionGradientBrushVtbl struct {
@@ -2375,27 +2375,27 @@ func (this *ICompositionGradientBrush) Vtbl() *ICompositionGradientBrushVtbl {
 	return (*ICompositionGradientBrushVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionGradientBrush) Get_AnchorPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionGradientBrush) Get_AnchorPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionGradientBrush) Put_AnchorPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionGradientBrush) Put_AnchorPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionGradientBrush) Get_CenterPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionGradientBrush) Get_CenterPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionGradientBrush) Put_CenterPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionGradientBrush) Put_CenterPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -2431,15 +2431,15 @@ func (this *ICompositionGradientBrush) Put_InterpolationSpace(value CompositionC
 	_ = _hr
 }
 
-func (this *ICompositionGradientBrush) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionGradientBrush) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionGradientBrush) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionGradientBrush) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -2467,27 +2467,27 @@ func (this *ICompositionGradientBrush) Put_RotationAngleInDegrees(value float32)
 	_ = _hr
 }
 
-func (this *ICompositionGradientBrush) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionGradientBrush) Get_Scale() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionGradientBrush) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionGradientBrush) Put_Scale(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionGradientBrush) Get_TransformMatrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionGradientBrush) Get_TransformMatrix() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionGradientBrush) Put_TransformMatrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionGradientBrush) Put_TransformMatrix(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -2822,10 +2822,10 @@ var IID_ICompositionLineGeometry = syscall.GUID{0xDD7615A4, 0x0C9A, 0x4B67,
 
 type ICompositionLineGeometryInterface interface {
 	win32.IInspectableInterface
-	Get_Start() unsafe.Pointer
-	Put_Start(value unsafe.Pointer)
-	Get_End() unsafe.Pointer
-	Put_End(value unsafe.Pointer)
+	Get_Start() Vector2
+	Put_Start(value Vector2)
+	Get_End() Vector2
+	Put_End(value Vector2)
 }
 
 type ICompositionLineGeometryVtbl struct {
@@ -2844,27 +2844,27 @@ func (this *ICompositionLineGeometry) Vtbl() *ICompositionLineGeometryVtbl {
 	return (*ICompositionLineGeometryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionLineGeometry) Get_Start() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionLineGeometry) Get_Start() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Start, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionLineGeometry) Put_Start(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Start, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionLineGeometry) Put_Start(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Start, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionLineGeometry) Get_End() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionLineGeometry) Get_End() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_End, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionLineGeometry) Put_End(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_End, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionLineGeometry) Put_End(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_End, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -2874,10 +2874,10 @@ var IID_ICompositionLinearGradientBrush = syscall.GUID{0x983BC519, 0xA9DB, 0x413
 
 type ICompositionLinearGradientBrushInterface interface {
 	win32.IInspectableInterface
-	Get_EndPoint() unsafe.Pointer
-	Put_EndPoint(value unsafe.Pointer)
-	Get_StartPoint() unsafe.Pointer
-	Put_StartPoint(value unsafe.Pointer)
+	Get_EndPoint() Vector2
+	Put_EndPoint(value Vector2)
+	Get_StartPoint() Vector2
+	Put_StartPoint(value Vector2)
 }
 
 type ICompositionLinearGradientBrushVtbl struct {
@@ -2896,27 +2896,27 @@ func (this *ICompositionLinearGradientBrush) Vtbl() *ICompositionLinearGradientB
 	return (*ICompositionLinearGradientBrushVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionLinearGradientBrush) Get_EndPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionLinearGradientBrush) Get_EndPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EndPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionLinearGradientBrush) Put_EndPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EndPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionLinearGradientBrush) Put_EndPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EndPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionLinearGradientBrush) Get_StartPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionLinearGradientBrush) Get_StartPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_StartPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionLinearGradientBrush) Put_StartPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_StartPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionLinearGradientBrush) Put_StartPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_StartPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -3439,33 +3439,6 @@ func (this *ICompositionObject4) TryGetAnimationController(propertyName string) 
 	return _result
 }
 
-// 1D7F391B-A130-5265-A62B-60B8E668965A
-var IID_ICompositionObject5 = syscall.GUID{0x1D7F391B, 0xA130, 0x5265,
-	[8]byte{0xA6, 0x2B, 0x60, 0xB8, 0xE6, 0x68, 0x96, 0x5A}}
-
-type ICompositionObject5Interface interface {
-	win32.IInspectableInterface
-	StartAnimationWithController(propertyName string, animation *ICompositionAnimation, animationController *IAnimationController)
-}
-
-type ICompositionObject5Vtbl struct {
-	win32.IInspectableVtbl
-	StartAnimationWithController uintptr
-}
-
-type ICompositionObject5 struct {
-	win32.IInspectable
-}
-
-func (this *ICompositionObject5) Vtbl() *ICompositionObject5Vtbl {
-	return (*ICompositionObject5Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICompositionObject5) StartAnimationWithController(propertyName string, animation *ICompositionAnimation, animationController *IAnimationController) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().StartAnimationWithController, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(animation)), uintptr(unsafe.Pointer(animationController)))
-	_ = _hr
-}
-
 // 51205C5E-558A-4F2A-8D39-37BFE1E20DDD
 var IID_ICompositionObjectFactory = syscall.GUID{0x51205C5E, 0x558A, 0x4F2A,
 	[8]byte{0x8D, 0x39, 0x37, 0xBF, 0xE1, 0xE2, 0x0D, 0xDD}}
@@ -3960,21 +3933,21 @@ var IID_ICompositionPropertySet = syscall.GUID{0xC9D6D202, 0x5F67, 0x4453,
 type ICompositionPropertySetInterface interface {
 	win32.IInspectableInterface
 	InsertColor(propertyName string, value unsafe.Pointer)
-	InsertMatrix3x2(propertyName string, value unsafe.Pointer)
-	InsertMatrix4x4(propertyName string, value unsafe.Pointer)
-	InsertQuaternion(propertyName string, value unsafe.Pointer)
+	InsertMatrix3x2(propertyName string, value Matrix3x2)
+	InsertMatrix4x4(propertyName string, value Matrix4x4)
+	InsertQuaternion(propertyName string, value Quaternion)
 	InsertScalar(propertyName string, value float32)
-	InsertVector2(propertyName string, value unsafe.Pointer)
-	InsertVector3(propertyName string, value unsafe.Pointer)
-	InsertVector4(propertyName string, value unsafe.Pointer)
+	InsertVector2(propertyName string, value Vector2)
+	InsertVector3(propertyName string, value Vector3)
+	InsertVector4(propertyName string, value Vector4)
 	TryGetColor(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
-	TryGetMatrix3x2(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
-	TryGetMatrix4x4(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
-	TryGetQuaternion(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
+	TryGetMatrix3x2(propertyName string, value Matrix3x2) CompositionGetValueStatus
+	TryGetMatrix4x4(propertyName string, value Matrix4x4) CompositionGetValueStatus
+	TryGetQuaternion(propertyName string, value Quaternion) CompositionGetValueStatus
 	TryGetScalar(propertyName string, value float32) CompositionGetValueStatus
-	TryGetVector2(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
-	TryGetVector3(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
-	TryGetVector4(propertyName string, value unsafe.Pointer) CompositionGetValueStatus
+	TryGetVector2(propertyName string, value Vector2) CompositionGetValueStatus
+	TryGetVector3(propertyName string, value Vector3) CompositionGetValueStatus
+	TryGetVector4(propertyName string, value Vector4) CompositionGetValueStatus
 }
 
 type ICompositionPropertySetVtbl struct {
@@ -4010,18 +3983,18 @@ func (this *ICompositionPropertySet) InsertColor(propertyName string, value unsa
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertMatrix3x2(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertMatrix3x2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertMatrix3x2(propertyName string, value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertMatrix3x2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertMatrix4x4(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertMatrix4x4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertMatrix4x4(propertyName string, value Matrix4x4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertMatrix4x4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertQuaternion(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertQuaternion, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertQuaternion(propertyName string, value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertQuaternion, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4030,18 +4003,18 @@ func (this *ICompositionPropertySet) InsertScalar(propertyName string, value flo
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertVector2(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertVector2(propertyName string, value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertVector3(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector3, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertVector3(propertyName string, value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector3, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionPropertySet) InsertVector4(propertyName string, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value))
+func (this *ICompositionPropertySet) InsertVector4(propertyName string, value Vector4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertVector4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4052,23 +4025,23 @@ func (this *ICompositionPropertySet) TryGetColor(propertyName string, value unsa
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetMatrix3x2(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetMatrix3x2(propertyName string, value Matrix3x2) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetMatrix3x2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetMatrix3x2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetMatrix4x4(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetMatrix4x4(propertyName string, value Matrix4x4) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetMatrix4x4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetMatrix4x4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetQuaternion(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetQuaternion(propertyName string, value Quaternion) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetQuaternion, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetQuaternion, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -4080,23 +4053,23 @@ func (this *ICompositionPropertySet) TryGetScalar(propertyName string, value flo
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetVector2(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetVector2(propertyName string, value Vector2) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector2, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, *(*uintptr)(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetVector3(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetVector3(propertyName string, value Vector3) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector3, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector3, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionPropertySet) TryGetVector4(propertyName string, value unsafe.Pointer) CompositionGetValueStatus {
+func (this *ICompositionPropertySet) TryGetVector4(propertyName string, value Vector4) CompositionGetValueStatus {
 	var _result CompositionGetValueStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetVector4, uintptr(unsafe.Pointer(this)), NewHStr(propertyName).Ptr, uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -4143,12 +4116,12 @@ var IID_ICompositionRadialGradientBrush = syscall.GUID{0x3D3B50C5, 0xE3FA, 0x4CE
 
 type ICompositionRadialGradientBrushInterface interface {
 	win32.IInspectableInterface
-	Get_EllipseCenter() unsafe.Pointer
-	Put_EllipseCenter(value unsafe.Pointer)
-	Get_EllipseRadius() unsafe.Pointer
-	Put_EllipseRadius(value unsafe.Pointer)
-	Get_GradientOriginOffset() unsafe.Pointer
-	Put_GradientOriginOffset(value unsafe.Pointer)
+	Get_EllipseCenter() Vector2
+	Put_EllipseCenter(value Vector2)
+	Get_EllipseRadius() Vector2
+	Put_EllipseRadius(value Vector2)
+	Get_GradientOriginOffset() Vector2
+	Put_GradientOriginOffset(value Vector2)
 }
 
 type ICompositionRadialGradientBrushVtbl struct {
@@ -4169,39 +4142,39 @@ func (this *ICompositionRadialGradientBrush) Vtbl() *ICompositionRadialGradientB
 	return (*ICompositionRadialGradientBrushVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionRadialGradientBrush) Get_EllipseCenter() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRadialGradientBrush) Get_EllipseCenter() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EllipseCenter, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRadialGradientBrush) Put_EllipseCenter(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EllipseCenter, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRadialGradientBrush) Put_EllipseCenter(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EllipseCenter, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionRadialGradientBrush) Get_EllipseRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRadialGradientBrush) Get_EllipseRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EllipseRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRadialGradientBrush) Put_EllipseRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EllipseRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRadialGradientBrush) Put_EllipseRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_EllipseRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionRadialGradientBrush) Get_GradientOriginOffset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRadialGradientBrush) Get_GradientOriginOffset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_GradientOriginOffset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRadialGradientBrush) Put_GradientOriginOffset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_GradientOriginOffset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRadialGradientBrush) Put_GradientOriginOffset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_GradientOriginOffset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4211,10 +4184,10 @@ var IID_ICompositionRectangleGeometry = syscall.GUID{0x0CD51428, 0x5356, 0x4246,
 
 type ICompositionRectangleGeometryInterface interface {
 	win32.IInspectableInterface
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
-	Get_Size() unsafe.Pointer
-	Put_Size(value unsafe.Pointer)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
+	Get_Size() Vector2
+	Put_Size(value Vector2)
 }
 
 type ICompositionRectangleGeometryVtbl struct {
@@ -4233,27 +4206,27 @@ func (this *ICompositionRectangleGeometry) Vtbl() *ICompositionRectangleGeometry
 	return (*ICompositionRectangleGeometryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionRectangleGeometry) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRectangleGeometry) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRectangleGeometry) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRectangleGeometry) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionRectangleGeometry) Get_Size() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRectangleGeometry) Get_Size() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Size, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRectangleGeometry) Put_Size(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRectangleGeometry) Put_Size(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4263,12 +4236,12 @@ var IID_ICompositionRoundedRectangleGeometry = syscall.GUID{0x8770C822, 0x1D50, 
 
 type ICompositionRoundedRectangleGeometryInterface interface {
 	win32.IInspectableInterface
-	Get_CornerRadius() unsafe.Pointer
-	Put_CornerRadius(value unsafe.Pointer)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
-	Get_Size() unsafe.Pointer
-	Put_Size(value unsafe.Pointer)
+	Get_CornerRadius() Vector2
+	Put_CornerRadius(value Vector2)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
+	Get_Size() Vector2
+	Put_Size(value Vector2)
 }
 
 type ICompositionRoundedRectangleGeometryVtbl struct {
@@ -4289,39 +4262,39 @@ func (this *ICompositionRoundedRectangleGeometry) Vtbl() *ICompositionRoundedRec
 	return (*ICompositionRoundedRectangleGeometryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Get_CornerRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRoundedRectangleGeometry) Get_CornerRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CornerRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Put_CornerRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CornerRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRoundedRectangleGeometry) Put_CornerRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CornerRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRoundedRectangleGeometry) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRoundedRectangleGeometry) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Get_Size() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionRoundedRectangleGeometry) Get_Size() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Size, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionRoundedRectangleGeometry) Put_Size(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionRoundedRectangleGeometry) Put_Size(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4446,18 +4419,18 @@ var IID_ICompositionShape = syscall.GUID{0xB47CE2F7, 0x9A88, 0x42C4,
 
 type ICompositionShapeInterface interface {
 	win32.IInspectableInterface
-	Get_CenterPoint() unsafe.Pointer
-	Put_CenterPoint(value unsafe.Pointer)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_CenterPoint() Vector2
+	Put_CenterPoint(value Vector2)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_TransformMatrix() unsafe.Pointer
-	Put_TransformMatrix(value unsafe.Pointer)
+	Get_Scale() Vector2
+	Put_Scale(value Vector2)
+	Get_TransformMatrix() Matrix3x2
+	Put_TransformMatrix(value Matrix3x2)
 }
 
 type ICompositionShapeVtbl struct {
@@ -4484,27 +4457,27 @@ func (this *ICompositionShape) Vtbl() *ICompositionShapeVtbl {
 	return (*ICompositionShapeVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionShape) Get_CenterPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionShape) Get_CenterPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionShape) Put_CenterPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionShape) Put_CenterPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionShape) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionShape) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionShape) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionShape) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4532,27 +4505,27 @@ func (this *ICompositionShape) Put_RotationAngleInDegrees(value float32) {
 	_ = _hr
 }
 
-func (this *ICompositionShape) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionShape) Get_Scale() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionShape) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionShape) Put_Scale(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionShape) Get_TransformMatrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionShape) Get_TransformMatrix() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionShape) Put_TransformMatrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionShape) Put_TransformMatrix(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -4785,43 +4758,6 @@ func (this *ICompositionSpriteShape) Put_StrokeThickness(value float32) {
 	_ = _hr
 }
 
-// 397DAFE4-B6C2-5BB9-951D-F5707DE8B7BC
-var IID_ICompositionSupportsSystemBackdrop = syscall.GUID{0x397DAFE4, 0xB6C2, 0x5BB9,
-	[8]byte{0x95, 0x1D, 0xF5, 0x70, 0x7D, 0xE8, 0xB7, 0xBC}}
-
-type ICompositionSupportsSystemBackdropInterface interface {
-	win32.IInspectableInterface
-	Get_SystemBackdrop() *ICompositionBrush
-	Put_SystemBackdrop(value *ICompositionBrush)
-}
-
-type ICompositionSupportsSystemBackdropVtbl struct {
-	win32.IInspectableVtbl
-	Get_SystemBackdrop uintptr
-	Put_SystemBackdrop uintptr
-}
-
-type ICompositionSupportsSystemBackdrop struct {
-	win32.IInspectable
-}
-
-func (this *ICompositionSupportsSystemBackdrop) Vtbl() *ICompositionSupportsSystemBackdropVtbl {
-	return (*ICompositionSupportsSystemBackdropVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICompositionSupportsSystemBackdrop) Get_SystemBackdrop() *ICompositionBrush {
-	var _result *ICompositionBrush
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SystemBackdrop, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICompositionSupportsSystemBackdrop) Put_SystemBackdrop(value *ICompositionBrush) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SystemBackdrop, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
 // 1527540D-42C7-47A6-A408-668F79A90DFB
 var IID_ICompositionSurface = syscall.GUID{0x1527540D, 0x42C7, 0x47A6,
 	[8]byte{0xA4, 0x08, 0x66, 0x8F, 0x79, 0xA9, 0x0D, 0xFB}}
@@ -4949,20 +4885,20 @@ var IID_ICompositionSurfaceBrush2 = syscall.GUID{0xD27174D5, 0x64F5, 0x4692,
 
 type ICompositionSurfaceBrush2Interface interface {
 	win32.IInspectableInterface
-	Get_AnchorPoint() unsafe.Pointer
-	Put_AnchorPoint(value unsafe.Pointer)
-	Get_CenterPoint() unsafe.Pointer
-	Put_CenterPoint(value unsafe.Pointer)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_AnchorPoint() Vector2
+	Put_AnchorPoint(value Vector2)
+	Get_CenterPoint() Vector2
+	Put_CenterPoint(value Vector2)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_TransformMatrix() unsafe.Pointer
-	Put_TransformMatrix(value unsafe.Pointer)
+	Get_Scale() Vector2
+	Put_Scale(value Vector2)
+	Get_TransformMatrix() Matrix3x2
+	Put_TransformMatrix(value Matrix3x2)
 }
 
 type ICompositionSurfaceBrush2Vtbl struct {
@@ -4991,39 +4927,39 @@ func (this *ICompositionSurfaceBrush2) Vtbl() *ICompositionSurfaceBrush2Vtbl {
 	return (*ICompositionSurfaceBrush2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICompositionSurfaceBrush2) Get_AnchorPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionSurfaceBrush2) Get_AnchorPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionSurfaceBrush2) Put_AnchorPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionSurfaceBrush2) Put_AnchorPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionSurfaceBrush2) Get_CenterPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionSurfaceBrush2) Get_CenterPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionSurfaceBrush2) Put_CenterPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionSurfaceBrush2) Put_CenterPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionSurfaceBrush2) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionSurfaceBrush2) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionSurfaceBrush2) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionSurfaceBrush2) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -5051,27 +4987,27 @@ func (this *ICompositionSurfaceBrush2) Put_RotationAngleInDegrees(value float32)
 	_ = _hr
 }
 
-func (this *ICompositionSurfaceBrush2) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionSurfaceBrush2) Get_Scale() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionSurfaceBrush2) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionSurfaceBrush2) Put_Scale(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionSurfaceBrush2) Get_TransformMatrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionSurfaceBrush2) Get_TransformMatrix() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionSurfaceBrush2) Put_TransformMatrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionSurfaceBrush2) Put_TransformMatrix(value Matrix3x2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -5246,10 +5182,10 @@ type ICompositionViewBoxInterface interface {
 	win32.IInspectableInterface
 	Get_HorizontalAlignmentRatio() float32
 	Put_HorizontalAlignmentRatio(value float32)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
-	Get_Size() unsafe.Pointer
-	Put_Size(value unsafe.Pointer)
+	Get_Offset() Vector2
+	Put_Offset(value Vector2)
+	Get_Size() Vector2
+	Put_Size(value Vector2)
 	Get_Stretch() CompositionStretch
 	Put_Stretch(value CompositionStretch)
 	Get_VerticalAlignmentRatio() float32
@@ -5290,27 +5226,27 @@ func (this *ICompositionViewBox) Put_HorizontalAlignmentRatio(value float32) {
 	_ = _hr
 }
 
-func (this *ICompositionViewBox) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionViewBox) Get_Offset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionViewBox) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionViewBox) Put_Offset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionViewBox) Get_Size() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionViewBox) Get_Size() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Size, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionViewBox) Put_Size(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionViewBox) Put_Size(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -5393,10 +5329,10 @@ type ICompositionVisualSurfaceInterface interface {
 	win32.IInspectableInterface
 	Get_SourceVisual() *IVisual
 	Put_SourceVisual(value *IVisual)
-	Get_SourceOffset() unsafe.Pointer
-	Put_SourceOffset(value unsafe.Pointer)
-	Get_SourceSize() unsafe.Pointer
-	Put_SourceSize(value unsafe.Pointer)
+	Get_SourceOffset() Vector2
+	Put_SourceOffset(value Vector2)
+	Get_SourceSize() Vector2
+	Put_SourceSize(value Vector2)
 }
 
 type ICompositionVisualSurfaceVtbl struct {
@@ -5430,27 +5366,27 @@ func (this *ICompositionVisualSurface) Put_SourceVisual(value *IVisual) {
 	_ = _hr
 }
 
-func (this *ICompositionVisualSurface) Get_SourceOffset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionVisualSurface) Get_SourceOffset() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SourceOffset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionVisualSurface) Put_SourceOffset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SourceOffset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionVisualSurface) Put_SourceOffset(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SourceOffset, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ICompositionVisualSurface) Get_SourceSize() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICompositionVisualSurface) Get_SourceSize() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SourceSize, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICompositionVisualSurface) Put_SourceSize(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SourceSize, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ICompositionVisualSurface) Put_SourceSize(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SourceSize, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -5464,7 +5400,7 @@ type ICompositorInterface interface {
 	CreateColorBrush() *ICompositionColorBrush
 	CreateColorBrushWithColor(color unsafe.Pointer) *ICompositionColorBrush
 	CreateContainerVisual() *IContainerVisual
-	CreateCubicBezierEasingFunction(controlPoint1 unsafe.Pointer, controlPoint2 unsafe.Pointer) *ICubicBezierEasingFunction
+	CreateCubicBezierEasingFunction(controlPoint1 Vector2, controlPoint2 Vector2) *ICubicBezierEasingFunction
 	CreateEffectFactory(graphicsEffect unsafe.Pointer) *ICompositionEffectFactory
 	CreateEffectFactoryWithProperties(graphicsEffect unsafe.Pointer, animatableProperties *IIterable[string]) *ICompositionEffectFactory
 	CreateExpressionAnimation() *IExpressionAnimation
@@ -5554,9 +5490,9 @@ func (this *ICompositor) CreateContainerVisual() *IContainerVisual {
 	return _result
 }
 
-func (this *ICompositor) CreateCubicBezierEasingFunction(controlPoint1 unsafe.Pointer, controlPoint2 unsafe.Pointer) *ICubicBezierEasingFunction {
+func (this *ICompositor) CreateCubicBezierEasingFunction(controlPoint1 Vector2, controlPoint2 Vector2) *ICubicBezierEasingFunction {
 	var _result *ICubicBezierEasingFunction
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateCubicBezierEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(controlPoint1), uintptr(controlPoint2), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateCubicBezierEasingFunction, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&controlPoint1)), *(*uintptr)(unsafe.Pointer(&controlPoint2)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -6266,7 +6202,7 @@ type ICompositor7Interface interface {
 	CreateAnimationPropertyInfo() *IAnimationPropertyInfo
 	CreateRectangleClip() *IRectangleClip
 	CreateRectangleClipWithSides(left float32, top float32, right float32, bottom float32) *IRectangleClip
-	CreateRectangleClipWithSidesAndRadius(left float32, top float32, right float32, bottom float32, topLeftRadius unsafe.Pointer, topRightRadius unsafe.Pointer, bottomRightRadius unsafe.Pointer, bottomLeftRadius unsafe.Pointer) *IRectangleClip
+	CreateRectangleClipWithSidesAndRadius(left float32, top float32, right float32, bottom float32, topLeftRadius Vector2, topRightRadius Vector2, bottomRightRadius Vector2, bottomLeftRadius Vector2) *IRectangleClip
 }
 
 type ICompositor7Vtbl struct {
@@ -6318,39 +6254,9 @@ func (this *ICompositor7) CreateRectangleClipWithSides(left float32, top float32
 	return _result
 }
 
-func (this *ICompositor7) CreateRectangleClipWithSidesAndRadius(left float32, top float32, right float32, bottom float32, topLeftRadius unsafe.Pointer, topRightRadius unsafe.Pointer, bottomRightRadius unsafe.Pointer, bottomLeftRadius unsafe.Pointer) *IRectangleClip {
+func (this *ICompositor7) CreateRectangleClipWithSidesAndRadius(left float32, top float32, right float32, bottom float32, topLeftRadius Vector2, topRightRadius Vector2, bottomRightRadius Vector2, bottomLeftRadius Vector2) *IRectangleClip {
 	var _result *IRectangleClip
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateRectangleClipWithSidesAndRadius, uintptr(unsafe.Pointer(this)), uintptr(left), uintptr(top), uintptr(right), uintptr(bottom), uintptr(topLeftRadius), uintptr(topRightRadius), uintptr(bottomRightRadius), uintptr(bottomLeftRadius), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 9A0BDEE2-FE7B-5F62-A366-9CF8EFFE2112
-var IID_ICompositor8 = syscall.GUID{0x9A0BDEE2, 0xFE7B, 0x5F62,
-	[8]byte{0xA3, 0x66, 0x9C, 0xF8, 0xEF, 0xFE, 0x21, 0x12}}
-
-type ICompositor8Interface interface {
-	win32.IInspectableInterface
-	CreateAnimationController() *IAnimationController
-}
-
-type ICompositor8Vtbl struct {
-	win32.IInspectableVtbl
-	CreateAnimationController uintptr
-}
-
-type ICompositor8 struct {
-	win32.IInspectable
-}
-
-func (this *ICompositor8) Vtbl() *ICompositor8Vtbl {
-	return (*ICompositor8Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICompositor8) CreateAnimationController() *IAnimationController {
-	var _result *IAnimationController
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAnimationController, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateRectangleClipWithSidesAndRadius, uintptr(unsafe.Pointer(this)), uintptr(left), uintptr(top), uintptr(right), uintptr(bottom), *(*uintptr)(unsafe.Pointer(&topLeftRadius)), *(*uintptr)(unsafe.Pointer(&topRightRadius)), *(*uintptr)(unsafe.Pointer(&bottomRightRadius)), *(*uintptr)(unsafe.Pointer(&bottomLeftRadius)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -6391,36 +6297,6 @@ func (this *ICompositorStatics) Get_MinGlobalPlaybackRate() float32 {
 	var _result float32
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MinGlobalPlaybackRate, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
-	return _result
-}
-
-// 0D8FB190-F122-5B8D-9FDD-543B0D8EB7F3
-var IID_ICompositorWithBlurredWallpaperBackdropBrush = syscall.GUID{0x0D8FB190, 0xF122, 0x5B8D,
-	[8]byte{0x9F, 0xDD, 0x54, 0x3B, 0x0D, 0x8E, 0xB7, 0xF3}}
-
-type ICompositorWithBlurredWallpaperBackdropBrushInterface interface {
-	win32.IInspectableInterface
-	TryCreateBlurredWallpaperBackdropBrush() *ICompositionBackdropBrush
-}
-
-type ICompositorWithBlurredWallpaperBackdropBrushVtbl struct {
-	win32.IInspectableVtbl
-	TryCreateBlurredWallpaperBackdropBrush uintptr
-}
-
-type ICompositorWithBlurredWallpaperBackdropBrush struct {
-	win32.IInspectable
-}
-
-func (this *ICompositorWithBlurredWallpaperBackdropBrush) Vtbl() *ICompositorWithBlurredWallpaperBackdropBrushVtbl {
-	return (*ICompositorWithBlurredWallpaperBackdropBrushVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICompositorWithBlurredWallpaperBackdropBrush) TryCreateBlurredWallpaperBackdropBrush() *ICompositionBackdropBrush {
-	var _result *ICompositionBackdropBrush
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryCreateBlurredWallpaperBackdropBrush, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
 	return _result
 }
 
@@ -6590,8 +6466,8 @@ var IID_ICubicBezierEasingFunction = syscall.GUID{0x32350666, 0xC1E8, 0x44F9,
 
 type ICubicBezierEasingFunctionInterface interface {
 	win32.IInspectableInterface
-	Get_ControlPoint1() unsafe.Pointer
-	Get_ControlPoint2() unsafe.Pointer
+	Get_ControlPoint1() Vector2
+	Get_ControlPoint2() Vector2
 }
 
 type ICubicBezierEasingFunctionVtbl struct {
@@ -6608,15 +6484,15 @@ func (this *ICubicBezierEasingFunction) Vtbl() *ICubicBezierEasingFunctionVtbl {
 	return (*ICubicBezierEasingFunctionVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICubicBezierEasingFunction) Get_ControlPoint1() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICubicBezierEasingFunction) Get_ControlPoint1() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ControlPoint1, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICubicBezierEasingFunction) Get_ControlPoint2() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICubicBezierEasingFunction) Get_ControlPoint2() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ControlPoint2, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -6724,8 +6600,8 @@ type IDistantLightInterface interface {
 	Put_Color(value unsafe.Pointer)
 	Get_CoordinateSpace() *IVisual
 	Put_CoordinateSpace(value *IVisual)
-	Get_Direction() unsafe.Pointer
-	Put_Direction(value unsafe.Pointer)
+	Get_Direction() Vector3
+	Put_Direction(value Vector3)
 }
 
 type IDistantLightVtbl struct {
@@ -6771,15 +6647,15 @@ func (this *IDistantLight) Put_CoordinateSpace(value *IVisual) {
 	_ = _hr
 }
 
-func (this *IDistantLight) Get_Direction() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IDistantLight) Get_Direction() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IDistantLight) Put_Direction(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IDistantLight) Put_Direction(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -6831,8 +6707,8 @@ type IDropShadowInterface interface {
 	Put_Color(value unsafe.Pointer)
 	Get_Mask() *ICompositionBrush
 	Put_Mask(value *ICompositionBrush)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_Offset() Vector3
+	Put_Offset(value Vector3)
 	Get_Opacity() float32
 	Put_Opacity(value float32)
 }
@@ -6896,15 +6772,15 @@ func (this *IDropShadow) Put_Mask(value *ICompositionBrush) {
 	_ = _hr
 }
 
-func (this *IDropShadow) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IDropShadow) Get_Offset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IDropShadow) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IDropShadow) Put_Offset(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -7626,8 +7502,8 @@ type IPointLightInterface interface {
 	Put_CoordinateSpace(value *IVisual)
 	Get_LinearAttenuation() float32
 	Put_LinearAttenuation(value float32)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_Offset() Vector3
+	Put_Offset(value Vector3)
 	Get_QuadraticAttenuation() float32
 	Put_QuadraticAttenuation(value float32)
 }
@@ -7705,15 +7581,15 @@ func (this *IPointLight) Put_LinearAttenuation(value float32) {
 	_ = _hr
 }
 
-func (this *IPointLight) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IPointLight) Get_Offset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IPointLight) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IPointLight) Put_Offset(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -7861,8 +7737,8 @@ var IID_IQuaternionKeyFrameAnimation = syscall.GUID{0x404E5835, 0xECF6, 0x4240,
 
 type IQuaternionKeyFrameAnimationInterface interface {
 	win32.IInspectableInterface
-	InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer)
-	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction)
+	InsertKeyFrame(normalizedProgressKey float32, value Quaternion)
+	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Quaternion, easingFunction *ICompositionEasingFunction)
 }
 
 type IQuaternionKeyFrameAnimationVtbl struct {
@@ -7879,13 +7755,13 @@ func (this *IQuaternionKeyFrameAnimation) Vtbl() *IQuaternionKeyFrameAnimationVt
 	return (*IQuaternionKeyFrameAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IQuaternionKeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value))
+func (this *IQuaternionKeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IQuaternionKeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value), uintptr(unsafe.Pointer(easingFunction)))
+func (this *IQuaternionKeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Quaternion, easingFunction *ICompositionEasingFunction) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(easingFunction)))
 	_ = _hr
 }
 
@@ -7897,20 +7773,20 @@ type IRectangleClipInterface interface {
 	win32.IInspectableInterface
 	Get_Bottom() float32
 	Put_Bottom(value float32)
-	Get_BottomLeftRadius() unsafe.Pointer
-	Put_BottomLeftRadius(value unsafe.Pointer)
-	Get_BottomRightRadius() unsafe.Pointer
-	Put_BottomRightRadius(value unsafe.Pointer)
+	Get_BottomLeftRadius() Vector2
+	Put_BottomLeftRadius(value Vector2)
+	Get_BottomRightRadius() Vector2
+	Put_BottomRightRadius(value Vector2)
 	Get_Left() float32
 	Put_Left(value float32)
 	Get_Right() float32
 	Put_Right(value float32)
 	Get_Top() float32
 	Put_Top(value float32)
-	Get_TopLeftRadius() unsafe.Pointer
-	Put_TopLeftRadius(value unsafe.Pointer)
-	Get_TopRightRadius() unsafe.Pointer
-	Put_TopRightRadius(value unsafe.Pointer)
+	Get_TopLeftRadius() Vector2
+	Put_TopLeftRadius(value Vector2)
+	Get_TopRightRadius() Vector2
+	Put_TopRightRadius(value Vector2)
 }
 
 type IRectangleClipVtbl struct {
@@ -7953,27 +7829,27 @@ func (this *IRectangleClip) Put_Bottom(value float32) {
 	_ = _hr
 }
 
-func (this *IRectangleClip) Get_BottomLeftRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IRectangleClip) Get_BottomLeftRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_BottomLeftRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IRectangleClip) Put_BottomLeftRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BottomLeftRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IRectangleClip) Put_BottomLeftRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BottomLeftRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IRectangleClip) Get_BottomRightRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IRectangleClip) Get_BottomRightRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_BottomRightRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IRectangleClip) Put_BottomRightRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BottomRightRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IRectangleClip) Put_BottomRightRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_BottomRightRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -8013,27 +7889,27 @@ func (this *IRectangleClip) Put_Top(value float32) {
 	_ = _hr
 }
 
-func (this *IRectangleClip) Get_TopLeftRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IRectangleClip) Get_TopLeftRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TopLeftRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IRectangleClip) Put_TopLeftRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TopLeftRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IRectangleClip) Put_TopLeftRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TopLeftRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IRectangleClip) Get_TopRightRadius() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IRectangleClip) Get_TopRightRadius() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TopRightRadius, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IRectangleClip) Put_TopRightRadius(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TopRightRadius, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IRectangleClip) Put_TopRightRadius(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TopRightRadius, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -8314,8 +8190,8 @@ type ISpotLightInterface interface {
 	Put_ConstantAttenuation(value float32)
 	Get_CoordinateSpace() *IVisual
 	Put_CoordinateSpace(value *IVisual)
-	Get_Direction() unsafe.Pointer
-	Put_Direction(value unsafe.Pointer)
+	Get_Direction() Vector3
+	Put_Direction(value Vector3)
 	Get_InnerConeAngle() float32
 	Put_InnerConeAngle(value float32)
 	Get_InnerConeAngleInDegrees() float32
@@ -8324,8 +8200,8 @@ type ISpotLightInterface interface {
 	Put_InnerConeColor(value unsafe.Pointer)
 	Get_LinearAttenuation() float32
 	Put_LinearAttenuation(value float32)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_Offset() Vector3
+	Put_Offset(value Vector3)
 	Get_OuterConeAngle() float32
 	Put_OuterConeAngle(value float32)
 	Get_OuterConeAngleInDegrees() float32
@@ -8397,15 +8273,15 @@ func (this *ISpotLight) Put_CoordinateSpace(value *IVisual) {
 	_ = _hr
 }
 
-func (this *ISpotLight) Get_Direction() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpotLight) Get_Direction() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpotLight) Put_Direction(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISpotLight) Put_Direction(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Direction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -8457,15 +8333,15 @@ func (this *ISpotLight) Put_LinearAttenuation(value float32) {
 	_ = _hr
 }
 
-func (this *ISpotLight) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpotLight) Get_Offset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpotLight) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISpotLight) Put_Offset(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -8957,8 +8833,8 @@ var IID_IVector2KeyFrameAnimation = syscall.GUID{0xDF414515, 0x4E29, 0x4F11,
 
 type IVector2KeyFrameAnimationInterface interface {
 	win32.IInspectableInterface
-	InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer)
-	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction)
+	InsertKeyFrame(normalizedProgressKey float32, value Vector2)
+	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector2, easingFunction *ICompositionEasingFunction)
 }
 
 type IVector2KeyFrameAnimationVtbl struct {
@@ -8975,13 +8851,13 @@ func (this *IVector2KeyFrameAnimation) Vtbl() *IVector2KeyFrameAnimationVtbl {
 	return (*IVector2KeyFrameAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVector2KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value))
+func (this *IVector2KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVector2KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value), uintptr(unsafe.Pointer(easingFunction)))
+func (this *IVector2KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector2, easingFunction *ICompositionEasingFunction) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), *(*uintptr)(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(easingFunction)))
 	_ = _hr
 }
 
@@ -8991,12 +8867,12 @@ var IID_IVector2NaturalMotionAnimation = syscall.GUID{0x0F3E0B7D, 0xE512, 0x479D
 
 type IVector2NaturalMotionAnimationInterface interface {
 	win32.IInspectableInterface
-	Get_FinalValue() *IReference[unsafe.Pointer]
-	Put_FinalValue(value *IReference[unsafe.Pointer])
-	Get_InitialValue() *IReference[unsafe.Pointer]
-	Put_InitialValue(value *IReference[unsafe.Pointer])
-	Get_InitialVelocity() unsafe.Pointer
-	Put_InitialVelocity(value unsafe.Pointer)
+	Get_FinalValue() *IReference[Vector2]
+	Put_FinalValue(value *IReference[Vector2])
+	Get_InitialValue() *IReference[Vector2]
+	Put_InitialValue(value *IReference[Vector2])
+	Get_InitialVelocity() Vector2
+	Put_InitialVelocity(value Vector2)
 }
 
 type IVector2NaturalMotionAnimationVtbl struct {
@@ -9017,41 +8893,41 @@ func (this *IVector2NaturalMotionAnimation) Vtbl() *IVector2NaturalMotionAnimati
 	return (*IVector2NaturalMotionAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVector2NaturalMotionAnimation) Get_FinalValue() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IVector2NaturalMotionAnimation) Get_FinalValue() *IReference[Vector2] {
+	var _result *IReference[Vector2]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_FinalValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IVector2NaturalMotionAnimation) Put_FinalValue(value *IReference[unsafe.Pointer]) {
+func (this *IVector2NaturalMotionAnimation) Put_FinalValue(value *IReference[Vector2]) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_FinalValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
 	_ = _hr
 }
 
-func (this *IVector2NaturalMotionAnimation) Get_InitialValue() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IVector2NaturalMotionAnimation) Get_InitialValue() *IReference[Vector2] {
+	var _result *IReference[Vector2]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InitialValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IVector2NaturalMotionAnimation) Put_InitialValue(value *IReference[unsafe.Pointer]) {
+func (this *IVector2NaturalMotionAnimation) Put_InitialValue(value *IReference[Vector2]) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
 	_ = _hr
 }
 
-func (this *IVector2NaturalMotionAnimation) Get_InitialVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVector2NaturalMotionAnimation) Get_InitialVelocity() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InitialVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVector2NaturalMotionAnimation) Put_InitialVelocity(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialVelocity, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVector2NaturalMotionAnimation) Put_InitialVelocity(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialVelocity, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9081,8 +8957,8 @@ var IID_IVector3KeyFrameAnimation = syscall.GUID{0xC8039DAA, 0xA281, 0x43C2,
 
 type IVector3KeyFrameAnimationInterface interface {
 	win32.IInspectableInterface
-	InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer)
-	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction)
+	InsertKeyFrame(normalizedProgressKey float32, value Vector3)
+	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector3, easingFunction *ICompositionEasingFunction)
 }
 
 type IVector3KeyFrameAnimationVtbl struct {
@@ -9099,13 +8975,13 @@ func (this *IVector3KeyFrameAnimation) Vtbl() *IVector3KeyFrameAnimationVtbl {
 	return (*IVector3KeyFrameAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVector3KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value))
+func (this *IVector3KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVector3KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value), uintptr(unsafe.Pointer(easingFunction)))
+func (this *IVector3KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector3, easingFunction *ICompositionEasingFunction) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(easingFunction)))
 	_ = _hr
 }
 
@@ -9115,12 +8991,12 @@ var IID_IVector3NaturalMotionAnimation = syscall.GUID{0x9C17042C, 0xE2CA, 0x45AD
 
 type IVector3NaturalMotionAnimationInterface interface {
 	win32.IInspectableInterface
-	Get_FinalValue() *IReference[unsafe.Pointer]
-	Put_FinalValue(value *IReference[unsafe.Pointer])
-	Get_InitialValue() *IReference[unsafe.Pointer]
-	Put_InitialValue(value *IReference[unsafe.Pointer])
-	Get_InitialVelocity() unsafe.Pointer
-	Put_InitialVelocity(value unsafe.Pointer)
+	Get_FinalValue() *IReference[Vector3]
+	Put_FinalValue(value *IReference[Vector3])
+	Get_InitialValue() *IReference[Vector3]
+	Put_InitialValue(value *IReference[Vector3])
+	Get_InitialVelocity() Vector3
+	Put_InitialVelocity(value Vector3)
 }
 
 type IVector3NaturalMotionAnimationVtbl struct {
@@ -9141,41 +9017,41 @@ func (this *IVector3NaturalMotionAnimation) Vtbl() *IVector3NaturalMotionAnimati
 	return (*IVector3NaturalMotionAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVector3NaturalMotionAnimation) Get_FinalValue() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IVector3NaturalMotionAnimation) Get_FinalValue() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_FinalValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IVector3NaturalMotionAnimation) Put_FinalValue(value *IReference[unsafe.Pointer]) {
+func (this *IVector3NaturalMotionAnimation) Put_FinalValue(value *IReference[Vector3]) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_FinalValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
 	_ = _hr
 }
 
-func (this *IVector3NaturalMotionAnimation) Get_InitialValue() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IVector3NaturalMotionAnimation) Get_InitialValue() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InitialValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IVector3NaturalMotionAnimation) Put_InitialValue(value *IReference[unsafe.Pointer]) {
+func (this *IVector3NaturalMotionAnimation) Put_InitialValue(value *IReference[Vector3]) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialValue, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
 	_ = _hr
 }
 
-func (this *IVector3NaturalMotionAnimation) Get_InitialVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVector3NaturalMotionAnimation) Get_InitialVelocity() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InitialVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVector3NaturalMotionAnimation) Put_InitialVelocity(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialVelocity, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVector3NaturalMotionAnimation) Put_InitialVelocity(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InitialVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9205,8 +9081,8 @@ var IID_IVector4KeyFrameAnimation = syscall.GUID{0x2457945B, 0xADDD, 0x4385,
 
 type IVector4KeyFrameAnimationInterface interface {
 	win32.IInspectableInterface
-	InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer)
-	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction)
+	InsertKeyFrame(normalizedProgressKey float32, value Vector4)
+	InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector4, easingFunction *ICompositionEasingFunction)
 }
 
 type IVector4KeyFrameAnimationVtbl struct {
@@ -9223,13 +9099,13 @@ func (this *IVector4KeyFrameAnimation) Vtbl() *IVector4KeyFrameAnimationVtbl {
 	return (*IVector4KeyFrameAnimationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVector4KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value))
+func (this *IVector4KeyFrameAnimation) InsertKeyFrame(normalizedProgressKey float32, value Vector4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrame, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVector4KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value unsafe.Pointer, easingFunction *ICompositionEasingFunction) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(value), uintptr(unsafe.Pointer(easingFunction)))
+func (this *IVector4KeyFrameAnimation) InsertKeyFrameWithEasingFunction(normalizedProgressKey float32, value Vector4, easingFunction *ICompositionEasingFunction) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().InsertKeyFrameWithEasingFunction, uintptr(unsafe.Pointer(this)), uintptr(normalizedProgressKey), uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(easingFunction)))
 	_ = _hr
 }
 
@@ -9239,39 +9115,39 @@ var IID_IVisual = syscall.GUID{0x117E202D, 0xA859, 0x4C89,
 
 type IVisualInterface interface {
 	win32.IInspectableInterface
-	Get_AnchorPoint() unsafe.Pointer
-	Put_AnchorPoint(value unsafe.Pointer)
+	Get_AnchorPoint() Vector2
+	Put_AnchorPoint(value Vector2)
 	Get_BackfaceVisibility() CompositionBackfaceVisibility
 	Put_BackfaceVisibility(value CompositionBackfaceVisibility)
 	Get_BorderMode() CompositionBorderMode
 	Put_BorderMode(value CompositionBorderMode)
-	Get_CenterPoint() unsafe.Pointer
-	Put_CenterPoint(value unsafe.Pointer)
+	Get_CenterPoint() Vector3
+	Put_CenterPoint(value Vector3)
 	Get_Clip() *ICompositionClip
 	Put_Clip(value *ICompositionClip)
 	Get_CompositeMode() CompositionCompositeMode
 	Put_CompositeMode(value CompositionCompositeMode)
 	Get_IsVisible() bool
 	Put_IsVisible(value bool)
-	Get_Offset() unsafe.Pointer
-	Put_Offset(value unsafe.Pointer)
+	Get_Offset() Vector3
+	Put_Offset(value Vector3)
 	Get_Opacity() float32
 	Put_Opacity(value float32)
-	Get_Orientation() unsafe.Pointer
-	Put_Orientation(value unsafe.Pointer)
+	Get_Orientation() Quaternion
+	Put_Orientation(value Quaternion)
 	Get_Parent() *IContainerVisual
 	Get_RotationAngle() float32
 	Put_RotationAngle(value float32)
 	Get_RotationAngleInDegrees() float32
 	Put_RotationAngleInDegrees(value float32)
-	Get_RotationAxis() unsafe.Pointer
-	Put_RotationAxis(value unsafe.Pointer)
-	Get_Scale() unsafe.Pointer
-	Put_Scale(value unsafe.Pointer)
-	Get_Size() unsafe.Pointer
-	Put_Size(value unsafe.Pointer)
-	Get_TransformMatrix() unsafe.Pointer
-	Put_TransformMatrix(value unsafe.Pointer)
+	Get_RotationAxis() Vector3
+	Put_RotationAxis(value Vector3)
+	Get_Scale() Vector3
+	Put_Scale(value Vector3)
+	Get_Size() Vector2
+	Put_Size(value Vector2)
+	Get_TransformMatrix() Matrix4x4
+	Put_TransformMatrix(value Matrix4x4)
 }
 
 type IVisualVtbl struct {
@@ -9319,15 +9195,15 @@ func (this *IVisual) Vtbl() *IVisualVtbl {
 	return (*IVisualVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVisual) Get_AnchorPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_AnchorPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_AnchorPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_AnchorPoint(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_AnchorPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9355,15 +9231,15 @@ func (this *IVisual) Put_BorderMode(value CompositionBorderMode) {
 	_ = _hr
 }
 
-func (this *IVisual) Get_CenterPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_CenterPoint() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_CenterPoint(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_CenterPoint(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_CenterPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9404,15 +9280,15 @@ func (this *IVisual) Put_IsVisible(value bool) {
 	_ = _hr
 }
 
-func (this *IVisual) Get_Offset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_Offset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_Offset(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_Offset(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Offset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9428,15 +9304,15 @@ func (this *IVisual) Put_Opacity(value float32) {
 	_ = _hr
 }
 
-func (this *IVisual) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_Orientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_Orientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9472,51 +9348,51 @@ func (this *IVisual) Put_RotationAngleInDegrees(value float32) {
 	_ = _hr
 }
 
-func (this *IVisual) Get_RotationAxis() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_RotationAxis() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_RotationAxis(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_RotationAxis(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RotationAxis, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVisual) Get_Scale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_Scale() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_Scale(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_Scale(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Scale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVisual) Get_Size() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_Size() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Size, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_Size(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_Size(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Size, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVisual) Get_TransformMatrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual) Get_TransformMatrix() Matrix4x4 {
+	var _result Matrix4x4
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual) Put_TransformMatrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual) Put_TransformMatrix(value Matrix4x4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_TransformMatrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -9528,10 +9404,10 @@ type IVisual2Interface interface {
 	win32.IInspectableInterface
 	Get_ParentForTransform() *IVisual
 	Put_ParentForTransform(value *IVisual)
-	Get_RelativeOffsetAdjustment() unsafe.Pointer
-	Put_RelativeOffsetAdjustment(value unsafe.Pointer)
-	Get_RelativeSizeAdjustment() unsafe.Pointer
-	Put_RelativeSizeAdjustment(value unsafe.Pointer)
+	Get_RelativeOffsetAdjustment() Vector3
+	Put_RelativeOffsetAdjustment(value Vector3)
+	Get_RelativeSizeAdjustment() Vector2
+	Put_RelativeSizeAdjustment(value Vector2)
 }
 
 type IVisual2Vtbl struct {
@@ -9565,27 +9441,27 @@ func (this *IVisual2) Put_ParentForTransform(value *IVisual) {
 	_ = _hr
 }
 
-func (this *IVisual2) Get_RelativeOffsetAdjustment() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual2) Get_RelativeOffsetAdjustment() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RelativeOffsetAdjustment, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual2) Put_RelativeOffsetAdjustment(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeOffsetAdjustment, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual2) Put_RelativeOffsetAdjustment(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeOffsetAdjustment, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *IVisual2) Get_RelativeSizeAdjustment() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisual2) Get_RelativeSizeAdjustment() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RelativeSizeAdjustment, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisual2) Put_RelativeSizeAdjustment(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeSizeAdjustment, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVisual2) Put_RelativeSizeAdjustment(value Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeSizeAdjustment, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
 	_ = _hr
 }
 

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -49,13 +49,13 @@ type ApplicationsSettingsContract struct {
 
 // func types
 
-//61C0E185-0977-4678-B4E2-98727AFBEED9
+// 61C0E185-0977-4678-B4E2-98727AFBEED9
 type CredentialCommandCredentialDeletedHandler func(command *ICredentialCommand) com.Error
 
-//1EE6E459-1705-4A9A-B599-A0C3D6921973
+// 1EE6E459-1705-4A9A-B599-A0C3D6921973
 type WebAccountCommandInvokedHandler func(command *IWebAccountCommand, args *IWebAccountInvokedArgs) com.Error
 
-//B7DE5527-4C8F-42DD-84DA-5EC493ABDB9A
+// B7DE5527-4C8F-42DD-84DA-5EC493ABDB9A
 type WebAccountProviderCommandInvokedHandler func(command *IWebAccountProviderCommand) com.Error
 
 // interfaces
@@ -820,6 +820,15 @@ type AccountsSettingsPane struct {
 	*IAccountsSettingsPane
 }
 
+func NewIAccountsSettingsPaneStatics3() *IAccountsSettingsPaneStatics3 {
+	var p *IAccountsSettingsPaneStatics3
+	hs := NewHStr("Windows.UI.ApplicationSettings.AccountsSettingsPane")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccountsSettingsPaneStatics3, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
 func NewIAccountsSettingsPaneStatics2() *IAccountsSettingsPaneStatics2 {
 	var p *IAccountsSettingsPaneStatics2
 	hs := NewHStr("Windows.UI.ApplicationSettings.AccountsSettingsPane")
@@ -833,15 +842,6 @@ func NewIAccountsSettingsPaneStatics() *IAccountsSettingsPaneStatics {
 	var p *IAccountsSettingsPaneStatics
 	hs := NewHStr("Windows.UI.ApplicationSettings.AccountsSettingsPane")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccountsSettingsPaneStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewIAccountsSettingsPaneStatics3() *IAccountsSettingsPaneStatics3 {
-	var p *IAccountsSettingsPaneStatics3
-	hs := NewHStr("Windows.UI.ApplicationSettings.AccountsSettingsPane")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccountsSettingsPaneStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

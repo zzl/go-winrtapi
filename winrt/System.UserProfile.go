@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -979,15 +979,6 @@ type GlobalizationPreferences struct {
 	RtClass
 }
 
-func NewIGlobalizationPreferencesStatics2() *IGlobalizationPreferencesStatics2 {
-	var p *IGlobalizationPreferencesStatics2
-	hs := NewHStr("Windows.System.UserProfile.GlobalizationPreferences")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGlobalizationPreferencesStatics2, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 func NewIGlobalizationPreferencesStatics3() *IGlobalizationPreferencesStatics3 {
 	var p *IGlobalizationPreferencesStatics3
 	hs := NewHStr("Windows.System.UserProfile.GlobalizationPreferences")
@@ -1006,6 +997,15 @@ func NewIGlobalizationPreferencesStatics() *IGlobalizationPreferencesStatics {
 	return p
 }
 
+func NewIGlobalizationPreferencesStatics2() *IGlobalizationPreferencesStatics2 {
+	var p *IGlobalizationPreferencesStatics2
+	hs := NewHStr("Windows.System.UserProfile.GlobalizationPreferences")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IGlobalizationPreferencesStatics2, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
 type GlobalizationPreferencesForUser struct {
 	RtClass
 	*IGlobalizationPreferencesForUser
@@ -1015,19 +1015,19 @@ type LockScreen struct {
 	RtClass
 }
 
-func NewILockScreenStatics() *ILockScreenStatics {
-	var p *ILockScreenStatics
+func NewILockScreenImageFeedStatics() *ILockScreenImageFeedStatics {
+	var p *ILockScreenImageFeedStatics
 	hs := NewHStr("Windows.System.UserProfile.LockScreen")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILockScreenStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILockScreenImageFeedStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewILockScreenImageFeedStatics() *ILockScreenImageFeedStatics {
-	var p *ILockScreenImageFeedStatics
+func NewILockScreenStatics() *ILockScreenStatics {
+	var p *ILockScreenStatics
 	hs := NewHStr("Windows.System.UserProfile.LockScreen")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILockScreenImageFeedStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILockScreenStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

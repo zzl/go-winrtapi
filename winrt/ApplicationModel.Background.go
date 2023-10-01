@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -167,13 +167,13 @@ type BackgroundAlarmApplicationContract struct {
 
 // func types
 
-//A6C4BAC0-51F8-4C57-AC3F-156DD1680C4F
+// A6C4BAC0-51F8-4C57-AC3F-156DD1680C4F
 type BackgroundTaskCanceledEventHandler func(sender *IBackgroundTaskInstance, reason BackgroundTaskCancellationReason) com.Error
 
-//5B38E929-A086-46A7-A678-439135822BCF
+// 5B38E929-A086-46A7-A678-439135822BCF
 type BackgroundTaskCompletedEventHandler func(sender *IBackgroundTaskRegistration, args *IBackgroundTaskCompletedEventArgs) com.Error
 
-//46E0683C-8A88-4C99-804C-76897F6277A6
+// 46E0683C-8A88-4C99-804C-76897F6277A6
 type BackgroundTaskProgressEventHandler func(sender *IBackgroundTaskRegistration, args *IBackgroundTaskProgressEventArgs) com.Error
 
 // interfaces
@@ -697,54 +697,6 @@ func (this *IBackgroundExecutionManagerStatics2) RequestAccessKindAsync(requeste
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().RequestAccessKindAsync, uintptr(unsafe.Pointer(this)), uintptr(requestedAccess), NewHStr(reason).Ptr, uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
-	return _result
-}
-
-// 98A5D3F6-5A25-5B6C-9192-D77A43DFEDC4
-var IID_IBackgroundExecutionManagerStatics3 = syscall.GUID{0x98A5D3F6, 0x5A25, 0x5B6C,
-	[8]byte{0x91, 0x92, 0xD7, 0x7A, 0x43, 0xDF, 0xED, 0xC4}}
-
-type IBackgroundExecutionManagerStatics3Interface interface {
-	win32.IInspectableInterface
-	RequestAccessKindForModernStandbyAsync(requestedAccess BackgroundAccessRequestKind, reason string) *IAsyncOperation[bool]
-	GetAccessStatusForModernStandby() BackgroundAccessStatus
-	GetAccessStatusForModernStandbyForApplication(applicationId string) BackgroundAccessStatus
-}
-
-type IBackgroundExecutionManagerStatics3Vtbl struct {
-	win32.IInspectableVtbl
-	RequestAccessKindForModernStandbyAsync        uintptr
-	GetAccessStatusForModernStandby               uintptr
-	GetAccessStatusForModernStandbyForApplication uintptr
-}
-
-type IBackgroundExecutionManagerStatics3 struct {
-	win32.IInspectable
-}
-
-func (this *IBackgroundExecutionManagerStatics3) Vtbl() *IBackgroundExecutionManagerStatics3Vtbl {
-	return (*IBackgroundExecutionManagerStatics3Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IBackgroundExecutionManagerStatics3) RequestAccessKindForModernStandbyAsync(requestedAccess BackgroundAccessRequestKind, reason string) *IAsyncOperation[bool] {
-	var _result *IAsyncOperation[bool]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().RequestAccessKindForModernStandbyAsync, uintptr(unsafe.Pointer(this)), uintptr(requestedAccess), NewHStr(reason).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IBackgroundExecutionManagerStatics3) GetAccessStatusForModernStandby() BackgroundAccessStatus {
-	var _result BackgroundAccessStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetAccessStatusForModernStandby, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IBackgroundExecutionManagerStatics3) GetAccessStatusForModernStandbyForApplication(applicationId string) BackgroundAccessStatus {
-	var _result BackgroundAccessStatus
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetAccessStatusForModernStandbyForApplication, uintptr(unsafe.Pointer(this)), NewHStr(applicationId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
 	return _result
 }
 
@@ -3691,38 +3643,6 @@ func (this *IUserNotificationChangedTriggerFactory) Create(notificationKinds Not
 }
 
 // classes
-
-type BackgroundTaskBuilder struct {
-	RtClass
-	*IBackgroundTaskBuilder
-}
-
-func NewBackgroundTaskBuilder() *BackgroundTaskBuilder {
-	hs := NewHStr("Windows.ApplicationModel.Background.BackgroundTaskBuilder")
-	var p *win32.IInspectable
-	hr := win32.RoActivateInstance(hs.Ptr, &p)
-	if win32.FAILED(hr) {
-		log.Panic("?")
-	}
-	result := &BackgroundTaskBuilder{
-		RtClass:                RtClass{PInspect: p},
-		IBackgroundTaskBuilder: (*IBackgroundTaskBuilder)(unsafe.Pointer(p))}
-	com.AddToScope(result)
-	return result
-}
-
-type BackgroundWorkCost struct {
-	RtClass
-}
-
-func NewIBackgroundWorkCostStatics() *IBackgroundWorkCostStatics {
-	var p *IBackgroundWorkCostStatics
-	hs := NewHStr("Windows.ApplicationModel.Background.BackgroundWorkCost")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IBackgroundWorkCostStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
 
 type ConversationalAgentTrigger struct {
 	RtClass

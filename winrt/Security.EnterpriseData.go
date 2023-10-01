@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -1565,19 +1565,19 @@ type FileProtectionManager struct {
 	RtClass
 }
 
-func NewIFileProtectionManagerStatics2() *IFileProtectionManagerStatics2 {
-	var p *IFileProtectionManagerStatics2
+func NewIFileProtectionManagerStatics3() *IFileProtectionManagerStatics3 {
+	var p *IFileProtectionManagerStatics3
 	hs := NewHStr("Windows.Security.EnterpriseData.FileProtectionManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IFileProtectionManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IFileProtectionManagerStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIFileProtectionManagerStatics3() *IFileProtectionManagerStatics3 {
-	var p *IFileProtectionManagerStatics3
+func NewIFileProtectionManagerStatics2() *IFileProtectionManagerStatics2 {
+	var p *IFileProtectionManagerStatics2
 	hs := NewHStr("Windows.Security.EnterpriseData.FileProtectionManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IFileProtectionManagerStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IFileProtectionManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -1719,19 +1719,19 @@ func NewIProtectionPolicyManagerStatics() *IProtectionPolicyManagerStatics {
 	return p
 }
 
-func NewIProtectionPolicyManagerStatics3() *IProtectionPolicyManagerStatics3 {
-	var p *IProtectionPolicyManagerStatics3
+func NewIProtectionPolicyManagerStatics2() *IProtectionPolicyManagerStatics2 {
+	var p *IProtectionPolicyManagerStatics2
 	hs := NewHStr("Windows.Security.EnterpriseData.ProtectionPolicyManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProtectionPolicyManagerStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProtectionPolicyManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIProtectionPolicyManagerStatics2() *IProtectionPolicyManagerStatics2 {
-	var p *IProtectionPolicyManagerStatics2
+func NewIProtectionPolicyManagerStatics3() *IProtectionPolicyManagerStatics3 {
+	var p *IProtectionPolicyManagerStatics3
 	hs := NewHStr("Windows.Security.EnterpriseData.ProtectionPolicyManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProtectionPolicyManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProtectionPolicyManagerStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

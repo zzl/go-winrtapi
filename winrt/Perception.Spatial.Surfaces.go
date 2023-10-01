@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -88,7 +88,7 @@ type ISpatialSurfaceMeshInterface interface {
 	Get_CoordinateSystem() *ISpatialCoordinateSystem
 	Get_TriangleIndices() *ISpatialSurfaceMeshBuffer
 	Get_VertexPositions() *ISpatialSurfaceMeshBuffer
-	Get_VertexPositionScale() unsafe.Pointer
+	Get_VertexPositionScale() Vector3
 	Get_VertexNormals() *ISpatialSurfaceMeshBuffer
 }
 
@@ -142,8 +142,8 @@ func (this *ISpatialSurfaceMesh) Get_VertexPositions() *ISpatialSurfaceMeshBuffe
 	return _result
 }
 
-func (this *ISpatialSurfaceMesh) Get_VertexPositionScale() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialSurfaceMesh) Get_VertexPositionScale() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_VertexPositionScale, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -516,19 +516,19 @@ func NewSpatialSurfaceObserver() *SpatialSurfaceObserver {
 	return result
 }
 
-func NewISpatialSurfaceObserverStatics2() *ISpatialSurfaceObserverStatics2 {
-	var p *ISpatialSurfaceObserverStatics2
+func NewISpatialSurfaceObserverStatics() *ISpatialSurfaceObserverStatics {
+	var p *ISpatialSurfaceObserverStatics
 	hs := NewHStr("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialSurfaceObserverStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialSurfaceObserverStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewISpatialSurfaceObserverStatics() *ISpatialSurfaceObserverStatics {
-	var p *ISpatialSurfaceObserverStatics
+func NewISpatialSurfaceObserverStatics2() *ISpatialSurfaceObserverStatics2 {
+	var p *ISpatialSurfaceObserverStatics2
 	hs := NewHStr("Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialSurfaceObserverStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISpatialSurfaceObserverStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

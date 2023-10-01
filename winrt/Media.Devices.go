@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -35,14 +35,6 @@ const (
 	AutoFocusRange_FullRange AutoFocusRange = 0
 	AutoFocusRange_Macro     AutoFocusRange = 1
 	AutoFocusRange_Normal    AutoFocusRange = 2
-)
-
-// enum
-type CameraOcclusionKind int32
-
-const (
-	CameraOcclusionKind_Lid            CameraOcclusionKind = 0
-	CameraOcclusionKind_CameraHardware CameraOcclusionKind = 1
 )
 
 // enum
@@ -302,16 +294,16 @@ type CallControlContract struct {
 
 // func types
 
-//596F759F-50DF-4454-BC63-4D3D01B61958
+// 596F759F-50DF-4454-BC63-4D3D01B61958
 type CallControlEventHandler func(sender *ICallControl) com.Error
 
-//5ABBFFDB-C21F-4BC4-891B-257E28C1B1A4
+// 5ABBFFDB-C21F-4BC4-891B-257E28C1B1A4
 type DialRequestedEventHandler func(sender *ICallControl, e *IDialRequestedEventArgs) com.Error
 
-//E637A454-C527-422C-8926-C9AF83B559A0
+// E637A454-C527-422C-8926-C9AF83B559A0
 type KeypadPressedEventHandler func(sender *ICallControl, e *IKeypadPressedEventArgs) com.Error
 
-//BAF257D1-4EBD-4B84-9F47-6EC43D75D8B1
+// BAF257D1-4EBD-4B84-9F47-6EC43D75D8B1
 type RedialRequestedEventHandler func(sender *ICallControl, e *IRedialRequestedEventArgs) com.Error
 
 // interfaces
@@ -439,65 +431,6 @@ func (this *IAdvancedVideoCaptureDeviceController) SetDeviceProperty(propertyId 
 func (this *IAdvancedVideoCaptureDeviceController) GetDeviceProperty(propertyId string) interface{} {
 	var _result interface{}
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetDeviceProperty, uintptr(unsafe.Pointer(this)), NewHStr(propertyId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// C621B82D-D6F0-5C1B-A388-A6E938407146
-var IID_IAdvancedVideoCaptureDeviceController10 = syscall.GUID{0xC621B82D, 0xD6F0, 0x5C1B,
-	[8]byte{0xA3, 0x88, 0xA6, 0xE9, 0x38, 0x40, 0x71, 0x46}}
-
-type IAdvancedVideoCaptureDeviceController10Interface interface {
-	win32.IInspectableInterface
-	Get_CameraOcclusionInfo() *ICameraOcclusionInfo
-}
-
-type IAdvancedVideoCaptureDeviceController10Vtbl struct {
-	win32.IInspectableVtbl
-	Get_CameraOcclusionInfo uintptr
-}
-
-type IAdvancedVideoCaptureDeviceController10 struct {
-	win32.IInspectable
-}
-
-func (this *IAdvancedVideoCaptureDeviceController10) Vtbl() *IAdvancedVideoCaptureDeviceController10Vtbl {
-	return (*IAdvancedVideoCaptureDeviceController10Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAdvancedVideoCaptureDeviceController10) Get_CameraOcclusionInfo() *ICameraOcclusionInfo {
-	var _result *ICameraOcclusionInfo
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CameraOcclusionInfo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// D5B65AE2-3772-580C-A630-E75DE9106904
-var IID_IAdvancedVideoCaptureDeviceController11 = syscall.GUID{0xD5B65AE2, 0x3772, 0x580C,
-	[8]byte{0xA6, 0x30, 0xE7, 0x5D, 0xE9, 0x10, 0x69, 0x04}}
-
-type IAdvancedVideoCaptureDeviceController11Interface interface {
-	win32.IInspectableInterface
-	TryAcquireExclusiveControl(deviceId string, mode MediaCaptureDeviceExclusiveControlReleaseMode) bool
-}
-
-type IAdvancedVideoCaptureDeviceController11Vtbl struct {
-	win32.IInspectableVtbl
-	TryAcquireExclusiveControl uintptr
-}
-
-type IAdvancedVideoCaptureDeviceController11 struct {
-	win32.IInspectable
-}
-
-func (this *IAdvancedVideoCaptureDeviceController11) Vtbl() *IAdvancedVideoCaptureDeviceController11Vtbl {
-	return (*IAdvancedVideoCaptureDeviceController11Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAdvancedVideoCaptureDeviceController11) TryAcquireExclusiveControl(deviceId string, mode MediaCaptureDeviceExclusiveControlReleaseMode) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryAcquireExclusiveControl, uintptr(unsafe.Pointer(this)), NewHStr(deviceId).Ptr, uintptr(mode), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -1406,129 +1339,6 @@ func (this *ICallControlStatics) GetDefault() *ICallControl {
 func (this *ICallControlStatics) FromId(deviceId string) *ICallControl {
 	var _result *ICallControl
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().FromId, uintptr(unsafe.Pointer(this)), NewHStr(deviceId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// AF6C4AD0-A84D-5DB6-BE58-A5DA21CFE011
-var IID_ICameraOcclusionInfo = syscall.GUID{0xAF6C4AD0, 0xA84D, 0x5DB6,
-	[8]byte{0xBE, 0x58, 0xA5, 0xDA, 0x21, 0xCF, 0xE0, 0x11}}
-
-type ICameraOcclusionInfoInterface interface {
-	win32.IInspectableInterface
-	GetState() *ICameraOcclusionState
-	IsOcclusionKindSupported(occlusionKind CameraOcclusionKind) bool
-	Add_StateChanged(handler TypedEventHandler[*ICameraOcclusionInfo, *ICameraOcclusionStateChangedEventArgs]) EventRegistrationToken
-	Remove_StateChanged(token EventRegistrationToken)
-}
-
-type ICameraOcclusionInfoVtbl struct {
-	win32.IInspectableVtbl
-	GetState                 uintptr
-	IsOcclusionKindSupported uintptr
-	Add_StateChanged         uintptr
-	Remove_StateChanged      uintptr
-}
-
-type ICameraOcclusionInfo struct {
-	win32.IInspectable
-}
-
-func (this *ICameraOcclusionInfo) Vtbl() *ICameraOcclusionInfoVtbl {
-	return (*ICameraOcclusionInfoVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICameraOcclusionInfo) GetState() *ICameraOcclusionState {
-	var _result *ICameraOcclusionState
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetState, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *ICameraOcclusionInfo) IsOcclusionKindSupported(occlusionKind CameraOcclusionKind) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().IsOcclusionKindSupported, uintptr(unsafe.Pointer(this)), uintptr(occlusionKind), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICameraOcclusionInfo) Add_StateChanged(handler TypedEventHandler[*ICameraOcclusionInfo, *ICameraOcclusionStateChangedEventArgs]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_StateChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICameraOcclusionInfo) Remove_StateChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_StateChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-// 430ADEB8-6842-5E55-9BDE-04B4EF3A8A57
-var IID_ICameraOcclusionState = syscall.GUID{0x430ADEB8, 0x6842, 0x5E55,
-	[8]byte{0x9B, 0xDE, 0x04, 0xB4, 0xEF, 0x3A, 0x8A, 0x57}}
-
-type ICameraOcclusionStateInterface interface {
-	win32.IInspectableInterface
-	Get_IsOccluded() bool
-	IsOcclusionKind(occlusionKind CameraOcclusionKind) bool
-}
-
-type ICameraOcclusionStateVtbl struct {
-	win32.IInspectableVtbl
-	Get_IsOccluded  uintptr
-	IsOcclusionKind uintptr
-}
-
-type ICameraOcclusionState struct {
-	win32.IInspectable
-}
-
-func (this *ICameraOcclusionState) Vtbl() *ICameraOcclusionStateVtbl {
-	return (*ICameraOcclusionStateVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICameraOcclusionState) Get_IsOccluded() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsOccluded, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICameraOcclusionState) IsOcclusionKind(occlusionKind CameraOcclusionKind) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().IsOcclusionKind, uintptr(unsafe.Pointer(this)), uintptr(occlusionKind), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 8512D848-C0DE-57CA-A1CA-FB2C3D23DF55
-var IID_ICameraOcclusionStateChangedEventArgs = syscall.GUID{0x8512D848, 0xC0DE, 0x57CA,
-	[8]byte{0xA1, 0xCA, 0xFB, 0x2C, 0x3D, 0x23, 0xDF, 0x55}}
-
-type ICameraOcclusionStateChangedEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_State() *ICameraOcclusionState
-}
-
-type ICameraOcclusionStateChangedEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_State uintptr
-}
-
-type ICameraOcclusionStateChangedEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *ICameraOcclusionStateChangedEventArgs) Vtbl() *ICameraOcclusionStateChangedEventArgsVtbl {
-	return (*ICameraOcclusionStateChangedEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICameraOcclusionStateChangedEventArgs) Get_State() *ICameraOcclusionState {
-	var _result *ICameraOcclusionState
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_State, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -4590,21 +4400,6 @@ func NewICallControlStatics() *ICallControlStatics {
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
-}
-
-type CameraOcclusionInfo struct {
-	RtClass
-	*ICameraOcclusionInfo
-}
-
-type CameraOcclusionState struct {
-	RtClass
-	*ICameraOcclusionState
-}
-
-type CameraOcclusionStateChangedEventArgs struct {
-	RtClass
-	*ICameraOcclusionStateChangedEventArgs
 }
 
 type ExposureCompensationControl struct {

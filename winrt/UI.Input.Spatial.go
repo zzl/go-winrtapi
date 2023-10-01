@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -1222,8 +1222,8 @@ var IID_ISpatialInteractionSourceLocation = syscall.GUID{0xEA4696C4, 0x7E8B, 0x3
 
 type ISpatialInteractionSourceLocationInterface interface {
 	win32.IInspectableInterface
-	Get_Position() *IReference[unsafe.Pointer]
-	Get_Velocity() *IReference[unsafe.Pointer]
+	Get_Position() *IReference[Vector3]
+	Get_Velocity() *IReference[Vector3]
 }
 
 type ISpatialInteractionSourceLocationVtbl struct {
@@ -1240,16 +1240,16 @@ func (this *ISpatialInteractionSourceLocation) Vtbl() *ISpatialInteractionSource
 	return (*ISpatialInteractionSourceLocationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialInteractionSourceLocation) Get_Position() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialInteractionSourceLocation) Get_Position() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialInteractionSourceLocation) Get_Velocity() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialInteractionSourceLocation) Get_Velocity() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Velocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1262,7 +1262,7 @@ var IID_ISpatialInteractionSourceLocation2 = syscall.GUID{0x4C671045, 0x3917, 0x
 
 type ISpatialInteractionSourceLocation2Interface interface {
 	win32.IInspectableInterface
-	Get_Orientation() *IReference[unsafe.Pointer]
+	Get_Orientation() *IReference[Quaternion]
 }
 
 type ISpatialInteractionSourceLocation2Vtbl struct {
@@ -1278,8 +1278,8 @@ func (this *ISpatialInteractionSourceLocation2) Vtbl() *ISpatialInteractionSourc
 	return (*ISpatialInteractionSourceLocation2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialInteractionSourceLocation2) Get_Orientation() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialInteractionSourceLocation2) Get_Orientation() *IReference[Quaternion] {
+	var _result *IReference[Quaternion]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1293,7 +1293,7 @@ var IID_ISpatialInteractionSourceLocation3 = syscall.GUID{0x6702E65E, 0xE915, 0x
 type ISpatialInteractionSourceLocation3Interface interface {
 	win32.IInspectableInterface
 	Get_PositionAccuracy() SpatialInteractionSourcePositionAccuracy
-	Get_AngularVelocity() *IReference[unsafe.Pointer]
+	Get_AngularVelocity() *IReference[Vector3]
 	Get_SourcePointerPose() *ISpatialPointerInteractionSourcePose
 }
 
@@ -1319,8 +1319,8 @@ func (this *ISpatialInteractionSourceLocation3) Get_PositionAccuracy() SpatialIn
 	return _result
 }
 
-func (this *ISpatialInteractionSourceLocation3) Get_AngularVelocity() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialInteractionSourceLocation3) Get_AngularVelocity() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AngularVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1341,7 +1341,7 @@ var IID_ISpatialInteractionSourceProperties = syscall.GUID{0x05604542, 0x3EF7, 0
 
 type ISpatialInteractionSourcePropertiesInterface interface {
 	win32.IInspectableInterface
-	TryGetSourceLossMitigationDirection(coordinateSystem *ISpatialCoordinateSystem) *IReference[unsafe.Pointer]
+	TryGetSourceLossMitigationDirection(coordinateSystem *ISpatialCoordinateSystem) *IReference[Vector3]
 	Get_SourceLossRisk() float64
 	TryGetLocation(coordinateSystem *ISpatialCoordinateSystem) *ISpatialInteractionSourceLocation
 }
@@ -1361,8 +1361,8 @@ func (this *ISpatialInteractionSourceProperties) Vtbl() *ISpatialInteractionSour
 	return (*ISpatialInteractionSourcePropertiesVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialInteractionSourceProperties) TryGetSourceLossMitigationDirection(coordinateSystem *ISpatialCoordinateSystem) *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialInteractionSourceProperties) TryGetSourceLossMitigationDirection(coordinateSystem *ISpatialCoordinateSystem) *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetSourceLossMitigationDirection, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1622,7 +1622,7 @@ var IID_ISpatialManipulationDelta = syscall.GUID{0xA7EC967A, 0xD123, 0x3A81,
 
 type ISpatialManipulationDeltaInterface interface {
 	win32.IInspectableInterface
-	Get_Translation() unsafe.Pointer
+	Get_Translation() Vector3
 }
 
 type ISpatialManipulationDeltaVtbl struct {
@@ -1638,8 +1638,8 @@ func (this *ISpatialManipulationDelta) Vtbl() *ISpatialManipulationDeltaVtbl {
 	return (*ISpatialManipulationDeltaVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialManipulationDelta) Get_Translation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialManipulationDelta) Get_Translation() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Translation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1759,7 +1759,7 @@ var IID_ISpatialNavigationCompletedEventArgs = syscall.GUID{0x012E80B7, 0xAF3B, 
 type ISpatialNavigationCompletedEventArgsInterface interface {
 	win32.IInspectableInterface
 	Get_InteractionSourceKind() SpatialInteractionSourceKind
-	Get_NormalizedOffset() unsafe.Pointer
+	Get_NormalizedOffset() Vector3
 }
 
 type ISpatialNavigationCompletedEventArgsVtbl struct {
@@ -1783,8 +1783,8 @@ func (this *ISpatialNavigationCompletedEventArgs) Get_InteractionSourceKind() Sp
 	return _result
 }
 
-func (this *ISpatialNavigationCompletedEventArgs) Get_NormalizedOffset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialNavigationCompletedEventArgs) Get_NormalizedOffset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_NormalizedOffset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1863,7 +1863,7 @@ var IID_ISpatialNavigationUpdatedEventArgs = syscall.GUID{0x9B713FD7, 0x839D, 0x
 type ISpatialNavigationUpdatedEventArgsInterface interface {
 	win32.IInspectableInterface
 	Get_InteractionSourceKind() SpatialInteractionSourceKind
-	Get_NormalizedOffset() unsafe.Pointer
+	Get_NormalizedOffset() Vector3
 }
 
 type ISpatialNavigationUpdatedEventArgsVtbl struct {
@@ -1887,8 +1887,8 @@ func (this *ISpatialNavigationUpdatedEventArgs) Get_InteractionSourceKind() Spat
 	return _result
 }
 
-func (this *ISpatialNavigationUpdatedEventArgs) Get_NormalizedOffset() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialNavigationUpdatedEventArgs) Get_NormalizedOffset() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_NormalizedOffset, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1900,9 +1900,9 @@ var IID_ISpatialPointerInteractionSourcePose = syscall.GUID{0xA7104307, 0x2C2B, 
 
 type ISpatialPointerInteractionSourcePoseInterface interface {
 	win32.IInspectableInterface
-	Get_Position() unsafe.Pointer
-	Get_ForwardDirection() unsafe.Pointer
-	Get_UpDirection() unsafe.Pointer
+	Get_Position() Vector3
+	Get_ForwardDirection() Vector3
+	Get_UpDirection() Vector3
 }
 
 type ISpatialPointerInteractionSourcePoseVtbl struct {
@@ -1920,22 +1920,22 @@ func (this *ISpatialPointerInteractionSourcePose) Vtbl() *ISpatialPointerInterac
 	return (*ISpatialPointerInteractionSourcePoseVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialPointerInteractionSourcePose) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialPointerInteractionSourcePose) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialPointerInteractionSourcePose) Get_ForwardDirection() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialPointerInteractionSourcePose) Get_ForwardDirection() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ForwardDirection, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialPointerInteractionSourcePose) Get_UpDirection() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialPointerInteractionSourcePose) Get_UpDirection() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_UpDirection, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1947,7 +1947,7 @@ var IID_ISpatialPointerInteractionSourcePose2 = syscall.GUID{0xECCD86B8, 0x52DB,
 
 type ISpatialPointerInteractionSourcePose2Interface interface {
 	win32.IInspectableInterface
-	Get_Orientation() unsafe.Pointer
+	Get_Orientation() Quaternion
 	Get_PositionAccuracy() SpatialInteractionSourcePositionAccuracy
 }
 
@@ -1965,8 +1965,8 @@ func (this *ISpatialPointerInteractionSourcePose2) Vtbl() *ISpatialPointerIntera
 	return (*ISpatialPointerInteractionSourcePose2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialPointerInteractionSourcePose2) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialPointerInteractionSourcePose2) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result

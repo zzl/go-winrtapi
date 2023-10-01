@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -1420,19 +1420,19 @@ type ArcadeStick struct {
 	*IArcadeStick
 }
 
-func NewIArcadeStickStatics2() *IArcadeStickStatics2 {
-	var p *IArcadeStickStatics2
+func NewIArcadeStickStatics() *IArcadeStickStatics {
+	var p *IArcadeStickStatics
 	hs := NewHStr("Windows.Gaming.Input.ArcadeStick")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IArcadeStickStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IArcadeStickStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIArcadeStickStatics() *IArcadeStickStatics {
-	var p *IArcadeStickStatics
+func NewIArcadeStickStatics2() *IArcadeStickStatics2 {
+	var p *IArcadeStickStatics2
 	hs := NewHStr("Windows.Gaming.Input.ArcadeStick")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IArcadeStickStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IArcadeStickStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

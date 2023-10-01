@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -27,16 +27,16 @@ var IID_ICameraIntrinsics = syscall.GUID{0x0AA6ED32, 0x6589, 0x49DA,
 
 type ICameraIntrinsicsInterface interface {
 	win32.IInspectableInterface
-	Get_FocalLength() unsafe.Pointer
-	Get_PrincipalPoint() unsafe.Pointer
-	Get_RadialDistortion() unsafe.Pointer
-	Get_TangentialDistortion() unsafe.Pointer
+	Get_FocalLength() Vector2
+	Get_PrincipalPoint() Vector2
+	Get_RadialDistortion() Vector3
+	Get_TangentialDistortion() Vector2
 	Get_ImageWidth() uint32
 	Get_ImageHeight() uint32
-	ProjectOntoFrame(coordinate unsafe.Pointer) Point
-	UnprojectAtUnitDepth(pixelCoordinate Point) unsafe.Pointer
-	ProjectManyOntoFrame(coordinates unsafe.Pointer, resultsLength uint32, results *Point)
-	UnprojectPixelsAtUnitDepth(pixelCoordinatesLength uint32, pixelCoordinates *Point, results unsafe.Pointer)
+	ProjectOntoFrame(coordinate Vector3) Point
+	UnprojectAtUnitDepth(pixelCoordinate Point) Vector2
+	ProjectManyOntoFrame(coordinatesLength uint32, coordinates *Vector3, resultsLength uint32, results *Point)
+	UnprojectPixelsAtUnitDepth(pixelCoordinatesLength uint32, pixelCoordinates *Point, resultsLength uint32, results *Vector2)
 }
 
 type ICameraIntrinsicsVtbl struct {
@@ -61,29 +61,29 @@ func (this *ICameraIntrinsics) Vtbl() *ICameraIntrinsicsVtbl {
 	return (*ICameraIntrinsicsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICameraIntrinsics) Get_FocalLength() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics) Get_FocalLength() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_FocalLength, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICameraIntrinsics) Get_PrincipalPoint() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics) Get_PrincipalPoint() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PrincipalPoint, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICameraIntrinsics) Get_RadialDistortion() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics) Get_RadialDistortion() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RadialDistortion, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICameraIntrinsics) Get_TangentialDistortion() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics) Get_TangentialDistortion() Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_TangentialDistortion, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -103,27 +103,27 @@ func (this *ICameraIntrinsics) Get_ImageHeight() uint32 {
 	return _result
 }
 
-func (this *ICameraIntrinsics) ProjectOntoFrame(coordinate unsafe.Pointer) Point {
+func (this *ICameraIntrinsics) ProjectOntoFrame(coordinate Vector3) Point {
 	var _result Point
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().ProjectOntoFrame, uintptr(unsafe.Pointer(this)), uintptr(coordinate), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().ProjectOntoFrame, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&coordinate)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICameraIntrinsics) UnprojectAtUnitDepth(pixelCoordinate Point) unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics) UnprojectAtUnitDepth(pixelCoordinate Point) Vector2 {
+	var _result Vector2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectAtUnitDepth, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&pixelCoordinate)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ICameraIntrinsics) ProjectManyOntoFrame(coordinates unsafe.Pointer, resultsLength uint32, results *Point) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().ProjectManyOntoFrame, uintptr(unsafe.Pointer(this)), uintptr(coordinates), uintptr(resultsLength), uintptr(unsafe.Pointer(results)))
+func (this *ICameraIntrinsics) ProjectManyOntoFrame(coordinatesLength uint32, coordinates *Vector3, resultsLength uint32, results *Point) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().ProjectManyOntoFrame, uintptr(unsafe.Pointer(this)), uintptr(coordinatesLength), uintptr(unsafe.Pointer(coordinates)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)))
 	_ = _hr
 }
 
-func (this *ICameraIntrinsics) UnprojectPixelsAtUnitDepth(pixelCoordinatesLength uint32, pixelCoordinates *Point, results unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPixelsAtUnitDepth, uintptr(unsafe.Pointer(this)), uintptr(pixelCoordinatesLength), uintptr(unsafe.Pointer(pixelCoordinates)), uintptr(results))
+func (this *ICameraIntrinsics) UnprojectPixelsAtUnitDepth(pixelCoordinatesLength uint32, pixelCoordinates *Point, resultsLength uint32, results *Vector2) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPixelsAtUnitDepth, uintptr(unsafe.Pointer(this)), uintptr(pixelCoordinatesLength), uintptr(unsafe.Pointer(pixelCoordinates)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)))
 	_ = _hr
 }
 
@@ -133,7 +133,7 @@ var IID_ICameraIntrinsics2 = syscall.GUID{0x0CDAA447, 0x0798, 0x4B4D,
 
 type ICameraIntrinsics2Interface interface {
 	win32.IInspectableInterface
-	Get_UndistortedProjectionTransform() unsafe.Pointer
+	Get_UndistortedProjectionTransform() Matrix4x4
 	DistortPoint(input Point) Point
 	DistortPoints(inputsLength uint32, inputs *Point, resultsLength uint32, results *Point)
 	UndistortPoint(input Point) Point
@@ -157,8 +157,8 @@ func (this *ICameraIntrinsics2) Vtbl() *ICameraIntrinsics2Vtbl {
 	return (*ICameraIntrinsics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICameraIntrinsics2) Get_UndistortedProjectionTransform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICameraIntrinsics2) Get_UndistortedProjectionTransform() Matrix4x4 {
+	var _result Matrix4x4
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_UndistortedProjectionTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -194,7 +194,7 @@ var IID_ICameraIntrinsicsFactory = syscall.GUID{0xC0DDC486, 0x2132, 0x4A34,
 
 type ICameraIntrinsicsFactoryInterface interface {
 	win32.IInspectableInterface
-	Create(focalLength unsafe.Pointer, principalPoint unsafe.Pointer, radialDistortion unsafe.Pointer, tangentialDistortion unsafe.Pointer, imageWidth uint32, imageHeight uint32) *ICameraIntrinsics
+	Create(focalLength Vector2, principalPoint Vector2, radialDistortion Vector3, tangentialDistortion Vector2, imageWidth uint32, imageHeight uint32) *ICameraIntrinsics
 }
 
 type ICameraIntrinsicsFactoryVtbl struct {
@@ -210,9 +210,9 @@ func (this *ICameraIntrinsicsFactory) Vtbl() *ICameraIntrinsicsFactoryVtbl {
 	return (*ICameraIntrinsicsFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICameraIntrinsicsFactory) Create(focalLength unsafe.Pointer, principalPoint unsafe.Pointer, radialDistortion unsafe.Pointer, tangentialDistortion unsafe.Pointer, imageWidth uint32, imageHeight uint32) *ICameraIntrinsics {
+func (this *ICameraIntrinsicsFactory) Create(focalLength Vector2, principalPoint Vector2, radialDistortion Vector3, tangentialDistortion Vector2, imageWidth uint32, imageHeight uint32) *ICameraIntrinsics {
 	var _result *ICameraIntrinsics
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), uintptr(focalLength), uintptr(principalPoint), uintptr(radialDistortion), uintptr(tangentialDistortion), uintptr(imageWidth), uintptr(imageHeight), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&focalLength)), *(*uintptr)(unsafe.Pointer(&principalPoint)), uintptr(unsafe.Pointer(&radialDistortion)), *(*uintptr)(unsafe.Pointer(&tangentialDistortion)), uintptr(imageWidth), uintptr(imageHeight), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -224,8 +224,8 @@ var IID_IDepthCorrelatedCoordinateMapper = syscall.GUID{0xF95D89FB, 0x8AF0, 0x4C
 
 type IDepthCorrelatedCoordinateMapperInterface interface {
 	win32.IInspectableInterface
-	UnprojectPoint(sourcePoint Point, targetCoordinateSystem *ISpatialCoordinateSystem) unsafe.Pointer
-	UnprojectPoints(sourcePointsLength uint32, sourcePoints *Point, targetCoordinateSystem *ISpatialCoordinateSystem, results unsafe.Pointer)
+	UnprojectPoint(sourcePoint Point, targetCoordinateSystem *ISpatialCoordinateSystem) Vector3
+	UnprojectPoints(sourcePointsLength uint32, sourcePoints *Point, targetCoordinateSystem *ISpatialCoordinateSystem, resultsLength uint32, results *Vector3)
 	MapPoint(sourcePoint Point, targetCoordinateSystem *ISpatialCoordinateSystem, targetCameraIntrinsics *ICameraIntrinsics) Point
 	MapPoints(sourcePointsLength uint32, sourcePoints *Point, targetCoordinateSystem *ISpatialCoordinateSystem, targetCameraIntrinsics *ICameraIntrinsics, resultsLength uint32, results *Point)
 }
@@ -246,15 +246,15 @@ func (this *IDepthCorrelatedCoordinateMapper) Vtbl() *IDepthCorrelatedCoordinate
 	return (*IDepthCorrelatedCoordinateMapperVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IDepthCorrelatedCoordinateMapper) UnprojectPoint(sourcePoint Point, targetCoordinateSystem *ISpatialCoordinateSystem) unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IDepthCorrelatedCoordinateMapper) UnprojectPoint(sourcePoint Point, targetCoordinateSystem *ISpatialCoordinateSystem) Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPoint, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&sourcePoint)), uintptr(unsafe.Pointer(targetCoordinateSystem)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IDepthCorrelatedCoordinateMapper) UnprojectPoints(sourcePointsLength uint32, sourcePoints *Point, targetCoordinateSystem *ISpatialCoordinateSystem, results unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPoints, uintptr(unsafe.Pointer(this)), uintptr(sourcePointsLength), uintptr(unsafe.Pointer(sourcePoints)), uintptr(unsafe.Pointer(targetCoordinateSystem)), uintptr(results))
+func (this *IDepthCorrelatedCoordinateMapper) UnprojectPoints(sourcePointsLength uint32, sourcePoints *Point, targetCoordinateSystem *ISpatialCoordinateSystem, resultsLength uint32, results *Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().UnprojectPoints, uintptr(unsafe.Pointer(this)), uintptr(sourcePointsLength), uintptr(unsafe.Pointer(sourcePoints)), uintptr(unsafe.Pointer(targetCoordinateSystem)), uintptr(resultsLength), uintptr(unsafe.Pointer(results)))
 	_ = _hr
 }
 
@@ -1112,7 +1112,7 @@ type CameraIntrinsics struct {
 	*ICameraIntrinsics
 }
 
-func NewCameraIntrinsics_Create(focalLength unsafe.Pointer, principalPoint unsafe.Pointer, radialDistortion unsafe.Pointer, tangentialDistortion unsafe.Pointer, imageWidth uint32, imageHeight uint32) *CameraIntrinsics {
+func NewCameraIntrinsics_Create(focalLength Vector2, principalPoint Vector2, radialDistortion Vector3, tangentialDistortion Vector2, imageWidth uint32, imageHeight uint32) *CameraIntrinsics {
 	hs := NewHStr("Windows.Media.Devices.Core.CameraIntrinsics")
 	var pFac *ICameraIntrinsicsFactory
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICameraIntrinsicsFactory, unsafe.Pointer(&pFac))

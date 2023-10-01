@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -349,7 +349,7 @@ var IID_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs = syscall.GUID{0xA1E8
 
 type ISpatialAnchorRawCoordinateSystemAdjustedEventArgsInterface interface {
 	win32.IInspectableInterface
-	Get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform() unsafe.Pointer
+	Get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform() Matrix4x4
 }
 
 type ISpatialAnchorRawCoordinateSystemAdjustedEventArgsVtbl struct {
@@ -365,8 +365,8 @@ func (this *ISpatialAnchorRawCoordinateSystemAdjustedEventArgs) Vtbl() *ISpatial
 	return (*ISpatialAnchorRawCoordinateSystemAdjustedEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialAnchorRawCoordinateSystemAdjustedEventArgs) Get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialAnchorRawCoordinateSystemAdjustedEventArgs) Get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform() Matrix4x4 {
+	var _result Matrix4x4
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -379,8 +379,8 @@ var IID_ISpatialAnchorStatics = syscall.GUID{0xA9928642, 0x0174, 0x311C,
 type ISpatialAnchorStaticsInterface interface {
 	win32.IInspectableInterface
 	TryCreateRelativeTo(coordinateSystem *ISpatialCoordinateSystem) *ISpatialAnchor
-	TryCreateWithPositionRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position unsafe.Pointer) *ISpatialAnchor
-	TryCreateWithPositionAndOrientationRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position unsafe.Pointer, orientation unsafe.Pointer) *ISpatialAnchor
+	TryCreateWithPositionRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position Vector3) *ISpatialAnchor
+	TryCreateWithPositionAndOrientationRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position Vector3, orientation Quaternion) *ISpatialAnchor
 }
 
 type ISpatialAnchorStaticsVtbl struct {
@@ -406,17 +406,17 @@ func (this *ISpatialAnchorStatics) TryCreateRelativeTo(coordinateSystem *ISpatia
 	return _result
 }
 
-func (this *ISpatialAnchorStatics) TryCreateWithPositionRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position unsafe.Pointer) *ISpatialAnchor {
+func (this *ISpatialAnchorStatics) TryCreateWithPositionRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position Vector3) *ISpatialAnchor {
 	var _result *ISpatialAnchor
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryCreateWithPositionRelativeTo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(position), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryCreateWithPositionRelativeTo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(unsafe.Pointer(&position)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialAnchorStatics) TryCreateWithPositionAndOrientationRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position unsafe.Pointer, orientation unsafe.Pointer) *ISpatialAnchor {
+func (this *ISpatialAnchorStatics) TryCreateWithPositionAndOrientationRelativeTo(coordinateSystem *ISpatialCoordinateSystem, position Vector3, orientation Quaternion) *ISpatialAnchor {
 	var _result *ISpatialAnchor
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryCreateWithPositionAndOrientationRelativeTo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(position), uintptr(orientation), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryCreateWithPositionAndOrientationRelativeTo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(unsafe.Pointer(&position)), uintptr(unsafe.Pointer(&orientation)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -611,7 +611,7 @@ var IID_ISpatialCoordinateSystem = syscall.GUID{0x69EBCA4B, 0x60A3, 0x3586,
 
 type ISpatialCoordinateSystemInterface interface {
 	win32.IInspectableInterface
-	TryGetTransformTo(target *ISpatialCoordinateSystem) *IReference[unsafe.Pointer]
+	TryGetTransformTo(target *ISpatialCoordinateSystem) *IReference[Matrix4x4]
 }
 
 type ISpatialCoordinateSystemVtbl struct {
@@ -627,8 +627,8 @@ func (this *ISpatialCoordinateSystem) Vtbl() *ISpatialCoordinateSystemVtbl {
 	return (*ISpatialCoordinateSystemVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialCoordinateSystem) TryGetTransformTo(target *ISpatialCoordinateSystem) *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *ISpatialCoordinateSystem) TryGetTransformTo(target *ISpatialCoordinateSystem) *IReference[Matrix4x4] {
+	var _result *IReference[Matrix4x4]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetTransformTo, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(target)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1016,12 +1016,12 @@ var IID_ISpatialLocation = syscall.GUID{0x1D81D29D, 0x24A1, 0x37D5,
 
 type ISpatialLocationInterface interface {
 	win32.IInspectableInterface
-	Get_Position() unsafe.Pointer
-	Get_Orientation() unsafe.Pointer
-	Get_AbsoluteLinearVelocity() unsafe.Pointer
-	Get_AbsoluteLinearAcceleration() unsafe.Pointer
-	Get_AbsoluteAngularVelocity() unsafe.Pointer
-	Get_AbsoluteAngularAcceleration() unsafe.Pointer
+	Get_Position() Vector3
+	Get_Orientation() Quaternion
+	Get_AbsoluteLinearVelocity() Vector3
+	Get_AbsoluteLinearAcceleration() Vector3
+	Get_AbsoluteAngularVelocity() Quaternion
+	Get_AbsoluteAngularAcceleration() Quaternion
 }
 
 type ISpatialLocationVtbl struct {
@@ -1042,43 +1042,43 @@ func (this *ISpatialLocation) Vtbl() *ISpatialLocationVtbl {
 	return (*ISpatialLocationVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialLocation) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation) Get_AbsoluteLinearVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_AbsoluteLinearVelocity() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteLinearVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation) Get_AbsoluteLinearAcceleration() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_AbsoluteLinearAcceleration() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteLinearAcceleration, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation) Get_AbsoluteAngularVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_AbsoluteAngularVelocity() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteAngularVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation) Get_AbsoluteAngularAcceleration() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation) Get_AbsoluteAngularAcceleration() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteAngularAcceleration, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1090,8 +1090,8 @@ var IID_ISpatialLocation2 = syscall.GUID{0x117F2416, 0x38A7, 0x4A18,
 
 type ISpatialLocation2Interface interface {
 	win32.IInspectableInterface
-	Get_AbsoluteAngularVelocityAxisAngle() unsafe.Pointer
-	Get_AbsoluteAngularAccelerationAxisAngle() unsafe.Pointer
+	Get_AbsoluteAngularVelocityAxisAngle() Vector3
+	Get_AbsoluteAngularAccelerationAxisAngle() Vector3
 }
 
 type ISpatialLocation2Vtbl struct {
@@ -1108,15 +1108,15 @@ func (this *ISpatialLocation2) Vtbl() *ISpatialLocation2Vtbl {
 	return (*ISpatialLocation2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialLocation2) Get_AbsoluteAngularVelocityAxisAngle() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation2) Get_AbsoluteAngularVelocityAxisAngle() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteAngularVelocityAxisAngle, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocation2) Get_AbsoluteAngularAccelerationAxisAngle() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocation2) Get_AbsoluteAngularAccelerationAxisAngle() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AbsoluteAngularAccelerationAxisAngle, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1135,13 +1135,13 @@ type ISpatialLocatorInterface interface {
 	Remove_PositionalTrackingDeactivating(cookie EventRegistrationToken)
 	TryLocateAtTimestamp(timestamp *IPerceptionTimestamp, coordinateSystem *ISpatialCoordinateSystem) *ISpatialLocation
 	CreateAttachedFrameOfReferenceAtCurrentHeading() *ISpatialLocatorAttachedFrameOfReference
-	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition(relativePosition unsafe.Pointer) *ISpatialLocatorAttachedFrameOfReference
-	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer) *ISpatialLocatorAttachedFrameOfReference
-	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer, relativeHeadingInRadians float64) *ISpatialLocatorAttachedFrameOfReference
+	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition(relativePosition Vector3) *ISpatialLocatorAttachedFrameOfReference
+	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation(relativePosition Vector3, relativeOrientation Quaternion) *ISpatialLocatorAttachedFrameOfReference
+	CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading(relativePosition Vector3, relativeOrientation Quaternion, relativeHeadingInRadians float64) *ISpatialLocatorAttachedFrameOfReference
 	CreateStationaryFrameOfReferenceAtCurrentLocation() *ISpatialStationaryFrameOfReference
-	CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition(relativePosition unsafe.Pointer) *ISpatialStationaryFrameOfReference
-	CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer) *ISpatialStationaryFrameOfReference
-	CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer, relativeHeadingInRadians float64) *ISpatialStationaryFrameOfReference
+	CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition(relativePosition Vector3) *ISpatialStationaryFrameOfReference
+	CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation(relativePosition Vector3, relativeOrientation Quaternion) *ISpatialStationaryFrameOfReference
+	CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(relativePosition Vector3, relativeOrientation Quaternion, relativeHeadingInRadians float64) *ISpatialStationaryFrameOfReference
 }
 
 type ISpatialLocatorVtbl struct {
@@ -1217,25 +1217,25 @@ func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeading() *I
 	return _result
 }
 
-func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition(relativePosition unsafe.Pointer) *ISpatialLocatorAttachedFrameOfReference {
+func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition(relativePosition Vector3) *ISpatialLocatorAttachedFrameOfReference {
 	var _result *ISpatialLocatorAttachedFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer) *ISpatialLocatorAttachedFrameOfReference {
+func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation(relativePosition Vector3, relativeOrientation Quaternion) *ISpatialLocatorAttachedFrameOfReference {
 	var _result *ISpatialLocatorAttachedFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(relativeOrientation), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&relativeOrientation)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer, relativeHeadingInRadians float64) *ISpatialLocatorAttachedFrameOfReference {
+func (this *ISpatialLocator) CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading(relativePosition Vector3, relativeOrientation Quaternion, relativeHeadingInRadians float64) *ISpatialLocatorAttachedFrameOfReference {
 	var _result *ISpatialLocatorAttachedFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(relativeOrientation), uintptr(relativeHeadingInRadians), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateAttachedFrameOfReferenceAtCurrentHeadingWithPositionAndOrientationAndRelativeHeading, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&relativeOrientation)), uintptr(relativeHeadingInRadians), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -1249,25 +1249,25 @@ func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocation()
 	return _result
 }
 
-func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition(relativePosition unsafe.Pointer) *ISpatialStationaryFrameOfReference {
+func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition(relativePosition Vector3) *ISpatialStationaryFrameOfReference {
 	var _result *ISpatialStationaryFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer) *ISpatialStationaryFrameOfReference {
+func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation(relativePosition Vector3, relativeOrientation Quaternion) *ISpatialStationaryFrameOfReference {
 	var _result *ISpatialStationaryFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(relativeOrientation), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&relativeOrientation)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(relativePosition unsafe.Pointer, relativeOrientation unsafe.Pointer, relativeHeadingInRadians float64) *ISpatialStationaryFrameOfReference {
+func (this *ISpatialLocator) CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(relativePosition Vector3, relativeOrientation Quaternion, relativeHeadingInRadians float64) *ISpatialStationaryFrameOfReference {
 	var _result *ISpatialStationaryFrameOfReference
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading, uintptr(unsafe.Pointer(this)), uintptr(relativePosition), uintptr(relativeOrientation), uintptr(relativeHeadingInRadians), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&relativePosition)), uintptr(unsafe.Pointer(&relativeOrientation)), uintptr(relativeHeadingInRadians), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -1279,10 +1279,10 @@ var IID_ISpatialLocatorAttachedFrameOfReference = syscall.GUID{0xE1774EF6, 0x1F4
 
 type ISpatialLocatorAttachedFrameOfReferenceInterface interface {
 	win32.IInspectableInterface
-	Get_RelativePosition() unsafe.Pointer
-	Put_RelativePosition(value unsafe.Pointer)
-	Get_RelativeOrientation() unsafe.Pointer
-	Put_RelativeOrientation(value unsafe.Pointer)
+	Get_RelativePosition() Vector3
+	Put_RelativePosition(value Vector3)
+	Get_RelativeOrientation() Quaternion
+	Put_RelativeOrientation(value Quaternion)
 	AdjustHeading(headingOffsetInRadians float64)
 	GetStationaryCoordinateSystemAtTimestamp(timestamp *IPerceptionTimestamp) *ISpatialCoordinateSystem
 	TryGetRelativeHeadingAtTimestamp(timestamp *IPerceptionTimestamp) *IReference[float64]
@@ -1307,27 +1307,27 @@ func (this *ISpatialLocatorAttachedFrameOfReference) Vtbl() *ISpatialLocatorAtta
 	return (*ISpatialLocatorAttachedFrameOfReferenceVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ISpatialLocatorAttachedFrameOfReference) Get_RelativePosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocatorAttachedFrameOfReference) Get_RelativePosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RelativePosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocatorAttachedFrameOfReference) Put_RelativePosition(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativePosition, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISpatialLocatorAttachedFrameOfReference) Put_RelativePosition(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativePosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
-func (this *ISpatialLocatorAttachedFrameOfReference) Get_RelativeOrientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialLocatorAttachedFrameOfReference) Get_RelativeOrientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_RelativeOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *ISpatialLocatorAttachedFrameOfReference) Put_RelativeOrientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeOrientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *ISpatialLocatorAttachedFrameOfReference) Put_RelativeOrientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_RelativeOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -1428,7 +1428,7 @@ type ISpatialStageFrameOfReferenceInterface interface {
 	Get_MovementRange() SpatialMovementRange
 	Get_LookDirectionRange() SpatialLookDirectionRange
 	GetCoordinateSystemAtCurrentLocation(locator *ISpatialLocator) *ISpatialCoordinateSystem
-	TryGetMovementBounds(coordinateSystem *ISpatialCoordinateSystem) unsafe.Pointer
+	TryGetMovementBounds(coordinateSystem *ISpatialCoordinateSystem) []Vector3
 }
 
 type ISpatialStageFrameOfReferenceVtbl struct {
@@ -1478,8 +1478,8 @@ func (this *ISpatialStageFrameOfReference) GetCoordinateSystemAtCurrentLocation(
 	return _result
 }
 
-func (this *ISpatialStageFrameOfReference) TryGetMovementBounds(coordinateSystem *ISpatialCoordinateSystem) unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ISpatialStageFrameOfReference) TryGetMovementBounds(coordinateSystem *ISpatialCoordinateSystem) []Vector3 {
+	var _result []Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryGetMovementBounds, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(coordinateSystem)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -3913,15 +3913,32 @@ func NewCalendar() *Calendar {
 	return result
 }
 
-func NewCalendar_CreateCalendarWithTimeZone(languages *IIterable[string], calendar string, clock string, timeZoneId string) *Calendar {
+func NewCalendar_CreateCalendarDefaultCalendarAndClock(languages *IIterable[string]) *Calendar {
 	hs := NewHStr("Windows.Globalization.Calendar")
-	var pFac *ICalendarFactory2
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarFactory2, unsafe.Pointer(&pFac))
+	var pFac *ICalendarFactory
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarFactory, unsafe.Pointer(&pFac))
 	if win32.FAILED(hr) {
 		log.Panic("?")
 	}
 	var p *ICalendar
-	p = pFac.CreateCalendarWithTimeZone(languages, calendar, clock, timeZoneId)
+	p = pFac.CreateCalendarDefaultCalendarAndClock(languages)
+	result := &Calendar{
+		RtClass:   RtClass{PInspect: &p.IInspectable},
+		ICalendar: p,
+	}
+	com.AddToScope(result)
+	return result
+}
+
+func NewCalendar_CreateCalendar(languages *IIterable[string], calendar string, clock string) *Calendar {
+	hs := NewHStr("Windows.Globalization.Calendar")
+	var pFac *ICalendarFactory
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarFactory, unsafe.Pointer(&pFac))
+	if win32.FAILED(hr) {
+		log.Panic("?")
+	}
+	var p *ICalendar
+	p = pFac.CreateCalendar(languages, calendar, clock)
 	result := &Calendar{
 		RtClass:   RtClass{PInspect: &p.IInspectable},
 		ICalendar: p,
@@ -3934,10 +3951,10 @@ type CalendarIdentifiers struct {
 	RtClass
 }
 
-func NewICalendarIdentifiersStatics() *ICalendarIdentifiersStatics {
-	var p *ICalendarIdentifiersStatics
+func NewICalendarIdentifiersStatics3() *ICalendarIdentifiersStatics3 {
+	var p *ICalendarIdentifiersStatics3
 	hs := NewHStr("Windows.Globalization.CalendarIdentifiers")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarIdentifiersStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarIdentifiersStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3952,10 +3969,10 @@ func NewICalendarIdentifiersStatics2() *ICalendarIdentifiersStatics2 {
 	return p
 }
 
-func NewICalendarIdentifiersStatics3() *ICalendarIdentifiersStatics3 {
-	var p *ICalendarIdentifiersStatics3
+func NewICalendarIdentifiersStatics() *ICalendarIdentifiersStatics {
+	var p *ICalendarIdentifiersStatics
 	hs := NewHStr("Windows.Globalization.CalendarIdentifiers")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarIdentifiersStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICalendarIdentifiersStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3978,15 +3995,6 @@ type CurrencyIdentifiers struct {
 	RtClass
 }
 
-func NewICurrencyIdentifiersStatics() *ICurrencyIdentifiersStatics {
-	var p *ICurrencyIdentifiersStatics
-	hs := NewHStr("Windows.Globalization.CurrencyIdentifiers")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICurrencyIdentifiersStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 func NewICurrencyIdentifiersStatics2() *ICurrencyIdentifiersStatics2 {
 	var p *ICurrencyIdentifiersStatics2
 	hs := NewHStr("Windows.Globalization.CurrencyIdentifiers")
@@ -4000,6 +4008,15 @@ func NewICurrencyIdentifiersStatics3() *ICurrencyIdentifiersStatics3 {
 	var p *ICurrencyIdentifiersStatics3
 	hs := NewHStr("Windows.Globalization.CurrencyIdentifiers")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICurrencyIdentifiersStatics3, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
+func NewICurrencyIdentifiersStatics() *ICurrencyIdentifiersStatics {
+	var p *ICurrencyIdentifiersStatics
+	hs := NewHStr("Windows.Globalization.CurrencyIdentifiers")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICurrencyIdentifiersStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4081,19 +4098,19 @@ func NewILanguageStatics() *ILanguageStatics {
 	return p
 }
 
-func NewILanguageStatics2() *ILanguageStatics2 {
-	var p *ILanguageStatics2
+func NewILanguageStatics3() *ILanguageStatics3 {
+	var p *ILanguageStatics3
 	hs := NewHStr("Windows.Globalization.Language")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILanguageStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILanguageStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewILanguageStatics3() *ILanguageStatics3 {
-	var p *ILanguageStatics3
+func NewILanguageStatics2() *ILanguageStatics2 {
+	var p *ILanguageStatics2
 	hs := NewHStr("Windows.Globalization.Language")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILanguageStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ILanguageStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

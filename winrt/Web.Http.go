@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -418,42 +418,6 @@ func (this *IHttpClient2) TrySendRequestAsync2(request *IHttpRequestMessage, com
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// 1172FD01-9899-4194-963F-8F9D72A7EC15
-var IID_IHttpClient3 = syscall.GUID{0x1172FD01, 0x9899, 0x4194,
-	[8]byte{0x96, 0x3F, 0x8F, 0x9D, 0x72, 0xA7, 0xEC, 0x15}}
-
-type IHttpClient3Interface interface {
-	win32.IInspectableInterface
-	Get_DefaultPrivacyAnnotation() string
-	Put_DefaultPrivacyAnnotation(value string)
-}
-
-type IHttpClient3Vtbl struct {
-	win32.IInspectableVtbl
-	Get_DefaultPrivacyAnnotation uintptr
-	Put_DefaultPrivacyAnnotation uintptr
-}
-
-type IHttpClient3 struct {
-	win32.IInspectable
-}
-
-func (this *IHttpClient3) Vtbl() *IHttpClient3Vtbl {
-	return (*IHttpClient3Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHttpClient3) Get_DefaultPrivacyAnnotation() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DefaultPrivacyAnnotation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHttpClient3) Put_DefaultPrivacyAnnotation(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_DefaultPrivacyAnnotation, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
 }
 
 // C30C4ECA-E3FA-4F99-AFB4-63CC65009462
@@ -1391,42 +1355,6 @@ func (this *IHttpRequestMessage) Get_TransportInformation() *IHttpTransportInfor
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// C3C60489-62C2-4A3F-9554-226E7C60BD96
-var IID_IHttpRequestMessage2 = syscall.GUID{0xC3C60489, 0x62C2, 0x4A3F,
-	[8]byte{0x95, 0x54, 0x22, 0x6E, 0x7C, 0x60, 0xBD, 0x96}}
-
-type IHttpRequestMessage2Interface interface {
-	win32.IInspectableInterface
-	Get_PrivacyAnnotation() string
-	Put_PrivacyAnnotation(value string)
-}
-
-type IHttpRequestMessage2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_PrivacyAnnotation uintptr
-	Put_PrivacyAnnotation uintptr
-}
-
-type IHttpRequestMessage2 struct {
-	win32.IInspectable
-}
-
-func (this *IHttpRequestMessage2) Vtbl() *IHttpRequestMessage2Vtbl {
-	return (*IHttpRequestMessage2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHttpRequestMessage2) Get_PrivacyAnnotation() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PrivacyAnnotation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHttpRequestMessage2) Put_PrivacyAnnotation(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PrivacyAnnotation, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
 }
 
 // 5BAC994E-3886-412E-AEC3-52EC7F25616F

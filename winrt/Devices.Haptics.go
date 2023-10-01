@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -82,116 +82,6 @@ func (this *IKnownSimpleHapticsControllerWaveformsStatics) Get_Press() uint16 {
 func (this *IKnownSimpleHapticsControllerWaveformsStatics) Get_Release() uint16 {
 	var _result uint16
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Release, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// A7D24C27-B79D-510A-BF79-FF6D49173E1D
-var IID_IKnownSimpleHapticsControllerWaveformsStatics2 = syscall.GUID{0xA7D24C27, 0xB79D, 0x510A,
-	[8]byte{0xBF, 0x79, 0xFF, 0x6D, 0x49, 0x17, 0x3E, 0x1D}}
-
-type IKnownSimpleHapticsControllerWaveformsStatics2Interface interface {
-	win32.IInspectableInterface
-	Get_BrushContinuous() uint16
-	Get_ChiselMarkerContinuous() uint16
-	Get_EraserContinuous() uint16
-	Get_Error() uint16
-	Get_GalaxyPenContinuous() uint16
-	Get_Hover() uint16
-	Get_InkContinuous() uint16
-	Get_MarkerContinuous() uint16
-	Get_PencilContinuous() uint16
-	Get_Success() uint16
-}
-
-type IKnownSimpleHapticsControllerWaveformsStatics2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_BrushContinuous        uintptr
-	Get_ChiselMarkerContinuous uintptr
-	Get_EraserContinuous       uintptr
-	Get_Error                  uintptr
-	Get_GalaxyPenContinuous    uintptr
-	Get_Hover                  uintptr
-	Get_InkContinuous          uintptr
-	Get_MarkerContinuous       uintptr
-	Get_PencilContinuous       uintptr
-	Get_Success                uintptr
-}
-
-type IKnownSimpleHapticsControllerWaveformsStatics2 struct {
-	win32.IInspectable
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Vtbl() *IKnownSimpleHapticsControllerWaveformsStatics2Vtbl {
-	return (*IKnownSimpleHapticsControllerWaveformsStatics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_BrushContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_BrushContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_ChiselMarkerContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ChiselMarkerContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_EraserContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_EraserContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_Error() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Error, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_GalaxyPenContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_GalaxyPenContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_Hover() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Hover, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_InkContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InkContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_MarkerContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MarkerContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_PencilContinuous() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PencilContinuous, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IKnownSimpleHapticsControllerWaveformsStatics2) Get_Success() uint16 {
-	var _result uint16
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Success, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -462,15 +352,6 @@ func NewIKnownSimpleHapticsControllerWaveformsStatics() *IKnownSimpleHapticsCont
 	var p *IKnownSimpleHapticsControllerWaveformsStatics
 	hs := NewHStr("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownSimpleHapticsControllerWaveformsStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewIKnownSimpleHapticsControllerWaveformsStatics2() *IKnownSimpleHapticsControllerWaveformsStatics2 {
-	var p *IKnownSimpleHapticsControllerWaveformsStatics2
-	hs := NewHStr("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownSimpleHapticsControllerWaveformsStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

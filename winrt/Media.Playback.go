@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -3140,8 +3140,8 @@ type IMediaPlaybackSphericalVideoProjectionInterface interface {
 	Put_FrameFormat(value SphericalVideoFrameFormat)
 	Get_HorizontalFieldOfViewInDegrees() float64
 	Put_HorizontalFieldOfViewInDegrees(value float64)
-	Get_ViewOrientation() unsafe.Pointer
-	Put_ViewOrientation(value unsafe.Pointer)
+	Get_ViewOrientation() Quaternion
+	Put_ViewOrientation(value Quaternion)
 	Get_ProjectionMode() SphericalVideoProjectionMode
 	Put_ProjectionMode(value SphericalVideoProjectionMode)
 }
@@ -3204,15 +3204,15 @@ func (this *IMediaPlaybackSphericalVideoProjection) Put_HorizontalFieldOfViewInD
 	_ = _hr
 }
 
-func (this *IMediaPlaybackSphericalVideoProjection) Get_ViewOrientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IMediaPlaybackSphericalVideoProjection) Get_ViewOrientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IMediaPlaybackSphericalVideoProjection) Put_ViewOrientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IMediaPlaybackSphericalVideoProjection) Put_ViewOrientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 

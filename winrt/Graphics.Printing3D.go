@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -107,7 +107,7 @@ type Printing3DContract struct {
 
 // func types
 
-//E9175E70-C917-46DE-BB51-D9A94DB3711F
+// E9175E70-C917-46DE-BB51-D9A94DB3711F
 type Print3DTaskSourceRequestedHandler func(args *IPrint3DTaskSourceRequestedArgs) com.Error
 
 // interfaces
@@ -1019,8 +1019,8 @@ type IPrinting3DComponentWithMatrixInterface interface {
 	win32.IInspectableInterface
 	Get_Component() *IPrinting3DComponent
 	Put_Component(value *IPrinting3DComponent)
-	Get_Matrix() unsafe.Pointer
-	Put_Matrix(value unsafe.Pointer)
+	Get_Matrix() Matrix4x4
+	Put_Matrix(value Matrix4x4)
 }
 
 type IPrinting3DComponentWithMatrixVtbl struct {
@@ -1052,15 +1052,15 @@ func (this *IPrinting3DComponentWithMatrix) Put_Component(value *IPrinting3DComp
 	_ = _hr
 }
 
-func (this *IPrinting3DComponentWithMatrix) Get_Matrix() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IPrinting3DComponentWithMatrix) Get_Matrix() Matrix4x4 {
+	var _result Matrix4x4
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Matrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IPrinting3DComponentWithMatrix) Put_Matrix(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Matrix, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IPrinting3DComponentWithMatrix) Put_Matrix(value Matrix4x4) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Matrix, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 

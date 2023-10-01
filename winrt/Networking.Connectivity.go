@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -38,15 +38,6 @@ const (
 	DataUsageGranularity_PerHour   DataUsageGranularity = 1
 	DataUsageGranularity_PerDay    DataUsageGranularity = 2
 	DataUsageGranularity_Total     DataUsageGranularity = 3
-)
-
-// enum
-type DomainAuthenticationKind int32
-
-const (
-	DomainAuthenticationKind_None DomainAuthenticationKind = 0
-	DomainAuthenticationKind_Ldap DomainAuthenticationKind = 1
-	DomainAuthenticationKind_Tls  DomainAuthenticationKind = 2
 )
 
 // enum
@@ -204,7 +195,7 @@ type WwanContract struct {
 
 // func types
 
-//71BA143F-598E-49D0-84EB-8FEBAEDCC195
+// 71BA143F-598E-49D0-84EB-8FEBAEDCC195
 type NetworkStatusChangedEventHandler func(sender interface{}) com.Error
 
 // interfaces
@@ -823,35 +814,6 @@ func (this *IConnectionProfile5) TryDeleteAsync() *IAsyncOperation[ConnectionPro
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryDeleteAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
-	return _result
-}
-
-// DC27DFE2-7A6F-5D0E-9589-2FE2E5B6F9AA
-var IID_IConnectionProfile6 = syscall.GUID{0xDC27DFE2, 0x7A6F, 0x5D0E,
-	[8]byte{0x95, 0x89, 0x2F, 0xE2, 0xE5, 0xB6, 0xF9, 0xAA}}
-
-type IConnectionProfile6Interface interface {
-	win32.IInspectableInterface
-	IsDomainAuthenticatedBy(kind DomainAuthenticationKind) bool
-}
-
-type IConnectionProfile6Vtbl struct {
-	win32.IInspectableVtbl
-	IsDomainAuthenticatedBy uintptr
-}
-
-type IConnectionProfile6 struct {
-	win32.IInspectable
-}
-
-func (this *IConnectionProfile6) Vtbl() *IConnectionProfile6Vtbl {
-	return (*IConnectionProfile6Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IConnectionProfile6) IsDomainAuthenticatedBy(kind DomainAuthenticationKind) bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().IsDomainAuthenticatedBy, uintptr(unsafe.Pointer(this)), uintptr(kind), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
 	return _result
 }
 
@@ -2308,19 +2270,19 @@ type NetworkInformation struct {
 	RtClass
 }
 
-func NewINetworkInformationStatics2() *INetworkInformationStatics2 {
-	var p *INetworkInformationStatics2
+func NewINetworkInformationStatics() *INetworkInformationStatics {
+	var p *INetworkInformationStatics
 	hs := NewHStr("Windows.Networking.Connectivity.NetworkInformation")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkInformationStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkInformationStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewINetworkInformationStatics() *INetworkInformationStatics {
-	var p *INetworkInformationStatics
+func NewINetworkInformationStatics2() *INetworkInformationStatics2 {
+	var p *INetworkInformationStatics2
 	hs := NewHStr("Windows.Networking.Connectivity.NetworkInformation")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkInformationStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_INetworkInformationStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

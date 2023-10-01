@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -53,10 +53,6 @@ const (
 	ActivationKind_StartupTask                         ActivationKind = 1020
 	ActivationKind_CommandLineLaunch                   ActivationKind = 1021
 	ActivationKind_BarcodeScannerProvider              ActivationKind = 1022
-	ActivationKind_PrintSupportJobUI                   ActivationKind = 1023
-	ActivationKind_PrintSupportSettingsUI              ActivationKind = 1024
-	ActivationKind_PhoneCallActivation                 ActivationKind = 1025
-	ActivationKind_VpnForeground                       ActivationKind = 1026
 )
 
 // enum
@@ -1528,35 +1524,6 @@ func (this *ILockScreenCallActivatedEventArgs) Vtbl() *ILockScreenCallActivatedE
 func (this *ILockScreenCallActivatedEventArgs) Get_CallUI() unsafe.Pointer {
 	var _result unsafe.Pointer
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_CallUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 54615221-A3C1-4CED-B62F-8C60523619AD
-var IID_IPhoneCallActivatedEventArgs = syscall.GUID{0x54615221, 0xA3C1, 0x4CED,
-	[8]byte{0xB6, 0x2F, 0x8C, 0x60, 0x52, 0x36, 0x19, 0xAD}}
-
-type IPhoneCallActivatedEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_LineId() syscall.GUID
-}
-
-type IPhoneCallActivatedEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_LineId uintptr
-}
-
-type IPhoneCallActivatedEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *IPhoneCallActivatedEventArgs) Vtbl() *IPhoneCallActivatedEventArgsVtbl {
-	return (*IPhoneCallActivatedEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IPhoneCallActivatedEventArgs) Get_LineId() syscall.GUID {
-	var _result syscall.GUID
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LineId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }

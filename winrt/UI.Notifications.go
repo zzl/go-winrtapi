@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -229,15 +229,6 @@ const (
 	ToastHistoryChangedType_Removed ToastHistoryChangedType = 1
 	ToastHistoryChangedType_Expired ToastHistoryChangedType = 2
 	ToastHistoryChangedType_Added   ToastHistoryChangedType = 3
-)
-
-// enum
-type ToastNotificationMode int32
-
-const (
-	ToastNotificationMode_Unrestricted ToastNotificationMode = 0
-	ToastNotificationMode_PriorityOnly ToastNotificationMode = 1
-	ToastNotificationMode_AlarmsOnly   ToastNotificationMode = 2
 )
 
 // enum
@@ -3240,51 +3231,6 @@ func (this *IToastNotificationManagerForUser2) GetToastCollectionManagerWithAppI
 	return _result
 }
 
-// 3EFCB176-6CC1-56DC-973B-251F7AACB1C5
-var IID_IToastNotificationManagerForUser3 = syscall.GUID{0x3EFCB176, 0x6CC1, 0x56DC,
-	[8]byte{0x97, 0x3B, 0x25, 0x1F, 0x7A, 0xAC, 0xB1, 0xC5}}
-
-type IToastNotificationManagerForUser3Interface interface {
-	win32.IInspectableInterface
-	Get_NotificationMode() ToastNotificationMode
-	Add_NotificationModeChanged(handler TypedEventHandler[*IToastNotificationManagerForUser, interface{}]) EventRegistrationToken
-	Remove_NotificationModeChanged(token EventRegistrationToken)
-}
-
-type IToastNotificationManagerForUser3Vtbl struct {
-	win32.IInspectableVtbl
-	Get_NotificationMode           uintptr
-	Add_NotificationModeChanged    uintptr
-	Remove_NotificationModeChanged uintptr
-}
-
-type IToastNotificationManagerForUser3 struct {
-	win32.IInspectable
-}
-
-func (this *IToastNotificationManagerForUser3) Vtbl() *IToastNotificationManagerForUser3Vtbl {
-	return (*IToastNotificationManagerForUser3Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IToastNotificationManagerForUser3) Get_NotificationMode() ToastNotificationMode {
-	var _result ToastNotificationMode
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_NotificationMode, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IToastNotificationManagerForUser3) Add_NotificationModeChanged(handler TypedEventHandler[*IToastNotificationManagerForUser, interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_NotificationModeChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IToastNotificationManagerForUser3) Remove_NotificationModeChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_NotificationModeChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
 // 50AC103F-D235-4598-BBEF-98FE4D1A3AD4
 var IID_IToastNotificationManagerStatics = syscall.GUID{0x50AC103F, 0xD235, 0x4598,
 	[8]byte{0xBB, 0xEF, 0x98, 0xFE, 0x4D, 0x1A, 0x3A, 0xD4}}
@@ -3738,19 +3684,10 @@ type ToastNotificationManager struct {
 	RtClass
 }
 
-func NewIToastNotificationManagerStatics() *IToastNotificationManagerStatics {
-	var p *IToastNotificationManagerStatics
+func NewIToastNotificationManagerStatics4() *IToastNotificationManagerStatics4 {
+	var p *IToastNotificationManagerStatics4
 	hs := NewHStr("Windows.UI.Notifications.ToastNotificationManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewIToastNotificationManagerStatics2() *IToastNotificationManagerStatics2 {
-	var p *IToastNotificationManagerStatics2
-	hs := NewHStr("Windows.UI.Notifications.ToastNotificationManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics4, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3765,10 +3702,19 @@ func NewIToastNotificationManagerStatics5() *IToastNotificationManagerStatics5 {
 	return p
 }
 
-func NewIToastNotificationManagerStatics4() *IToastNotificationManagerStatics4 {
-	var p *IToastNotificationManagerStatics4
+func NewIToastNotificationManagerStatics2() *IToastNotificationManagerStatics2 {
+	var p *IToastNotificationManagerStatics2
 	hs := NewHStr("Windows.UI.Notifications.ToastNotificationManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics4, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics2, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
+func NewIToastNotificationManagerStatics() *IToastNotificationManagerStatics {
+	var p *IToastNotificationManagerStatics
+	hs := NewHStr("Windows.UI.Notifications.ToastNotificationManager")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IToastNotificationManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

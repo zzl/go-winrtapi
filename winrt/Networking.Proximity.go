@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -54,16 +54,16 @@ const (
 
 // func types
 
-//EFA9DA69-F6E1-49C9-A49E-8E0FC58FB911
+// EFA9DA69-F6E1-49C9-A49E-8E0FC58FB911
 type DeviceArrivedEventHandler func(sender *IProximityDevice) com.Error
 
-//EFA9DA69-F6E2-49C9-A49E-8E0FC58FB911
+// EFA9DA69-F6E2-49C9-A49E-8E0FC58FB911
 type DeviceDepartedEventHandler func(sender *IProximityDevice) com.Error
 
-//EFAB0782-F6E2-4675-A045-D8E320C24808
+// EFAB0782-F6E2-4675-A045-D8E320C24808
 type MessageReceivedHandler func(sender *IProximityDevice, message *IProximityMessage) com.Error
 
-//EFAA0B4A-F6E2-4D7D-856C-78FC8EFC021E
+// EFAA0B4A-F6E2-4D7D-856C-78FC8EFC021E
 type MessageTransmittedHandler func(sender *IProximityDevice, messageId int64) com.Error
 
 // interfaces

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -30,7 +30,7 @@ type ICoreIncrementalInkStrokeInterface interface {
 	AppendInkPoints(inkPoints *IIterable[*IInkPoint]) Rect
 	CreateInkStroke() *IInkStroke
 	Get_DrawingAttributes() *IInkDrawingAttributes
-	Get_PointTransform() unsafe.Pointer
+	Get_PointTransform() Matrix3x2
 	Get_BoundingRect() Rect
 }
 
@@ -74,8 +74,8 @@ func (this *ICoreIncrementalInkStroke) Get_DrawingAttributes() *IInkDrawingAttri
 	return _result
 }
 
-func (this *ICoreIncrementalInkStroke) Get_PointTransform() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *ICoreIncrementalInkStroke) Get_PointTransform() Matrix3x2 {
+	var _result Matrix3x2
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PointTransform, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -94,7 +94,7 @@ var IID_ICoreIncrementalInkStrokeFactory = syscall.GUID{0xD7C59F46, 0x8DA8, 0x4F
 
 type ICoreIncrementalInkStrokeFactoryInterface interface {
 	win32.IInspectableInterface
-	Create(drawingAttributes *IInkDrawingAttributes, pointTransform unsafe.Pointer) *ICoreIncrementalInkStroke
+	Create(drawingAttributes *IInkDrawingAttributes, pointTransform Matrix3x2) *ICoreIncrementalInkStroke
 }
 
 type ICoreIncrementalInkStrokeFactoryVtbl struct {
@@ -110,9 +110,9 @@ func (this *ICoreIncrementalInkStrokeFactory) Vtbl() *ICoreIncrementalInkStrokeF
 	return (*ICoreIncrementalInkStrokeFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *ICoreIncrementalInkStrokeFactory) Create(drawingAttributes *IInkDrawingAttributes, pointTransform unsafe.Pointer) *ICoreIncrementalInkStroke {
+func (this *ICoreIncrementalInkStrokeFactory) Create(drawingAttributes *IInkDrawingAttributes, pointTransform Matrix3x2) *ICoreIncrementalInkStroke {
 	var _result *ICoreIncrementalInkStroke
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(drawingAttributes)), uintptr(pointTransform), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(drawingAttributes)), uintptr(unsafe.Pointer(&pointTransform)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -258,42 +258,6 @@ func (this *ICoreInkIndependentInputSource) Get_InkPresenter() *IInkPresenter {
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// 2846B012-0B59-5BB9-A3C5-BECB7CF03A33
-var IID_ICoreInkIndependentInputSource2 = syscall.GUID{0x2846B012, 0x0B59, 0x5BB9,
-	[8]byte{0xA3, 0xC5, 0xBE, 0xCB, 0x7C, 0xF0, 0x3A, 0x33}}
-
-type ICoreInkIndependentInputSource2Interface interface {
-	win32.IInspectableInterface
-	Get_PointerCursor() unsafe.Pointer
-	Put_PointerCursor(value unsafe.Pointer)
-}
-
-type ICoreInkIndependentInputSource2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_PointerCursor uintptr
-	Put_PointerCursor uintptr
-}
-
-type ICoreInkIndependentInputSource2 struct {
-	win32.IInspectable
-}
-
-func (this *ICoreInkIndependentInputSource2) Vtbl() *ICoreInkIndependentInputSource2Vtbl {
-	return (*ICoreInkIndependentInputSource2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *ICoreInkIndependentInputSource2) Get_PointerCursor() unsafe.Pointer {
-	var _result unsafe.Pointer
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PointerCursor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *ICoreInkIndependentInputSource2) Put_PointerCursor(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PointerCursor, uintptr(unsafe.Pointer(this)), uintptr(value))
-	_ = _hr
 }
 
 // 73E6011B-80C0-4DFB-9B66-10BA7F3F9C84
@@ -575,7 +539,7 @@ type CoreIncrementalInkStroke struct {
 	*ICoreIncrementalInkStroke
 }
 
-func NewCoreIncrementalInkStroke_Create(drawingAttributes *IInkDrawingAttributes, pointTransform unsafe.Pointer) *CoreIncrementalInkStroke {
+func NewCoreIncrementalInkStroke_Create(drawingAttributes *IInkDrawingAttributes, pointTransform Matrix3x2) *CoreIncrementalInkStroke {
 	hs := NewHStr("Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke")
 	var pFac *ICoreIncrementalInkStrokeFactory
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICoreIncrementalInkStrokeFactory, unsafe.Pointer(&pFac))

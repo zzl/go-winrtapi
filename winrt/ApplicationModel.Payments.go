@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -69,7 +69,7 @@ const (
 
 // func types
 
-//5078B9E1-F398-4F2C-A27E-94D371CF6C7D
+// 5078B9E1-F398-4F2C-A27E-94D371CF6C7D
 type PaymentRequestChangedHandler func(paymentRequest *IPaymentRequest, args *IPaymentRequestChangedArgs) com.Error
 
 // interfaces

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -565,19 +565,19 @@ type RfcommDeviceService struct {
 	*IRfcommDeviceService
 }
 
-func NewIRfcommDeviceServiceStatics() *IRfcommDeviceServiceStatics {
-	var p *IRfcommDeviceServiceStatics
+func NewIRfcommDeviceServiceStatics2() *IRfcommDeviceServiceStatics2 {
+	var p *IRfcommDeviceServiceStatics2
 	hs := NewHStr("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRfcommDeviceServiceStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRfcommDeviceServiceStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIRfcommDeviceServiceStatics2() *IRfcommDeviceServiceStatics2 {
-	var p *IRfcommDeviceServiceStatics2
+func NewIRfcommDeviceServiceStatics() *IRfcommDeviceServiceStatics {
+	var p *IRfcommDeviceServiceStatics
 	hs := NewHStr("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRfcommDeviceServiceStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IRfcommDeviceServiceStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

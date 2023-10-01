@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -304,21 +304,21 @@ type IInteractionTrackerInterface interface {
 	win32.IInspectableInterface
 	Get_InteractionSources() *ICompositionInteractionSourceCollection
 	Get_IsPositionRoundingSuggested() bool
-	Get_MaxPosition() unsafe.Pointer
-	Put_MaxPosition(value unsafe.Pointer)
+	Get_MaxPosition() Vector3
+	Put_MaxPosition(value Vector3)
 	Get_MaxScale() float32
 	Put_MaxScale(value float32)
-	Get_MinPosition() unsafe.Pointer
-	Put_MinPosition(value unsafe.Pointer)
+	Get_MinPosition() Vector3
+	Put_MinPosition(value Vector3)
 	Get_MinScale() float32
 	Put_MinScale(value float32)
-	Get_NaturalRestingPosition() unsafe.Pointer
+	Get_NaturalRestingPosition() Vector3
 	Get_NaturalRestingScale() float32
 	Get_Owner() *IInteractionTrackerOwner
-	Get_Position() unsafe.Pointer
-	Get_PositionInertiaDecayRate() *IReference[unsafe.Pointer]
-	Put_PositionInertiaDecayRate(value *IReference[unsafe.Pointer])
-	Get_PositionVelocityInPixelsPerSecond() unsafe.Pointer
+	Get_Position() Vector3
+	Get_PositionInertiaDecayRate() *IReference[Vector3]
+	Put_PositionInertiaDecayRate(value *IReference[Vector3])
+	Get_PositionVelocityInPixelsPerSecond() Vector3
 	Get_Scale() float32
 	Get_ScaleInertiaDecayRate() *IReference[float32]
 	Put_ScaleInertiaDecayRate(value *IReference[float32])
@@ -328,13 +328,13 @@ type IInteractionTrackerInterface interface {
 	ConfigurePositionXInertiaModifiers(modifiers *IIterable[*IInteractionTrackerInertiaModifier])
 	ConfigurePositionYInertiaModifiers(modifiers *IIterable[*IInteractionTrackerInertiaModifier])
 	ConfigureScaleInertiaModifiers(modifiers *IIterable[*IInteractionTrackerInertiaModifier])
-	TryUpdatePosition(value unsafe.Pointer) int32
-	TryUpdatePositionBy(amount unsafe.Pointer) int32
+	TryUpdatePosition(value Vector3) int32
+	TryUpdatePositionBy(amount Vector3) int32
 	TryUpdatePositionWithAnimation(animation *ICompositionAnimation) int32
-	TryUpdatePositionWithAdditionalVelocity(velocityInPixelsPerSecond unsafe.Pointer) int32
-	TryUpdateScale(value float32, centerPoint unsafe.Pointer) int32
-	TryUpdateScaleWithAnimation(animation *ICompositionAnimation, centerPoint unsafe.Pointer) int32
-	TryUpdateScaleWithAdditionalVelocity(velocityInPercentPerSecond float32, centerPoint unsafe.Pointer) int32
+	TryUpdatePositionWithAdditionalVelocity(velocityInPixelsPerSecond Vector3) int32
+	TryUpdateScale(value float32, centerPoint Vector3) int32
+	TryUpdateScaleWithAnimation(animation *ICompositionAnimation, centerPoint Vector3) int32
+	TryUpdateScaleWithAdditionalVelocity(velocityInPercentPerSecond float32, centerPoint Vector3) int32
 }
 
 type IInteractionTrackerVtbl struct {
@@ -397,15 +397,15 @@ func (this *IInteractionTracker) Get_IsPositionRoundingSuggested() bool {
 	return _result
 }
 
-func (this *IInteractionTracker) Get_MaxPosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTracker) Get_MaxPosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MaxPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) Put_MaxPosition(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_MaxPosition, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IInteractionTracker) Put_MaxPosition(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_MaxPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -421,15 +421,15 @@ func (this *IInteractionTracker) Put_MaxScale(value float32) {
 	_ = _hr
 }
 
-func (this *IInteractionTracker) Get_MinPosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTracker) Get_MinPosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MinPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) Put_MinPosition(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_MinPosition, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IInteractionTracker) Put_MinPosition(value Vector3) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_MinPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 
@@ -445,8 +445,8 @@ func (this *IInteractionTracker) Put_MinScale(value float32) {
 	_ = _hr
 }
 
-func (this *IInteractionTracker) Get_NaturalRestingPosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTracker) Get_NaturalRestingPosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_NaturalRestingPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -467,28 +467,28 @@ func (this *IInteractionTracker) Get_Owner() *IInteractionTrackerOwner {
 	return _result
 }
 
-func (this *IInteractionTracker) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTracker) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) Get_PositionInertiaDecayRate() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IInteractionTracker) Get_PositionInertiaDecayRate() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PositionInertiaDecayRate, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IInteractionTracker) Put_PositionInertiaDecayRate(value *IReference[unsafe.Pointer]) {
+func (this *IInteractionTracker) Put_PositionInertiaDecayRate(value *IReference[Vector3]) {
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PositionInertiaDecayRate, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
 	_ = _hr
 }
 
-func (this *IInteractionTracker) Get_PositionVelocityInPixelsPerSecond() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTracker) Get_PositionVelocityInPixelsPerSecond() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PositionVelocityInPixelsPerSecond, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -546,16 +546,16 @@ func (this *IInteractionTracker) ConfigureScaleInertiaModifiers(modifiers *IIter
 	_ = _hr
 }
 
-func (this *IInteractionTracker) TryUpdatePosition(value unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdatePosition(value Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePosition, uintptr(unsafe.Pointer(this)), uintptr(value), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) TryUpdatePositionBy(amount unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdatePositionBy(amount Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionBy, uintptr(unsafe.Pointer(this)), uintptr(amount), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionBy, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&amount)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -567,30 +567,30 @@ func (this *IInteractionTracker) TryUpdatePositionWithAnimation(animation *IComp
 	return _result
 }
 
-func (this *IInteractionTracker) TryUpdatePositionWithAdditionalVelocity(velocityInPixelsPerSecond unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdatePositionWithAdditionalVelocity(velocityInPixelsPerSecond Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithAdditionalVelocity, uintptr(unsafe.Pointer(this)), uintptr(velocityInPixelsPerSecond), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithAdditionalVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&velocityInPixelsPerSecond)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) TryUpdateScale(value float32, centerPoint unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdateScale(value float32, centerPoint Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScale, uintptr(unsafe.Pointer(this)), uintptr(value), uintptr(centerPoint), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScale, uintptr(unsafe.Pointer(this)), uintptr(value), uintptr(unsafe.Pointer(&centerPoint)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) TryUpdateScaleWithAnimation(animation *ICompositionAnimation, centerPoint unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdateScaleWithAnimation(animation *ICompositionAnimation, centerPoint Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScaleWithAnimation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(animation)), uintptr(centerPoint), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScaleWithAnimation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(animation)), uintptr(unsafe.Pointer(&centerPoint)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker) TryUpdateScaleWithAdditionalVelocity(velocityInPercentPerSecond float32, centerPoint unsafe.Pointer) int32 {
+func (this *IInteractionTracker) TryUpdateScaleWithAdditionalVelocity(velocityInPercentPerSecond float32, centerPoint Vector3) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScaleWithAdditionalVelocity, uintptr(unsafe.Pointer(this)), uintptr(velocityInPercentPerSecond), uintptr(centerPoint), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdateScaleWithAdditionalVelocity, uintptr(unsafe.Pointer(this)), uintptr(velocityInPercentPerSecond), uintptr(unsafe.Pointer(&centerPoint)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -662,8 +662,8 @@ var IID_IInteractionTracker4 = syscall.GUID{0xEBD222BC, 0x04AF, 0x4AC7,
 
 type IInteractionTracker4Interface interface {
 	win32.IInspectableInterface
-	TryUpdatePositionWithOption(value unsafe.Pointer, option InteractionTrackerClampingOption) int32
-	TryUpdatePositionByWithOption(amount unsafe.Pointer, option InteractionTrackerClampingOption) int32
+	TryUpdatePositionWithOption(value Vector3, option InteractionTrackerClampingOption) int32
+	TryUpdatePositionByWithOption(amount Vector3, option InteractionTrackerClampingOption) int32
 	Get_IsInertiaFromImpulse() bool
 }
 
@@ -682,16 +682,16 @@ func (this *IInteractionTracker4) Vtbl() *IInteractionTracker4Vtbl {
 	return (*IInteractionTracker4Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInteractionTracker4) TryUpdatePositionWithOption(value unsafe.Pointer, option InteractionTrackerClampingOption) int32 {
+func (this *IInteractionTracker4) TryUpdatePositionWithOption(value Vector3, option InteractionTrackerClampingOption) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithOption, uintptr(unsafe.Pointer(this)), uintptr(value), uintptr(option), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithOption, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)), uintptr(option), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IInteractionTracker4) TryUpdatePositionByWithOption(amount unsafe.Pointer, option InteractionTrackerClampingOption) int32 {
+func (this *IInteractionTracker4) TryUpdatePositionByWithOption(amount Vector3, option InteractionTrackerClampingOption) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionByWithOption, uintptr(unsafe.Pointer(this)), uintptr(amount), uintptr(option), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionByWithOption, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&amount)), uintptr(option), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -709,7 +709,7 @@ var IID_IInteractionTracker5 = syscall.GUID{0xD3EF5DA2, 0xA254, 0x40E4,
 
 type IInteractionTracker5Interface interface {
 	win32.IInspectableInterface
-	TryUpdatePositionWithOption(value unsafe.Pointer, option InteractionTrackerClampingOption, posUpdateOption InteractionTrackerPositionUpdateOption) int32
+	TryUpdatePositionWithOption(value Vector3, option InteractionTrackerClampingOption, posUpdateOption InteractionTrackerPositionUpdateOption) int32
 }
 
 type IInteractionTracker5Vtbl struct {
@@ -725,9 +725,9 @@ func (this *IInteractionTracker5) Vtbl() *IInteractionTracker5Vtbl {
 	return (*IInteractionTracker5Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInteractionTracker5) TryUpdatePositionWithOption(value unsafe.Pointer, option InteractionTrackerClampingOption, posUpdateOption InteractionTrackerPositionUpdateOption) int32 {
+func (this *IInteractionTracker5) TryUpdatePositionWithOption(value Vector3, option InteractionTrackerClampingOption, posUpdateOption InteractionTrackerPositionUpdateOption) int32 {
 	var _result int32
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithOption, uintptr(unsafe.Pointer(this)), uintptr(value), uintptr(option), uintptr(posUpdateOption), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().TryUpdatePositionWithOption, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)), uintptr(option), uintptr(posUpdateOption), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
@@ -1146,11 +1146,11 @@ var IID_IInteractionTrackerInertiaStateEnteredArgs = syscall.GUID{0x87108CF2, 0x
 
 type IInteractionTrackerInertiaStateEnteredArgsInterface interface {
 	win32.IInspectableInterface
-	Get_ModifiedRestingPosition() *IReference[unsafe.Pointer]
+	Get_ModifiedRestingPosition() *IReference[Vector3]
 	Get_ModifiedRestingScale() *IReference[float32]
-	Get_NaturalRestingPosition() unsafe.Pointer
+	Get_NaturalRestingPosition() Vector3
 	Get_NaturalRestingScale() float32
-	Get_PositionVelocityInPixelsPerSecond() unsafe.Pointer
+	Get_PositionVelocityInPixelsPerSecond() Vector3
 	Get_RequestId() int32
 	Get_ScaleVelocityInPercentPerSecond() float32
 }
@@ -1174,8 +1174,8 @@ func (this *IInteractionTrackerInertiaStateEnteredArgs) Vtbl() *IInteractionTrac
 	return (*IInteractionTrackerInertiaStateEnteredArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_ModifiedRestingPosition() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
+func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_ModifiedRestingPosition() *IReference[Vector3] {
+	var _result *IReference[Vector3]
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ModifiedRestingPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
@@ -1190,8 +1190,8 @@ func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_ModifiedRestingScale
 	return _result
 }
 
-func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_NaturalRestingPosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_NaturalRestingPosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_NaturalRestingPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1204,8 +1204,8 @@ func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_NaturalRestingScale(
 	return _result
 }
 
-func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_PositionVelocityInPixelsPerSecond() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTrackerInertiaStateEnteredArgs) Get_PositionVelocityInPixelsPerSecond() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PositionVelocityInPixelsPerSecond, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1514,7 +1514,7 @@ var IID_IInteractionTrackerValuesChangedArgs = syscall.GUID{0xCF1578EF, 0xD3DF, 
 
 type IInteractionTrackerValuesChangedArgsInterface interface {
 	win32.IInspectableInterface
-	Get_Position() unsafe.Pointer
+	Get_Position() Vector3
 	Get_RequestId() int32
 	Get_Scale() float32
 }
@@ -1534,8 +1534,8 @@ func (this *IInteractionTrackerValuesChangedArgs) Vtbl() *IInteractionTrackerVal
 	return (*IInteractionTrackerValuesChangedArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IInteractionTrackerValuesChangedArgs) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IInteractionTrackerValuesChangedArgs) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1866,10 +1866,10 @@ var IID_IVisualInteractionSource2 = syscall.GUID{0xAA914893, 0xA73C, 0x414D,
 
 type IVisualInteractionSource2Interface interface {
 	win32.IInspectableInterface
-	Get_DeltaPosition() unsafe.Pointer
+	Get_DeltaPosition() Vector3
 	Get_DeltaScale() float32
-	Get_Position() unsafe.Pointer
-	Get_PositionVelocity() unsafe.Pointer
+	Get_Position() Vector3
+	Get_PositionVelocity() Vector3
 	Get_Scale() float32
 	Get_ScaleVelocity() float32
 	ConfigureCenterPointXModifiers(conditionalValues *IIterable[*ICompositionConditionalValue])
@@ -1902,8 +1902,8 @@ func (this *IVisualInteractionSource2) Vtbl() *IVisualInteractionSource2Vtbl {
 	return (*IVisualInteractionSource2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IVisualInteractionSource2) Get_DeltaPosition() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisualInteractionSource2) Get_DeltaPosition() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DeltaPosition, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -1916,15 +1916,15 @@ func (this *IVisualInteractionSource2) Get_DeltaScale() float32 {
 	return _result
 }
 
-func (this *IVisualInteractionSource2) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisualInteractionSource2) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVisualInteractionSource2) Get_PositionVelocity() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVisualInteractionSource2) Get_PositionVelocity() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PositionVelocity, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -2110,19 +2110,19 @@ type InteractionTracker struct {
 	*IInteractionTracker
 }
 
-func NewIInteractionTrackerStatics() *IInteractionTrackerStatics {
-	var p *IInteractionTrackerStatics
+func NewIInteractionTrackerStatics2() *IInteractionTrackerStatics2 {
+	var p *IInteractionTrackerStatics2
 	hs := NewHStr("Windows.UI.Composition.Interactions.InteractionTracker")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInteractionTrackerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInteractionTrackerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIInteractionTrackerStatics2() *IInteractionTrackerStatics2 {
-	var p *IInteractionTrackerStatics2
+func NewIInteractionTrackerStatics() *IInteractionTrackerStatics {
+	var p *IInteractionTrackerStatics
 	hs := NewHStr("Windows.UI.Composition.Interactions.InteractionTracker")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInteractionTrackerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInteractionTrackerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2229,19 +2229,19 @@ type VisualInteractionSource struct {
 	*IVisualInteractionSource
 }
 
-func NewIVisualInteractionSourceStatics() *IVisualInteractionSourceStatics {
-	var p *IVisualInteractionSourceStatics
+func NewIVisualInteractionSourceStatics2() *IVisualInteractionSourceStatics2 {
+	var p *IVisualInteractionSourceStatics2
 	hs := NewHStr("Windows.UI.Composition.Interactions.VisualInteractionSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IVisualInteractionSourceStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IVisualInteractionSourceStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIVisualInteractionSourceStatics2() *IVisualInteractionSourceStatics2 {
-	var p *IVisualInteractionSourceStatics2
+func NewIVisualInteractionSourceStatics() *IVisualInteractionSourceStatics {
+	var p *IVisualInteractionSourceStatics
 	hs := NewHStr("Windows.UI.Composition.Interactions.VisualInteractionSource")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IVisualInteractionSourceStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IVisualInteractionSourceStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

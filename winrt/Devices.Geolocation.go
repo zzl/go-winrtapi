@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -701,35 +701,6 @@ func (this *IGeocoordinateWithPositionSourceTimestamp) Get_PositionSourceTimesta
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PositionSourceTimestamp, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
-	return _result
-}
-
-// 397CEBD7-EE38-5F3B-8900-C4A7BC9CF953
-var IID_IGeocoordinateWithRemoteSource = syscall.GUID{0x397CEBD7, 0xEE38, 0x5F3B,
-	[8]byte{0x89, 0x00, 0xC4, 0xA7, 0xBC, 0x9C, 0xF9, 0x53}}
-
-type IGeocoordinateWithRemoteSourceInterface interface {
-	win32.IInspectableInterface
-	Get_IsRemoteSource() bool
-}
-
-type IGeocoordinateWithRemoteSourceVtbl struct {
-	win32.IInspectableVtbl
-	Get_IsRemoteSource uintptr
-}
-
-type IGeocoordinateWithRemoteSource struct {
-	win32.IInspectable
-}
-
-func (this *IGeocoordinateWithRemoteSource) Vtbl() *IGeocoordinateWithRemoteSourceVtbl {
-	return (*IGeocoordinateWithRemoteSourceVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IGeocoordinateWithRemoteSource) Get_IsRemoteSource() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsRemoteSource, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
 	return _result
 }
 

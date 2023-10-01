@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -125,15 +125,6 @@ const (
 	StorageProviderState_Error   StorageProviderState = 3
 	StorageProviderState_Warning StorageProviderState = 4
 	StorageProviderState_Offline StorageProviderState = 5
-)
-
-// enum
-type StorageProviderUICommandState int32
-
-const (
-	StorageProviderUICommandState_Enabled  StorageProviderUICommandState = 0
-	StorageProviderUICommandState_Disabled StorageProviderUICommandState = 1
-	StorageProviderUICommandState_Hidden   StorageProviderUICommandState = 2
 )
 
 // enum
@@ -489,6 +480,219 @@ func (this *IFileUpdateRequestedEventArgs) Get_Request() *IFileUpdateRequest {
 	return _result
 }
 
+// 47F2780B-EF7F-5910-BF83-331D89256615
+var IID_IStorageProviderError = syscall.GUID{0x47F2780B, 0xEF7F, 0x5910,
+	[8]byte{0xBF, 0x83, 0x33, 0x1D, 0x89, 0x25, 0x66, 0x15}}
+
+type IStorageProviderErrorInterface interface {
+	win32.IInspectableInterface
+	Get_Id() string
+	Get_Title() string
+	Get_Message() string
+	Get_FilePath() string
+	Put_FilePath(value string)
+	Get_PrimaryAction() *IStorageProviderErrorCommand
+	Put_PrimaryAction(value *IStorageProviderErrorCommand)
+	Get_SecondaryAction() *IStorageProviderErrorCommand
+	Put_SecondaryAction(value *IStorageProviderErrorCommand)
+	Get_InformationalLink() *IStorageProviderErrorCommand
+	Put_InformationalLink(value *IStorageProviderErrorCommand)
+}
+
+type IStorageProviderErrorVtbl struct {
+	win32.IInspectableVtbl
+	Get_Id                uintptr
+	Get_Title             uintptr
+	Get_Message           uintptr
+	Get_FilePath          uintptr
+	Put_FilePath          uintptr
+	Get_PrimaryAction     uintptr
+	Put_PrimaryAction     uintptr
+	Get_SecondaryAction   uintptr
+	Put_SecondaryAction   uintptr
+	Get_InformationalLink uintptr
+	Put_InformationalLink uintptr
+}
+
+type IStorageProviderError struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderError) Vtbl() *IStorageProviderErrorVtbl {
+	return (*IStorageProviderErrorVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderError) Get_Id() string {
+	var _result win32.HSTRING
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Id, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	return HStringToStrAndFree(_result)
+}
+
+func (this *IStorageProviderError) Get_Title() string {
+	var _result win32.HSTRING
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Title, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	return HStringToStrAndFree(_result)
+}
+
+func (this *IStorageProviderError) Get_Message() string {
+	var _result win32.HSTRING
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Message, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	return HStringToStrAndFree(_result)
+}
+
+func (this *IStorageProviderError) Get_FilePath() string {
+	var _result win32.HSTRING
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_FilePath, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	return HStringToStrAndFree(_result)
+}
+
+func (this *IStorageProviderError) Put_FilePath(value string) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_FilePath, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
+	_ = _hr
+}
+
+func (this *IStorageProviderError) Get_PrimaryAction() *IStorageProviderErrorCommand {
+	var _result *IStorageProviderErrorCommand
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PrimaryAction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+func (this *IStorageProviderError) Put_PrimaryAction(value *IStorageProviderErrorCommand) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_PrimaryAction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
+	_ = _hr
+}
+
+func (this *IStorageProviderError) Get_SecondaryAction() *IStorageProviderErrorCommand {
+	var _result *IStorageProviderErrorCommand
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SecondaryAction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+func (this *IStorageProviderError) Put_SecondaryAction(value *IStorageProviderErrorCommand) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SecondaryAction, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
+	_ = _hr
+}
+
+func (this *IStorageProviderError) Get_InformationalLink() *IStorageProviderErrorCommand {
+	var _result *IStorageProviderErrorCommand
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_InformationalLink, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+func (this *IStorageProviderError) Put_InformationalLink(value *IStorageProviderErrorCommand) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_InformationalLink, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
+	_ = _hr
+}
+
+// B6B18AED-BB65-5F26-86E4-1D3E34D54477
+var IID_IStorageProviderErrorCommand = syscall.GUID{0xB6B18AED, 0xBB65, 0x5F26,
+	[8]byte{0x86, 0xE4, 0x1D, 0x3E, 0x34, 0xD5, 0x44, 0x77}}
+
+type IStorageProviderErrorCommandInterface interface {
+	win32.IInspectableInterface
+	Get_Label() string
+	Get_ActionUri() *IUriRuntimeClass
+}
+
+type IStorageProviderErrorCommandVtbl struct {
+	win32.IInspectableVtbl
+	Get_Label     uintptr
+	Get_ActionUri uintptr
+}
+
+type IStorageProviderErrorCommand struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderErrorCommand) Vtbl() *IStorageProviderErrorCommandVtbl {
+	return (*IStorageProviderErrorCommandVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderErrorCommand) Get_Label() string {
+	var _result win32.HSTRING
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Label, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	return HStringToStrAndFree(_result)
+}
+
+func (this *IStorageProviderErrorCommand) Get_ActionUri() *IUriRuntimeClass {
+	var _result *IUriRuntimeClass
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ActionUri, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+// ECC1F555-3AB4-556F-8BB2-7E5515EED8DC
+var IID_IStorageProviderErrorCommandFactory = syscall.GUID{0xECC1F555, 0x3AB4, 0x556F,
+	[8]byte{0x8B, 0xB2, 0x7E, 0x55, 0x15, 0xEE, 0xD8, 0xDC}}
+
+type IStorageProviderErrorCommandFactoryInterface interface {
+	win32.IInspectableInterface
+	CreateInstance(label string, actionUri *IUriRuntimeClass) *IStorageProviderErrorCommand
+}
+
+type IStorageProviderErrorCommandFactoryVtbl struct {
+	win32.IInspectableVtbl
+	CreateInstance uintptr
+}
+
+type IStorageProviderErrorCommandFactory struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderErrorCommandFactory) Vtbl() *IStorageProviderErrorCommandFactoryVtbl {
+	return (*IStorageProviderErrorCommandFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderErrorCommandFactory) CreateInstance(label string, actionUri *IUriRuntimeClass) *IStorageProviderErrorCommand {
+	var _result *IStorageProviderErrorCommand
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateInstance, uintptr(unsafe.Pointer(this)), NewHStr(label).Ptr, uintptr(unsafe.Pointer(actionUri)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+// 97D6F240-61AB-51DC-9921-18BD0DBEF79E
+var IID_IStorageProviderErrorFactory = syscall.GUID{0x97D6F240, 0x61AB, 0x51DC,
+	[8]byte{0x99, 0x21, 0x18, 0xBD, 0x0D, 0xBE, 0xF7, 0x9E}}
+
+type IStorageProviderErrorFactoryInterface interface {
+	win32.IInspectableInterface
+	CreateInstance(id string, title string, message string) *IStorageProviderError
+}
+
+type IStorageProviderErrorFactoryVtbl struct {
+	win32.IInspectableVtbl
+	CreateInstance uintptr
+}
+
+type IStorageProviderErrorFactory struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderErrorFactory) Vtbl() *IStorageProviderErrorFactoryVtbl {
+	return (*IStorageProviderErrorFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderErrorFactory) CreateInstance(id string, title string, message string) *IStorageProviderError {
+	var _result *IStorageProviderError
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateInstance, uintptr(unsafe.Pointer(this)), NewHStr(id).Ptr, NewHStr(title).Ptr, NewHStr(message).Ptr, uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
 // 1955B9C1-0184-5A88-87DF-4544F464365D
 var IID_IStorageProviderFileTypeInfo = syscall.GUID{0x1955B9C1, 0x0184, 0x5A88,
 	[8]byte{0x87, 0xDF, 0x45, 0x44, 0xF4, 0x64, 0x36, 0x5D}}
@@ -677,6 +881,36 @@ func (this *IStorageProviderGetPathForContentUriResult) Put_Path(value string) {
 	_ = _hr
 }
 
+// 6154DC3A-FC1D-5AAE-9E23-E8659A22C5F6
+var IID_IStorageProviderHandlerFactory = syscall.GUID{0x6154DC3A, 0xFC1D, 0x5AAE,
+	[8]byte{0x9E, 0x23, 0xE8, 0x65, 0x9A, 0x22, 0xC5, 0xF6}}
+
+type IStorageProviderHandlerFactoryInterface interface {
+	win32.IInspectableInterface
+	GetStatusSource(syncRootId string) *IStorageProviderStatusSource
+}
+
+type IStorageProviderHandlerFactoryVtbl struct {
+	win32.IInspectableVtbl
+	GetStatusSource uintptr
+}
+
+type IStorageProviderHandlerFactory struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderHandlerFactory) Vtbl() *IStorageProviderHandlerFactoryVtbl {
+	return (*IStorageProviderHandlerFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderHandlerFactory) GetStatusSource(syncRootId string) *IStorageProviderStatusSource {
+	var _result *IStorageProviderStatusSource
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetStatusSource, uintptr(unsafe.Pointer(this)), NewHStr(syncRootId).Ptr, uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
 // 2D2C1C97-2704-4729-8FA9-7E6B8E158C2F
 var IID_IStorageProviderItemPropertiesStatics = syscall.GUID{0x2D2C1C97, 0x2704, 0x4729,
 	[8]byte{0x8F, 0xA9, 0x7E, 0x6B, 0x8E, 0x15, 0x8C, 0x2F}}
@@ -857,59 +1091,6 @@ func (this *IStorageProviderItemPropertySource) GetItemProperties(itemPath strin
 	return _result
 }
 
-// EF38E591-A7CB-5E7D-9B5E-22749842697C
-var IID_IStorageProviderMoreInfoUI = syscall.GUID{0xEF38E591, 0xA7CB, 0x5E7D,
-	[8]byte{0x9B, 0x5E, 0x22, 0x74, 0x98, 0x42, 0x69, 0x7C}}
-
-type IStorageProviderMoreInfoUIInterface interface {
-	win32.IInspectableInterface
-	Get_Message() string
-	Put_Message(value string)
-	Get_Command() *IStorageProviderUICommand
-	Put_Command(value *IStorageProviderUICommand)
-}
-
-type IStorageProviderMoreInfoUIVtbl struct {
-	win32.IInspectableVtbl
-	Get_Message uintptr
-	Put_Message uintptr
-	Get_Command uintptr
-	Put_Command uintptr
-}
-
-type IStorageProviderMoreInfoUI struct {
-	win32.IInspectable
-}
-
-func (this *IStorageProviderMoreInfoUI) Vtbl() *IStorageProviderMoreInfoUIVtbl {
-	return (*IStorageProviderMoreInfoUIVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IStorageProviderMoreInfoUI) Get_Message() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Message, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IStorageProviderMoreInfoUI) Put_Message(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Message, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
-}
-
-func (this *IStorageProviderMoreInfoUI) Get_Command() *IStorageProviderUICommand {
-	var _result *IStorageProviderUICommand
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Command, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderMoreInfoUI) Put_Command(value *IStorageProviderUICommand) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_Command, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
 // 658D2F0E-63B7-4567-ACF9-51ABE301DDA5
 var IID_IStorageProviderPropertyCapabilities = syscall.GUID{0x658D2F0E, 0x63B7, 0x4567,
 	[8]byte{0xAC, 0xF9, 0x51, 0xAB, 0xE3, 0x01, 0xDD, 0xA5}}
@@ -939,319 +1120,138 @@ func (this *IStorageProviderPropertyCapabilities) IsPropertySupported(propertyCa
 	return _result
 }
 
-// BA6295C3-312E-544F-9FD5-1F81B21F3649
-var IID_IStorageProviderQuotaUI = syscall.GUID{0xBA6295C3, 0x312E, 0x544F,
-	[8]byte{0x9F, 0xD5, 0x1F, 0x81, 0xB2, 0x1F, 0x36, 0x49}}
+// FF6E761D-FB8B-56C3-9E7A-05309D191FB4
+var IID_IStorageProviderStatus = syscall.GUID{0xFF6E761D, 0xFB8B, 0x56C3,
+	[8]byte{0x9E, 0x7A, 0x05, 0x30, 0x9D, 0x19, 0x1F, 0xB4}}
 
-type IStorageProviderQuotaUIInterface interface {
+type IStorageProviderStatusInterface interface {
 	win32.IInspectableInterface
-	Get_QuotaTotalInBytes() uint64
-	Put_QuotaTotalInBytes(value uint64)
-	Get_QuotaUsedInBytes() uint64
-	Put_QuotaUsedInBytes(value uint64)
-	Get_QuotaUsedLabel() string
-	Put_QuotaUsedLabel(value string)
-	Get_QuotaUsedColor() *IReference[unsafe.Pointer]
-	Put_QuotaUsedColor(value *IReference[unsafe.Pointer])
+	Get_Message() string
+	Get_State() StorageProviderState
+	Get_ErrorMessages() *IVectorView[*IStorageProviderError]
 }
 
-type IStorageProviderQuotaUIVtbl struct {
+type IStorageProviderStatusVtbl struct {
 	win32.IInspectableVtbl
-	Get_QuotaTotalInBytes uintptr
-	Put_QuotaTotalInBytes uintptr
-	Get_QuotaUsedInBytes  uintptr
-	Put_QuotaUsedInBytes  uintptr
-	Get_QuotaUsedLabel    uintptr
-	Put_QuotaUsedLabel    uintptr
-	Get_QuotaUsedColor    uintptr
-	Put_QuotaUsedColor    uintptr
+	Get_Message       uintptr
+	Get_State         uintptr
+	Get_ErrorMessages uintptr
 }
 
-type IStorageProviderQuotaUI struct {
+type IStorageProviderStatus struct {
 	win32.IInspectable
 }
 
-func (this *IStorageProviderQuotaUI) Vtbl() *IStorageProviderQuotaUIVtbl {
-	return (*IStorageProviderQuotaUIVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+func (this *IStorageProviderStatus) Vtbl() *IStorageProviderStatusVtbl {
+	return (*IStorageProviderStatusVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IStorageProviderQuotaUI) Get_QuotaTotalInBytes() uint64 {
-	var _result uint64
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_QuotaTotalInBytes, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IStorageProviderQuotaUI) Put_QuotaTotalInBytes(value uint64) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_QuotaTotalInBytes, uintptr(unsafe.Pointer(this)), uintptr(value))
-	_ = _hr
-}
-
-func (this *IStorageProviderQuotaUI) Get_QuotaUsedInBytes() uint64 {
-	var _result uint64
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_QuotaUsedInBytes, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IStorageProviderQuotaUI) Put_QuotaUsedInBytes(value uint64) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_QuotaUsedInBytes, uintptr(unsafe.Pointer(this)), uintptr(value))
-	_ = _hr
-}
-
-func (this *IStorageProviderQuotaUI) Get_QuotaUsedLabel() string {
+func (this *IStorageProviderStatus) Get_Message() string {
 	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_QuotaUsedLabel, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Message, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return HStringToStrAndFree(_result)
 }
 
-func (this *IStorageProviderQuotaUI) Put_QuotaUsedLabel(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_QuotaUsedLabel, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
-}
-
-func (this *IStorageProviderQuotaUI) Get_QuotaUsedColor() *IReference[unsafe.Pointer] {
-	var _result *IReference[unsafe.Pointer]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_QuotaUsedColor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderQuotaUI) Put_QuotaUsedColor(value *IReference[unsafe.Pointer]) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_QuotaUsedColor, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-// D6B6A758-198D-5B80-977F-5FF73DA33118
-var IID_IStorageProviderStatusUI = syscall.GUID{0xD6B6A758, 0x198D, 0x5B80,
-	[8]byte{0x97, 0x7F, 0x5F, 0xF7, 0x3D, 0xA3, 0x31, 0x18}}
-
-type IStorageProviderStatusUIInterface interface {
-	win32.IInspectableInterface
-	Get_ProviderState() StorageProviderState
-	Put_ProviderState(value StorageProviderState)
-	Get_ProviderStateLabel() string
-	Put_ProviderStateLabel(value string)
-	Get_ProviderStateIcon() *IUriRuntimeClass
-	Put_ProviderStateIcon(value *IUriRuntimeClass)
-	Get_SyncStatusCommand() *IStorageProviderUICommand
-	Put_SyncStatusCommand(value *IStorageProviderUICommand)
-	Get_QuotaUI() *IStorageProviderQuotaUI
-	Put_QuotaUI(value *IStorageProviderQuotaUI)
-	Get_MoreInfoUI() *IStorageProviderMoreInfoUI
-	Put_MoreInfoUI(value *IStorageProviderMoreInfoUI)
-	Get_ProviderPrimaryCommand() *IStorageProviderUICommand
-	Put_ProviderPrimaryCommand(value *IStorageProviderUICommand)
-	Get_ProviderSecondaryCommands() *IVector[*IStorageProviderUICommand]
-	Put_ProviderSecondaryCommands(value *IVector[*IStorageProviderUICommand])
-}
-
-type IStorageProviderStatusUIVtbl struct {
-	win32.IInspectableVtbl
-	Get_ProviderState             uintptr
-	Put_ProviderState             uintptr
-	Get_ProviderStateLabel        uintptr
-	Put_ProviderStateLabel        uintptr
-	Get_ProviderStateIcon         uintptr
-	Put_ProviderStateIcon         uintptr
-	Get_SyncStatusCommand         uintptr
-	Put_SyncStatusCommand         uintptr
-	Get_QuotaUI                   uintptr
-	Put_QuotaUI                   uintptr
-	Get_MoreInfoUI                uintptr
-	Put_MoreInfoUI                uintptr
-	Get_ProviderPrimaryCommand    uintptr
-	Put_ProviderPrimaryCommand    uintptr
-	Get_ProviderSecondaryCommands uintptr
-	Put_ProviderSecondaryCommands uintptr
-}
-
-type IStorageProviderStatusUI struct {
-	win32.IInspectable
-}
-
-func (this *IStorageProviderStatusUI) Vtbl() *IStorageProviderStatusUIVtbl {
-	return (*IStorageProviderStatusUIVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IStorageProviderStatusUI) Get_ProviderState() StorageProviderState {
+func (this *IStorageProviderStatus) Get_State() StorageProviderState {
 	var _result StorageProviderState
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ProviderState, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_State, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IStorageProviderStatusUI) Put_ProviderState(value StorageProviderState) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ProviderState, uintptr(unsafe.Pointer(this)), uintptr(value))
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_ProviderStateLabel() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ProviderStateLabel, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IStorageProviderStatusUI) Put_ProviderStateLabel(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ProviderStateLabel, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_ProviderStateIcon() *IUriRuntimeClass {
-	var _result *IUriRuntimeClass
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ProviderStateIcon, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+func (this *IStorageProviderStatus) Get_ErrorMessages() *IVectorView[*IStorageProviderError] {
+	var _result *IVectorView[*IStorageProviderError]
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ErrorMessages, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IStorageProviderStatusUI) Put_ProviderStateIcon(value *IUriRuntimeClass) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ProviderStateIcon, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
+// D64828C5-9B7A-5FA4-B126-90BD18936C7F
+var IID_IStorageProviderStatusFactory = syscall.GUID{0xD64828C5, 0x9B7A, 0x5FA4,
+	[8]byte{0xB1, 0x26, 0x90, 0xBD, 0x18, 0x93, 0x6C, 0x7F}}
 
-func (this *IStorageProviderStatusUI) Get_SyncStatusCommand() *IStorageProviderUICommand {
-	var _result *IStorageProviderUICommand
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SyncStatusCommand, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderStatusUI) Put_SyncStatusCommand(value *IStorageProviderUICommand) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SyncStatusCommand, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_QuotaUI() *IStorageProviderQuotaUI {
-	var _result *IStorageProviderQuotaUI
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_QuotaUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderStatusUI) Put_QuotaUI(value *IStorageProviderQuotaUI) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_QuotaUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_MoreInfoUI() *IStorageProviderMoreInfoUI {
-	var _result *IStorageProviderMoreInfoUI
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MoreInfoUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderStatusUI) Put_MoreInfoUI(value *IStorageProviderMoreInfoUI) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_MoreInfoUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_ProviderPrimaryCommand() *IStorageProviderUICommand {
-	var _result *IStorageProviderUICommand
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ProviderPrimaryCommand, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderStatusUI) Put_ProviderPrimaryCommand(value *IStorageProviderUICommand) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ProviderPrimaryCommand, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IStorageProviderStatusUI) Get_ProviderSecondaryCommands() *IVector[*IStorageProviderUICommand] {
-	var _result *IVector[*IStorageProviderUICommand]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ProviderSecondaryCommands, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderStatusUI) Put_ProviderSecondaryCommands(value *IVector[*IStorageProviderUICommand]) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ProviderSecondaryCommands, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-// A306C249-3D66-5E70-9007-E43DF96051FF
-var IID_IStorageProviderStatusUISource = syscall.GUID{0xA306C249, 0x3D66, 0x5E70,
-	[8]byte{0x90, 0x07, 0xE4, 0x3D, 0xF9, 0x60, 0x51, 0xFF}}
-
-type IStorageProviderStatusUISourceInterface interface {
+type IStorageProviderStatusFactoryInterface interface {
 	win32.IInspectableInterface
-	GetStatusUI() *IStorageProviderStatusUI
-	Add_StatusUIChanged(handler TypedEventHandler[*IStorageProviderStatusUISource, interface{}]) EventRegistrationToken
-	Remove_StatusUIChanged(token EventRegistrationToken)
+	CreateInstance(state StorageProviderState, message string) *IStorageProviderStatus
+	CreateInstance2(state StorageProviderState, message string, errorMessages *IIterable[*IStorageProviderError]) *IStorageProviderStatus
 }
 
-type IStorageProviderStatusUISourceVtbl struct {
+type IStorageProviderStatusFactoryVtbl struct {
 	win32.IInspectableVtbl
-	GetStatusUI            uintptr
-	Add_StatusUIChanged    uintptr
-	Remove_StatusUIChanged uintptr
+	CreateInstance  uintptr
+	CreateInstance2 uintptr
 }
 
-type IStorageProviderStatusUISource struct {
+type IStorageProviderStatusFactory struct {
 	win32.IInspectable
 }
 
-func (this *IStorageProviderStatusUISource) Vtbl() *IStorageProviderStatusUISourceVtbl {
-	return (*IStorageProviderStatusUISourceVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+func (this *IStorageProviderStatusFactory) Vtbl() *IStorageProviderStatusFactoryVtbl {
+	return (*IStorageProviderStatusFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IStorageProviderStatusUISource) GetStatusUI() *IStorageProviderStatusUI {
-	var _result *IStorageProviderStatusUI
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetStatusUI, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+func (this *IStorageProviderStatusFactory) CreateInstance(state StorageProviderState, message string) *IStorageProviderStatus {
+	var _result *IStorageProviderStatus
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateInstance, uintptr(unsafe.Pointer(this)), uintptr(state), NewHStr(message).Ptr, uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
 }
 
-func (this *IStorageProviderStatusUISource) Add_StatusUIChanged(handler TypedEventHandler[*IStorageProviderStatusUISource, interface{}]) EventRegistrationToken {
+func (this *IStorageProviderStatusFactory) CreateInstance2(state StorageProviderState, message string, errorMessages *IIterable[*IStorageProviderError]) *IStorageProviderStatus {
+	var _result *IStorageProviderStatus
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().CreateInstance2, uintptr(unsafe.Pointer(this)), uintptr(state), NewHStr(message).Ptr, uintptr(unsafe.Pointer(errorMessages)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+// 2E316BB2-FD43-5335-B3C4-A962EE31D17E
+var IID_IStorageProviderStatusSource = syscall.GUID{0x2E316BB2, 0xFD43, 0x5335,
+	[8]byte{0xB3, 0xC4, 0xA9, 0x62, 0xEE, 0x31, 0xD1, 0x7E}}
+
+type IStorageProviderStatusSourceInterface interface {
+	win32.IInspectableInterface
+	GetStatus() *IStorageProviderStatus
+	Add_Changed(handler TypedEventHandler[*IStorageProviderStatusSource, interface{}]) EventRegistrationToken
+	Remove_Changed(token EventRegistrationToken)
+}
+
+type IStorageProviderStatusSourceVtbl struct {
+	win32.IInspectableVtbl
+	GetStatus      uintptr
+	Add_Changed    uintptr
+	Remove_Changed uintptr
+}
+
+type IStorageProviderStatusSource struct {
+	win32.IInspectable
+}
+
+func (this *IStorageProviderStatusSource) Vtbl() *IStorageProviderStatusSourceVtbl {
+	return (*IStorageProviderStatusSourceVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
+}
+
+func (this *IStorageProviderStatusSource) GetStatus() *IStorageProviderStatus {
+	var _result *IStorageProviderStatus
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetStatus, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
+	_ = _hr
+	com.AddToScope(_result)
+	return _result
+}
+
+func (this *IStorageProviderStatusSource) Add_Changed(handler TypedEventHandler[*IStorageProviderStatusSource, interface{}]) EventRegistrationToken {
 	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_StatusUIChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_Changed, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IStorageProviderStatusUISource) Remove_StatusUIChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_StatusUIChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
+func (this *IStorageProviderStatusSource) Remove_Changed(token EventRegistrationToken) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_Changed, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
 	_ = _hr
-}
-
-// 12E46B74-4E5A-58D1-A62F-0376E8EE7DD8
-var IID_IStorageProviderStatusUISourceFactory = syscall.GUID{0x12E46B74, 0x4E5A, 0x58D1,
-	[8]byte{0xA6, 0x2F, 0x03, 0x76, 0xE8, 0xEE, 0x7D, 0xD8}}
-
-type IStorageProviderStatusUISourceFactoryInterface interface {
-	win32.IInspectableInterface
-	GetStatusUISource(syncRootId string) *IStorageProviderStatusUISource
-}
-
-type IStorageProviderStatusUISourceFactoryVtbl struct {
-	win32.IInspectableVtbl
-	GetStatusUISource uintptr
-}
-
-type IStorageProviderStatusUISourceFactory struct {
-	win32.IInspectable
-}
-
-func (this *IStorageProviderStatusUISourceFactory) Vtbl() *IStorageProviderStatusUISourceFactoryVtbl {
-	return (*IStorageProviderStatusUISourceFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IStorageProviderStatusUISourceFactory) GetStatusUISource(syncRootId string) *IStorageProviderStatusUISource {
-	var _result *IStorageProviderStatusUISource
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetStatusUISource, uintptr(unsafe.Pointer(this)), NewHStr(syncRootId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
 }
 
 // 7C1305C4-99F9-41AC-8904-AB055D654926
@@ -1686,70 +1686,6 @@ func (this *IStorageProviderSyncRootManagerStatics2) IsSupported() bool {
 	return _result
 }
 
-// 0C3E0760-D846-568F-9484-105CC57B502B
-var IID_IStorageProviderUICommand = syscall.GUID{0x0C3E0760, 0xD846, 0x568F,
-	[8]byte{0x94, 0x84, 0x10, 0x5C, 0xC5, 0x7B, 0x50, 0x2B}}
-
-type IStorageProviderUICommandInterface interface {
-	win32.IInspectableInterface
-	Get_Label() string
-	Get_Description() string
-	Get_Icon() *IUriRuntimeClass
-	Get_State() StorageProviderUICommandState
-	Invoke()
-}
-
-type IStorageProviderUICommandVtbl struct {
-	win32.IInspectableVtbl
-	Get_Label       uintptr
-	Get_Description uintptr
-	Get_Icon        uintptr
-	Get_State       uintptr
-	Invoke          uintptr
-}
-
-type IStorageProviderUICommand struct {
-	win32.IInspectable
-}
-
-func (this *IStorageProviderUICommand) Vtbl() *IStorageProviderUICommandVtbl {
-	return (*IStorageProviderUICommandVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IStorageProviderUICommand) Get_Label() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Label, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IStorageProviderUICommand) Get_Description() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Description, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IStorageProviderUICommand) Get_Icon() *IUriRuntimeClass {
-	var _result *IUriRuntimeClass
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Icon, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IStorageProviderUICommand) Get_State() StorageProviderUICommandState {
-	var _result StorageProviderUICommandState
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_State, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IStorageProviderUICommand) Invoke() {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Invoke, uintptr(unsafe.Pointer(this)))
-	_ = _hr
-}
-
 // B29806D1-8BE0-4962-8BB6-0D4C2E14D47A
 var IID_IStorageProviderUriSource = syscall.GUID{0xB29806D1, 0x8BE0, 0x4962,
 	[8]byte{0x8B, 0xB6, 0x0D, 0x4C, 0x2E, 0x14, 0xD4, 0x7A}}
@@ -1920,19 +1856,19 @@ type StorageProviderSyncRootManager struct {
 	RtClass
 }
 
-func NewIStorageProviderSyncRootManagerStatics2() *IStorageProviderSyncRootManagerStatics2 {
-	var p *IStorageProviderSyncRootManagerStatics2
+func NewIStorageProviderSyncRootManagerStatics() *IStorageProviderSyncRootManagerStatics {
+	var p *IStorageProviderSyncRootManagerStatics
 	hs := NewHStr("Windows.Storage.Provider.StorageProviderSyncRootManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStorageProviderSyncRootManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStorageProviderSyncRootManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIStorageProviderSyncRootManagerStatics() *IStorageProviderSyncRootManagerStatics {
-	var p *IStorageProviderSyncRootManagerStatics
+func NewIStorageProviderSyncRootManagerStatics2() *IStorageProviderSyncRootManagerStatics2 {
+	var p *IStorageProviderSyncRootManagerStatics2
 	hs := NewHStr("Windows.Storage.Provider.StorageProviderSyncRootManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStorageProviderSyncRootManagerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStorageProviderSyncRootManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

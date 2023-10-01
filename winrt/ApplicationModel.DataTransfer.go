@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -50,10 +50,10 @@ const (
 
 // func types
 
-//E7ECD720-F2F4-4A2D-920E-170A2F482A27
+// E7ECD720-F2F4-4A2D-920E-170A2F482A27
 type DataProviderHandler func(request *IDataProviderRequest) com.Error
 
-//E7F9D9BA-E1BA-4E4D-BD65-D43845D3212F
+// E7F9D9BA-E1BA-4E4D-BD65-D43845D3212F
 type ShareProviderHandler func(operation *IShareProviderOperation) com.Error
 
 // interfaces
@@ -2507,19 +2507,19 @@ type Clipboard struct {
 	RtClass
 }
 
-func NewIClipboardStatics2() *IClipboardStatics2 {
-	var p *IClipboardStatics2
+func NewIClipboardStatics() *IClipboardStatics {
+	var p *IClipboardStatics
 	hs := NewHStr("Windows.ApplicationModel.DataTransfer.Clipboard")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IClipboardStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IClipboardStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIClipboardStatics() *IClipboardStatics {
-	var p *IClipboardStatics
+func NewIClipboardStatics2() *IClipboardStatics2 {
+	var p *IClipboardStatics2
 	hs := NewHStr("Windows.ApplicationModel.DataTransfer.Clipboard")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IClipboardStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IClipboardStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2610,6 +2610,15 @@ type StandardDataFormats struct {
 	RtClass
 }
 
+func NewIStandardDataFormatsStatics2() *IStandardDataFormatsStatics2 {
+	var p *IStandardDataFormatsStatics2
+	hs := NewHStr("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardDataFormatsStatics2, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
 func NewIStandardDataFormatsStatics() *IStandardDataFormatsStatics {
 	var p *IStandardDataFormatsStatics
 	hs := NewHStr("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
@@ -2623,15 +2632,6 @@ func NewIStandardDataFormatsStatics3() *IStandardDataFormatsStatics3 {
 	var p *IStandardDataFormatsStatics3
 	hs := NewHStr("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardDataFormatsStatics3, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
-func NewIStandardDataFormatsStatics2() *IStandardDataFormatsStatics2 {
-	var p *IStandardDataFormatsStatics2
-	hs := NewHStr("Windows.ApplicationModel.DataTransfer.StandardDataFormats")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IStandardDataFormatsStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

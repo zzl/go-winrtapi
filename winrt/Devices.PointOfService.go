@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -8529,19 +8529,19 @@ type CashDrawer struct {
 	*ICashDrawer
 }
 
-func NewICashDrawerStatics() *ICashDrawerStatics {
-	var p *ICashDrawerStatics
+func NewICashDrawerStatics2() *ICashDrawerStatics2 {
+	var p *ICashDrawerStatics2
 	hs := NewHStr("Windows.Devices.PointOfService.CashDrawer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICashDrawerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICashDrawerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewICashDrawerStatics2() *ICashDrawerStatics2 {
-	var p *ICashDrawerStatics2
+func NewICashDrawerStatics() *ICashDrawerStatics {
+	var p *ICashDrawerStatics
 	hs := NewHStr("Windows.Devices.PointOfService.CashDrawer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICashDrawerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICashDrawerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -8709,19 +8709,19 @@ type PosPrinter struct {
 	*IPosPrinter
 }
 
-func NewIPosPrinterStatics() *IPosPrinterStatics {
-	var p *IPosPrinterStatics
+func NewIPosPrinterStatics2() *IPosPrinterStatics2 {
+	var p *IPosPrinterStatics2
 	hs := NewHStr("Windows.Devices.PointOfService.PosPrinter")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPosPrinterStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPosPrinterStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIPosPrinterStatics2() *IPosPrinterStatics2 {
-	var p *IPosPrinterStatics2
+func NewIPosPrinterStatics() *IPosPrinterStatics {
+	var p *IPosPrinterStatics
 	hs := NewHStr("Windows.Devices.PointOfService.PosPrinter")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPosPrinterStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPosPrinterStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

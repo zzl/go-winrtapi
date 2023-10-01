@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -142,19 +142,19 @@ type PerceptionTimestampHelper struct {
 	RtClass
 }
 
-func NewIPerceptionTimestampHelperStatics2() *IPerceptionTimestampHelperStatics2 {
-	var p *IPerceptionTimestampHelperStatics2
+func NewIPerceptionTimestampHelperStatics() *IPerceptionTimestampHelperStatics {
+	var p *IPerceptionTimestampHelperStatics
 	hs := NewHStr("Windows.Perception.PerceptionTimestampHelper")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPerceptionTimestampHelperStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPerceptionTimestampHelperStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIPerceptionTimestampHelperStatics() *IPerceptionTimestampHelperStatics {
-	var p *IPerceptionTimestampHelperStatics
+func NewIPerceptionTimestampHelperStatics2() *IPerceptionTimestampHelperStatics2 {
+	var p *IPerceptionTimestampHelperStatics2
 	hs := NewHStr("Windows.Perception.PerceptionTimestampHelper")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPerceptionTimestampHelperStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPerceptionTimestampHelperStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

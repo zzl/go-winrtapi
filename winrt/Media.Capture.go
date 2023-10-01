@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -339,14 +339,6 @@ const (
 )
 
 // enum
-type MediaCaptureDeviceExclusiveControlReleaseMode int32
-
-const (
-	MediaCaptureDeviceExclusiveControlReleaseMode_OnDispose           MediaCaptureDeviceExclusiveControlReleaseMode = 0
-	MediaCaptureDeviceExclusiveControlReleaseMode_OnAllStreamsStopped MediaCaptureDeviceExclusiveControlReleaseMode = 1
-)
-
-// enum
 type MediaCaptureDeviceExclusiveControlStatus int32
 
 const (
@@ -477,10 +469,10 @@ type WhiteBalanceGain struct {
 
 // func types
 
-//2014EFFB-5CD8-4F08-A314-0D360DA59F14
+// 2014EFFB-5CD8-4F08-A314-0D360DA59F14
 type MediaCaptureFailedEventHandler func(sender *IMediaCapture, errorEventArgs *IMediaCaptureFailedEventArgs) com.Error
 
-//3FAE8F2E-4FE1-4FFD-AABA-E1F1337D4E53
+// 3FAE8F2E-4FE1-4FFD-AABA-E1F1337D4E53
 type RecordLimitationExceededEventHandler func(sender *IMediaCapture) com.Error
 
 // interfaces

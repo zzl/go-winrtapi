@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -78,14 +78,6 @@ type HandPreference int32
 const (
 	HandPreference_LeftHanded  HandPreference = 0
 	HandPreference_RightHanded HandPreference = 1
-)
-
-// enum
-type ScreenCaptureDisabledBehavior int32
-
-const (
-	ScreenCaptureDisabledBehavior_DrawAsBlack        ScreenCaptureDisabledBehavior = 0
-	ScreenCaptureDisabledBehavior_ExcludeFromCapture ScreenCaptureDisabledBehavior = 1
 )
 
 // enum

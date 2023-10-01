@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -2269,19 +2269,19 @@ type AsymmetricAlgorithmNames struct {
 	RtClass
 }
 
-func NewIAsymmetricAlgorithmNamesStatics() *IAsymmetricAlgorithmNamesStatics {
-	var p *IAsymmetricAlgorithmNamesStatics
+func NewIAsymmetricAlgorithmNamesStatics2() *IAsymmetricAlgorithmNamesStatics2 {
+	var p *IAsymmetricAlgorithmNamesStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAsymmetricAlgorithmNamesStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAsymmetricAlgorithmNamesStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIAsymmetricAlgorithmNamesStatics2() *IAsymmetricAlgorithmNamesStatics2 {
-	var p *IAsymmetricAlgorithmNamesStatics2
+func NewIAsymmetricAlgorithmNamesStatics() *IAsymmetricAlgorithmNamesStatics {
+	var p *IAsymmetricAlgorithmNamesStatics
 	hs := NewHStr("Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAsymmetricAlgorithmNamesStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAsymmetricAlgorithmNamesStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2305,19 +2305,19 @@ type CryptographicEngine struct {
 	RtClass
 }
 
-func NewICryptographicEngineStatics() *ICryptographicEngineStatics {
-	var p *ICryptographicEngineStatics
+func NewICryptographicEngineStatics2() *ICryptographicEngineStatics2 {
+	var p *ICryptographicEngineStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Core.CryptographicEngine")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICryptographicEngineStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICryptographicEngineStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewICryptographicEngineStatics2() *ICryptographicEngineStatics2 {
-	var p *ICryptographicEngineStatics2
+func NewICryptographicEngineStatics() *ICryptographicEngineStatics {
+	var p *ICryptographicEngineStatics
 	hs := NewHStr("Windows.Security.Cryptography.Core.CryptographicEngine")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICryptographicEngineStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICryptographicEngineStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2382,19 +2382,19 @@ type KeyDerivationAlgorithmNames struct {
 	RtClass
 }
 
-func NewIKeyDerivationAlgorithmNamesStatics() *IKeyDerivationAlgorithmNamesStatics {
-	var p *IKeyDerivationAlgorithmNamesStatics
+func NewIKeyDerivationAlgorithmNamesStatics2() *IKeyDerivationAlgorithmNamesStatics2 {
+	var p *IKeyDerivationAlgorithmNamesStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationAlgorithmNamesStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationAlgorithmNamesStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIKeyDerivationAlgorithmNamesStatics2() *IKeyDerivationAlgorithmNamesStatics2 {
-	var p *IKeyDerivationAlgorithmNamesStatics2
+func NewIKeyDerivationAlgorithmNamesStatics() *IKeyDerivationAlgorithmNamesStatics {
+	var p *IKeyDerivationAlgorithmNamesStatics
 	hs := NewHStr("Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationAlgorithmNamesStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationAlgorithmNamesStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2419,19 +2419,19 @@ type KeyDerivationParameters struct {
 	*IKeyDerivationParameters
 }
 
-func NewIKeyDerivationParametersStatics2() *IKeyDerivationParametersStatics2 {
-	var p *IKeyDerivationParametersStatics2
+func NewIKeyDerivationParametersStatics() *IKeyDerivationParametersStatics {
+	var p *IKeyDerivationParametersStatics
 	hs := NewHStr("Windows.Security.Cryptography.Core.KeyDerivationParameters")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationParametersStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationParametersStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIKeyDerivationParametersStatics() *IKeyDerivationParametersStatics {
-	var p *IKeyDerivationParametersStatics
+func NewIKeyDerivationParametersStatics2() *IKeyDerivationParametersStatics2 {
+	var p *IKeyDerivationParametersStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Core.KeyDerivationParameters")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationParametersStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyDerivationParametersStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

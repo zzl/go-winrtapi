@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -171,10 +171,10 @@ type SmsEncodedLength struct {
 
 // func types
 
-//982B1162-3DD7-4618-AF89-0C272D5D06D8
+// 982B1162-3DD7-4618-AF89-0C272D5D06D8
 type SmsDeviceStatusChangedEventHandler func(sender *ISmsDevice) com.Error
 
-//0B7AD409-EC2D-47CE-A253-732BEEEBCACD
+// 0B7AD409-EC2D-47CE-A253-732BEEEBCACD
 type SmsMessageReceivedEventHandler func(sender *ISmsDevice, e *ISmsMessageReceivedEventArgs) com.Error
 
 // interfaces

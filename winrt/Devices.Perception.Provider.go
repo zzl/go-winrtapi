@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -10,10 +10,10 @@ import (
 
 // func types
 
-//74816D2A-2090-4670-8C48-EF39E7FF7C26
+// 74816D2A-2090-4670-8C48-EF39E7FF7C26
 type PerceptionStartFaceAuthenticationHandler func(sender *IPerceptionFaceAuthenticationGroup, pResult *bool) com.Error
 
-//387EE6AA-89CD-481E-AADE-DD92F70B2AD7
+// 387EE6AA-89CD-481E-AADE-DD92F70B2AD7
 type PerceptionStopFaceAuthenticationHandler func(sender *IPerceptionFaceAuthenticationGroup) com.Error
 
 // interfaces
@@ -132,8 +132,8 @@ var IID_IPerceptionCorrelation = syscall.GUID{0xB4131A82, 0xDFF5, 0x4047,
 type IPerceptionCorrelationInterface interface {
 	win32.IInspectableInterface
 	Get_TargetId() string
-	Get_Position() unsafe.Pointer
-	Get_Orientation() unsafe.Pointer
+	Get_Position() Vector3
+	Get_Orientation() Quaternion
 }
 
 type IPerceptionCorrelationVtbl struct {
@@ -158,15 +158,15 @@ func (this *IPerceptionCorrelation) Get_TargetId() string {
 	return HStringToStrAndFree(_result)
 }
 
-func (this *IPerceptionCorrelation) Get_Position() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IPerceptionCorrelation) Get_Position() Vector3 {
+	var _result Vector3
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Position, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IPerceptionCorrelation) Get_Orientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IPerceptionCorrelation) Get_Orientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Orientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
@@ -178,7 +178,7 @@ var IID_IPerceptionCorrelationFactory = syscall.GUID{0xD4A6C425, 0x2884, 0x4A8F,
 
 type IPerceptionCorrelationFactoryInterface interface {
 	win32.IInspectableInterface
-	Create(targetId string, position unsafe.Pointer, orientation unsafe.Pointer) *IPerceptionCorrelation
+	Create(targetId string, position Vector3, orientation Quaternion) *IPerceptionCorrelation
 }
 
 type IPerceptionCorrelationFactoryVtbl struct {
@@ -194,9 +194,9 @@ func (this *IPerceptionCorrelationFactory) Vtbl() *IPerceptionCorrelationFactory
 	return (*IPerceptionCorrelationFactoryVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IPerceptionCorrelationFactory) Create(targetId string, position unsafe.Pointer, orientation unsafe.Pointer) *IPerceptionCorrelation {
+func (this *IPerceptionCorrelationFactory) Create(targetId string, position Vector3, orientation Quaternion) *IPerceptionCorrelation {
 	var _result *IPerceptionCorrelation
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(position), uintptr(orientation), uintptr(unsafe.Pointer(&_result)))
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Create, uintptr(unsafe.Pointer(this)), NewHStr(targetId).Ptr, uintptr(unsafe.Pointer(&position)), uintptr(unsafe.Pointer(&orientation)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -844,7 +844,7 @@ type PerceptionCorrelation struct {
 	*IPerceptionCorrelation
 }
 
-func NewPerceptionCorrelation_Create(targetId string, position unsafe.Pointer, orientation unsafe.Pointer) *PerceptionCorrelation {
+func NewPerceptionCorrelation_Create(targetId string, position Vector3, orientation Quaternion) *PerceptionCorrelation {
 	hs := NewHStr("Windows.Devices.Perception.Provider.PerceptionCorrelation")
 	var pFac *IPerceptionCorrelationFactory
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPerceptionCorrelationFactory, unsafe.Pointer(&pFac))

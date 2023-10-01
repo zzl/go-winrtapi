@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -90,13 +90,13 @@ type ProtectionRenewalContract struct {
 
 // func types
 
-//95DA643C-6DB9-424B-86CA-091AF432081C
+// 95DA643C-6DB9-424B-86CA-091AF432081C
 type ComponentLoadFailedEventHandler func(sender *IMediaProtectionManager, e *IComponentLoadFailedEventArgs) com.Error
 
-//64E12A45-973B-4A3A-B260-91898A49A82C
+// 64E12A45-973B-4A3A-B260-91898A49A82C
 type RebootNeededEventHandler func(sender *IMediaProtectionManager) com.Error
 
-//D2D690BA-CAC9-48E1-95C0-D38495A84055
+// D2D690BA-CAC9-48E1-95C0-D38495A84055
 type ServiceRequestedEventHandler func(sender *IMediaProtectionManager, e *IServiceRequestedEventArgs) com.Error
 
 // interfaces

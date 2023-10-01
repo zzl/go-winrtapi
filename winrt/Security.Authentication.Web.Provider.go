@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -1208,10 +1208,10 @@ func NewIWebAccountManagerStatics() *IWebAccountManagerStatics {
 	return p
 }
 
-func NewIWebAccountMapManagerStatics() *IWebAccountMapManagerStatics {
-	var p *IWebAccountMapManagerStatics
+func NewIWebAccountManagerStatics2() *IWebAccountManagerStatics2 {
+	var p *IWebAccountManagerStatics2
 	hs := NewHStr("Windows.Security.Authentication.Web.Provider.WebAccountManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IWebAccountMapManagerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IWebAccountManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -1244,10 +1244,10 @@ func NewIWebAccountManagerStatics4() *IWebAccountManagerStatics4 {
 	return p
 }
 
-func NewIWebAccountManagerStatics2() *IWebAccountManagerStatics2 {
-	var p *IWebAccountManagerStatics2
+func NewIWebAccountMapManagerStatics() *IWebAccountMapManagerStatics {
+	var p *IWebAccountMapManagerStatics
 	hs := NewHStr("Windows.Security.Authentication.Web.Provider.WebAccountManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IWebAccountManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IWebAccountMapManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

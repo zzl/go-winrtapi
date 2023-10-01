@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -70,7 +70,7 @@ var IID_IConditionForceEffect = syscall.GUID{0x32D1EA68, 0x3695, 0x4E69,
 type IConditionForceEffectInterface interface {
 	win32.IInspectableInterface
 	Get_Kind() ConditionForceEffectKind
-	SetParameters(direction unsafe.Pointer, positiveCoefficient float32, negativeCoefficient float32, maxPositiveMagnitude float32, maxNegativeMagnitude float32, deadZone float32, bias float32)
+	SetParameters(direction Vector3, positiveCoefficient float32, negativeCoefficient float32, maxPositiveMagnitude float32, maxNegativeMagnitude float32, deadZone float32, bias float32)
 }
 
 type IConditionForceEffectVtbl struct {
@@ -94,8 +94,8 @@ func (this *IConditionForceEffect) Get_Kind() ConditionForceEffectKind {
 	return _result
 }
 
-func (this *IConditionForceEffect) SetParameters(direction unsafe.Pointer, positiveCoefficient float32, negativeCoefficient float32, maxPositiveMagnitude float32, maxNegativeMagnitude float32, deadZone float32, bias float32) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(direction), uintptr(positiveCoefficient), uintptr(negativeCoefficient), uintptr(maxPositiveMagnitude), uintptr(maxNegativeMagnitude), uintptr(deadZone), uintptr(bias))
+func (this *IConditionForceEffect) SetParameters(direction Vector3, positiveCoefficient float32, negativeCoefficient float32, maxPositiveMagnitude float32, maxNegativeMagnitude float32, deadZone float32, bias float32) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&direction)), uintptr(positiveCoefficient), uintptr(negativeCoefficient), uintptr(maxPositiveMagnitude), uintptr(maxNegativeMagnitude), uintptr(deadZone), uintptr(bias))
 	_ = _hr
 }
 
@@ -135,8 +135,8 @@ var IID_IConstantForceEffect = syscall.GUID{0x9BFA0140, 0xF3C7, 0x415C,
 
 type IConstantForceEffectInterface interface {
 	win32.IInspectableInterface
-	SetParameters(vector unsafe.Pointer, duration TimeSpan)
-	SetParametersWithEnvelope(vector unsafe.Pointer, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
+	SetParameters(vector Vector3, duration TimeSpan)
+	SetParametersWithEnvelope(vector Vector3, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
 }
 
 type IConstantForceEffectVtbl struct {
@@ -153,13 +153,13 @@ func (this *IConstantForceEffect) Vtbl() *IConstantForceEffectVtbl {
 	return (*IConstantForceEffectVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IConstantForceEffect) SetParameters(vector unsafe.Pointer, duration TimeSpan) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(vector), *(*uintptr)(unsafe.Pointer(&duration)))
+func (this *IConstantForceEffect) SetParameters(vector Vector3, duration TimeSpan) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&vector)), *(*uintptr)(unsafe.Pointer(&duration)))
 	_ = _hr
 }
 
-func (this *IConstantForceEffect) SetParametersWithEnvelope(vector unsafe.Pointer, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(vector), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
+func (this *IConstantForceEffect) SetParametersWithEnvelope(vector Vector3, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&vector)), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
 	_ = _hr
 }
 
@@ -363,8 +363,8 @@ var IID_IPeriodicForceEffect = syscall.GUID{0x5C5138D7, 0xFC75, 0x4D52,
 type IPeriodicForceEffectInterface interface {
 	win32.IInspectableInterface
 	Get_Kind() PeriodicForceEffectKind
-	SetParameters(vector unsafe.Pointer, frequency float32, phase float32, bias float32, duration TimeSpan)
-	SetParametersWithEnvelope(vector unsafe.Pointer, frequency float32, phase float32, bias float32, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
+	SetParameters(vector Vector3, frequency float32, phase float32, bias float32, duration TimeSpan)
+	SetParametersWithEnvelope(vector Vector3, frequency float32, phase float32, bias float32, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
 }
 
 type IPeriodicForceEffectVtbl struct {
@@ -389,13 +389,13 @@ func (this *IPeriodicForceEffect) Get_Kind() PeriodicForceEffectKind {
 	return _result
 }
 
-func (this *IPeriodicForceEffect) SetParameters(vector unsafe.Pointer, frequency float32, phase float32, bias float32, duration TimeSpan) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(vector), uintptr(frequency), uintptr(phase), uintptr(bias), *(*uintptr)(unsafe.Pointer(&duration)))
+func (this *IPeriodicForceEffect) SetParameters(vector Vector3, frequency float32, phase float32, bias float32, duration TimeSpan) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&vector)), uintptr(frequency), uintptr(phase), uintptr(bias), *(*uintptr)(unsafe.Pointer(&duration)))
 	_ = _hr
 }
 
-func (this *IPeriodicForceEffect) SetParametersWithEnvelope(vector unsafe.Pointer, frequency float32, phase float32, bias float32, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(vector), uintptr(frequency), uintptr(phase), uintptr(bias), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
+func (this *IPeriodicForceEffect) SetParametersWithEnvelope(vector Vector3, frequency float32, phase float32, bias float32, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&vector)), uintptr(frequency), uintptr(phase), uintptr(bias), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
 	_ = _hr
 }
 
@@ -435,8 +435,8 @@ var IID_IRampForceEffect = syscall.GUID{0xF1F81259, 0x1CA6, 0x4080,
 
 type IRampForceEffectInterface interface {
 	win32.IInspectableInterface
-	SetParameters(startVector unsafe.Pointer, endVector unsafe.Pointer, duration TimeSpan)
-	SetParametersWithEnvelope(startVector unsafe.Pointer, endVector unsafe.Pointer, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
+	SetParameters(startVector Vector3, endVector Vector3, duration TimeSpan)
+	SetParametersWithEnvelope(startVector Vector3, endVector Vector3, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32)
 }
 
 type IRampForceEffectVtbl struct {
@@ -453,13 +453,13 @@ func (this *IRampForceEffect) Vtbl() *IRampForceEffectVtbl {
 	return (*IRampForceEffectVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
 }
 
-func (this *IRampForceEffect) SetParameters(startVector unsafe.Pointer, endVector unsafe.Pointer, duration TimeSpan) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(startVector), uintptr(endVector), *(*uintptr)(unsafe.Pointer(&duration)))
+func (this *IRampForceEffect) SetParameters(startVector Vector3, endVector Vector3, duration TimeSpan) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParameters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&startVector)), uintptr(unsafe.Pointer(&endVector)), *(*uintptr)(unsafe.Pointer(&duration)))
 	_ = _hr
 }
 
-func (this *IRampForceEffect) SetParametersWithEnvelope(startVector unsafe.Pointer, endVector unsafe.Pointer, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(startVector), uintptr(endVector), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
+func (this *IRampForceEffect) SetParametersWithEnvelope(startVector Vector3, endVector Vector3, attackGain float32, sustainGain float32, releaseGain float32, startDelay TimeSpan, attackDuration TimeSpan, sustainDuration TimeSpan, releaseDuration TimeSpan, repeatCount uint32) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().SetParametersWithEnvelope, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&startVector)), uintptr(unsafe.Pointer(&endVector)), uintptr(attackGain), uintptr(sustainGain), uintptr(releaseGain), *(*uintptr)(unsafe.Pointer(&startDelay)), *(*uintptr)(unsafe.Pointer(&attackDuration)), *(*uintptr)(unsafe.Pointer(&sustainDuration)), *(*uintptr)(unsafe.Pointer(&releaseDuration)), uintptr(repeatCount))
 	_ = _hr
 }
 

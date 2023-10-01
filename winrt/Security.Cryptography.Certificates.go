@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -2820,19 +2820,19 @@ type CertificateEnrollmentManager struct {
 	RtClass
 }
 
-func NewICertificateEnrollmentManagerStatics3() *ICertificateEnrollmentManagerStatics3 {
-	var p *ICertificateEnrollmentManagerStatics3
+func NewICertificateEnrollmentManagerStatics2() *ICertificateEnrollmentManagerStatics2 {
+	var p *ICertificateEnrollmentManagerStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateEnrollmentManagerStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateEnrollmentManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewICertificateEnrollmentManagerStatics2() *ICertificateEnrollmentManagerStatics2 {
-	var p *ICertificateEnrollmentManagerStatics2
+func NewICertificateEnrollmentManagerStatics3() *ICertificateEnrollmentManagerStatics3 {
+	var p *ICertificateEnrollmentManagerStatics3
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.CertificateEnrollmentManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateEnrollmentManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateEnrollmentManagerStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -2932,19 +2932,19 @@ type CertificateStores struct {
 	RtClass
 }
 
-func NewICertificateStoresStatics() *ICertificateStoresStatics {
-	var p *ICertificateStoresStatics
+func NewICertificateStoresStatics2() *ICertificateStoresStatics2 {
+	var p *ICertificateStoresStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.CertificateStores")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateStoresStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateStoresStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewICertificateStoresStatics2() *ICertificateStoresStatics2 {
-	var p *ICertificateStoresStatics2
+func NewICertificateStoresStatics() *ICertificateStoresStatics {
+	var p *ICertificateStoresStatics
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.CertificateStores")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateStoresStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICertificateStoresStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -3100,19 +3100,19 @@ type KeyAttestationHelper struct {
 	RtClass
 }
 
-func NewIKeyAttestationHelperStatics() *IKeyAttestationHelperStatics {
-	var p *IKeyAttestationHelperStatics
+func NewIKeyAttestationHelperStatics2() *IKeyAttestationHelperStatics2 {
+	var p *IKeyAttestationHelperStatics2
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.KeyAttestationHelper")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyAttestationHelperStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyAttestationHelperStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIKeyAttestationHelperStatics2() *IKeyAttestationHelperStatics2 {
-	var p *IKeyAttestationHelperStatics2
+func NewIKeyAttestationHelperStatics() *IKeyAttestationHelperStatics {
+	var p *IKeyAttestationHelperStatics
 	hs := NewHStr("Windows.Security.Cryptography.Certificates.KeyAttestationHelper")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyAttestationHelperStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKeyAttestationHelperStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

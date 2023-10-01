@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -173,26 +173,6 @@ type ShutdownKind int32
 const (
 	ShutdownKind_Shutdown ShutdownKind = 0
 	ShutdownKind_Restart  ShutdownKind = 1
-)
-
-// enum
-type UserAgeConsentGroup int32
-
-const (
-	UserAgeConsentGroup_Child UserAgeConsentGroup = 0
-	UserAgeConsentGroup_Minor UserAgeConsentGroup = 1
-	UserAgeConsentGroup_Adult UserAgeConsentGroup = 2
-)
-
-// enum
-type UserAgeConsentResult int32
-
-const (
-	UserAgeConsentResult_NotEnforced UserAgeConsentResult = 0
-	UserAgeConsentResult_Included    UserAgeConsentResult = 1
-	UserAgeConsentResult_NotIncluded UserAgeConsentResult = 2
-	UserAgeConsentResult_Unknown     UserAgeConsentResult = 3
-	UserAgeConsentResult_Ambiguous   UserAgeConsentResult = 4
 )
 
 // enum
@@ -442,7 +422,7 @@ type SystemManagementContract struct {
 
 // func types
 
-//DFA2DC9C-1A2D-4917-98F2-939AF1D6E0C8
+// DFA2DC9C-1A2D-4917-98F2-939AF1D6E0C8
 type DispatcherQueueHandler func() com.Error
 
 // interfaces
@@ -1492,42 +1472,6 @@ func (this *IAppUriHandlerHost) Put_Name(value string) {
 	_ = _hr
 }
 
-// 3A0BEE95-29E4-51BF-8095-A3C068E3C72A
-var IID_IAppUriHandlerHost2 = syscall.GUID{0x3A0BEE95, 0x29E4, 0x51BF,
-	[8]byte{0x80, 0x95, 0xA3, 0xC0, 0x68, 0xE3, 0xC7, 0x2A}}
-
-type IAppUriHandlerHost2Interface interface {
-	win32.IInspectableInterface
-	Get_IsEnabled() bool
-	Put_IsEnabled(value bool)
-}
-
-type IAppUriHandlerHost2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_IsEnabled uintptr
-	Put_IsEnabled uintptr
-}
-
-type IAppUriHandlerHost2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppUriHandlerHost2) Vtbl() *IAppUriHandlerHost2Vtbl {
-	return (*IAppUriHandlerHost2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppUriHandlerHost2) Get_IsEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IAppUriHandlerHost2) Put_IsEnabled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
 // 257C3C96-CE04-5F98-96BB-3EBD3E9275BB
 var IID_IAppUriHandlerHostFactory = syscall.GUID{0x257C3C96, 0xCE04, 0x5F98,
 	[8]byte{0x96, 0xBB, 0x3E, 0xBD, 0x3E, 0x92, 0x75, 0xBB}}
@@ -1617,52 +1561,6 @@ func (this *IAppUriHandlerRegistration) SetAppAddedHostsAsync(hosts *IIterable[*
 	return _result
 }
 
-// D54DAC97-CB39-5F1F-883E-01853730BD6D
-var IID_IAppUriHandlerRegistration2 = syscall.GUID{0xD54DAC97, 0xCB39, 0x5F1F,
-	[8]byte{0x88, 0x3E, 0x01, 0x85, 0x37, 0x30, 0xBD, 0x6D}}
-
-type IAppUriHandlerRegistration2Interface interface {
-	win32.IInspectableInterface
-	GetAllHosts() *IVector[*IAppUriHandlerHost]
-	UpdateHosts(hosts *IIterable[*IAppUriHandlerHost])
-	Get_PackageFamilyName() string
-}
-
-type IAppUriHandlerRegistration2Vtbl struct {
-	win32.IInspectableVtbl
-	GetAllHosts           uintptr
-	UpdateHosts           uintptr
-	Get_PackageFamilyName uintptr
-}
-
-type IAppUriHandlerRegistration2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppUriHandlerRegistration2) Vtbl() *IAppUriHandlerRegistration2Vtbl {
-	return (*IAppUriHandlerRegistration2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppUriHandlerRegistration2) GetAllHosts() *IVector[*IAppUriHandlerHost] {
-	var _result *IVector[*IAppUriHandlerHost]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetAllHosts, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppUriHandlerRegistration2) UpdateHosts(hosts *IIterable[*IAppUriHandlerHost]) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UpdateHosts, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(hosts)))
-	_ = _hr
-}
-
-func (this *IAppUriHandlerRegistration2) Get_PackageFamilyName() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PackageFamilyName, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
 // E62C9A52-AC94-5750-AC1B-6CFB6F250263
 var IID_IAppUriHandlerRegistrationManager = syscall.GUID{0xE62C9A52, 0xAC94, 0x5750,
 	[8]byte{0xAC, 0x1B, 0x6C, 0xFB, 0x6F, 0x25, 0x02, 0x63}}
@@ -1703,35 +1601,6 @@ func (this *IAppUriHandlerRegistrationManager) TryGetRegistration(name string) *
 	return _result
 }
 
-// BDDFCAF1-B51A-5E69-AEFD-7088D9F2B123
-var IID_IAppUriHandlerRegistrationManager2 = syscall.GUID{0xBDDFCAF1, 0xB51A, 0x5E69,
-	[8]byte{0xAE, 0xFD, 0x70, 0x88, 0xD9, 0xF2, 0xB1, 0x23}}
-
-type IAppUriHandlerRegistrationManager2Interface interface {
-	win32.IInspectableInterface
-	Get_PackageFamilyName() string
-}
-
-type IAppUriHandlerRegistrationManager2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_PackageFamilyName uintptr
-}
-
-type IAppUriHandlerRegistrationManager2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppUriHandlerRegistrationManager2) Vtbl() *IAppUriHandlerRegistrationManager2Vtbl {
-	return (*IAppUriHandlerRegistrationManager2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppUriHandlerRegistrationManager2) Get_PackageFamilyName() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_PackageFamilyName, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
 // D5CEDD9F-5729-5B76-A1D4-0285F295C124
 var IID_IAppUriHandlerRegistrationManagerStatics = syscall.GUID{0xD5CEDD9F, 0x5729, 0x5B76,
 	[8]byte{0xA1, 0xD4, 0x02, 0x85, 0xF2, 0x95, 0xC1, 0x24}}
@@ -1767,46 +1636,6 @@ func (this *IAppUriHandlerRegistrationManagerStatics) GetDefault() *IAppUriHandl
 func (this *IAppUriHandlerRegistrationManagerStatics) GetForUser(user *IUser) *IAppUriHandlerRegistrationManager {
 	var _result *IAppUriHandlerRegistrationManager
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetForUser, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(user)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 14F78379-6890-5080-90A7-98824A7F079E
-var IID_IAppUriHandlerRegistrationManagerStatics2 = syscall.GUID{0x14F78379, 0x6890, 0x5080,
-	[8]byte{0x90, 0xA7, 0x98, 0x82, 0x4A, 0x7F, 0x07, 0x9E}}
-
-type IAppUriHandlerRegistrationManagerStatics2Interface interface {
-	win32.IInspectableInterface
-	GetForPackage(packageFamilyName string) *IAppUriHandlerRegistrationManager
-	GetForPackageForUser(packageFamilyName string, user *IUser) *IAppUriHandlerRegistrationManager
-}
-
-type IAppUriHandlerRegistrationManagerStatics2Vtbl struct {
-	win32.IInspectableVtbl
-	GetForPackage        uintptr
-	GetForPackageForUser uintptr
-}
-
-type IAppUriHandlerRegistrationManagerStatics2 struct {
-	win32.IInspectable
-}
-
-func (this *IAppUriHandlerRegistrationManagerStatics2) Vtbl() *IAppUriHandlerRegistrationManagerStatics2Vtbl {
-	return (*IAppUriHandlerRegistrationManagerStatics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IAppUriHandlerRegistrationManagerStatics2) GetForPackage(packageFamilyName string) *IAppUriHandlerRegistrationManager {
-	var _result *IAppUriHandlerRegistrationManager
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetForPackage, uintptr(unsafe.Pointer(this)), NewHStr(packageFamilyName).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IAppUriHandlerRegistrationManagerStatics2) GetForPackageForUser(packageFamilyName string, user *IUser) *IAppUriHandlerRegistrationManager {
-	var _result *IAppUriHandlerRegistrationManager
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetForPackageForUser, uintptr(unsafe.Pointer(this)), NewHStr(packageFamilyName).Ptr, uintptr(unsafe.Pointer(user)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
@@ -2296,35 +2125,6 @@ func (this *IKnownUserPropertiesStatics) Get_DomainName() string {
 func (this *IKnownUserPropertiesStatics) Get_SessionInitiationProtocolUri() string {
 	var _result win32.HSTRING
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SessionInitiationProtocolUri, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-// 5B450782-F620-577E-B1B3-DD56644D79B1
-var IID_IKnownUserPropertiesStatics2 = syscall.GUID{0x5B450782, 0xF620, 0x577E,
-	[8]byte{0xB1, 0xB3, 0xDD, 0x56, 0x64, 0x4D, 0x79, 0xB1}}
-
-type IKnownUserPropertiesStatics2Interface interface {
-	win32.IInspectableInterface
-	Get_AgeEnforcementRegion() string
-}
-
-type IKnownUserPropertiesStatics2Vtbl struct {
-	win32.IInspectableVtbl
-	Get_AgeEnforcementRegion uintptr
-}
-
-type IKnownUserPropertiesStatics2 struct {
-	win32.IInspectable
-}
-
-func (this *IKnownUserPropertiesStatics2) Vtbl() *IKnownUserPropertiesStatics2Vtbl {
-	return (*IKnownUserPropertiesStatics2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IKnownUserPropertiesStatics2) Get_AgeEnforcementRegion() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_AgeEnforcementRegion, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return HStringToStrAndFree(_result)
 }
@@ -3855,36 +3655,6 @@ func (this *IUser) GetPictureAsync(desiredSize UserPictureSize) *IAsyncOperation
 	return _result
 }
 
-// 98BA5628-A6E3-518E-89D9-D3B2B1991A10
-var IID_IUser2 = syscall.GUID{0x98BA5628, 0xA6E3, 0x518E,
-	[8]byte{0x89, 0xD9, 0xD3, 0xB2, 0xB1, 0x99, 0x1A, 0x10}}
-
-type IUser2Interface interface {
-	win32.IInspectableInterface
-	CheckUserAgeConsentGroupAsync(consentGroup UserAgeConsentGroup) *IAsyncOperation[UserAgeConsentResult]
-}
-
-type IUser2Vtbl struct {
-	win32.IInspectableVtbl
-	CheckUserAgeConsentGroupAsync uintptr
-}
-
-type IUser2 struct {
-	win32.IInspectable
-}
-
-func (this *IUser2) Vtbl() *IUser2Vtbl {
-	return (*IUser2Vtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IUser2) CheckUserAgeConsentGroupAsync(consentGroup UserAgeConsentGroup) *IAsyncOperation[UserAgeConsentResult] {
-	var _result *IAsyncOperation[UserAgeConsentResult]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().CheckUserAgeConsentGroupAsync, uintptr(unsafe.Pointer(this)), uintptr(consentGroup), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
 // 88B59568-BB30-42FB-A270-E9902E40EFA7
 var IID_IUserAuthenticationStatusChangeDeferral = syscall.GUID{0x88B59568, 0xBB30, 0x42FB,
 	[8]byte{0xA2, 0x70, 0xE9, 0x90, 0x2E, 0x40, 0xEF, 0xA7}}
@@ -4484,19 +4254,19 @@ type AppDiagnosticInfo struct {
 	*IAppDiagnosticInfo
 }
 
-func NewIAppDiagnosticInfoStatics() *IAppDiagnosticInfoStatics {
-	var p *IAppDiagnosticInfoStatics
+func NewIAppDiagnosticInfoStatics2() *IAppDiagnosticInfoStatics2 {
+	var p *IAppDiagnosticInfoStatics2
 	hs := NewHStr("Windows.System.AppDiagnosticInfo")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAppDiagnosticInfoStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAppDiagnosticInfoStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIAppDiagnosticInfoStatics2() *IAppDiagnosticInfoStatics2 {
-	var p *IAppDiagnosticInfoStatics2
+func NewIAppDiagnosticInfoStatics() *IAppDiagnosticInfoStatics {
+	var p *IAppDiagnosticInfoStatics
 	hs := NewHStr("Windows.System.AppDiagnosticInfo")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAppDiagnosticInfoStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAppDiagnosticInfoStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4616,15 +4386,6 @@ func NewIKnownUserPropertiesStatics() *IKnownUserPropertiesStatics {
 	return p
 }
 
-func NewIKnownUserPropertiesStatics2() *IKnownUserPropertiesStatics2 {
-	var p *IKnownUserPropertiesStatics2
-	hs := NewHStr("Windows.System.KnownUserProperties")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IKnownUserPropertiesStatics2, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 type ProcessLauncher struct {
 	RtClass
 }
@@ -4666,19 +4427,19 @@ type ShutdownManager struct {
 	RtClass
 }
 
-func NewIShutdownManagerStatics() *IShutdownManagerStatics {
-	var p *IShutdownManagerStatics
+func NewIShutdownManagerStatics2() *IShutdownManagerStatics2 {
+	var p *IShutdownManagerStatics2
 	hs := NewHStr("Windows.System.ShutdownManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IShutdownManagerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IShutdownManagerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIShutdownManagerStatics2() *IShutdownManagerStatics2 {
-	var p *IShutdownManagerStatics2
+func NewIShutdownManagerStatics() *IShutdownManagerStatics {
+	var p *IShutdownManagerStatics
 	hs := NewHStr("Windows.System.ShutdownManager")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IShutdownManagerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IShutdownManagerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -4689,19 +4450,19 @@ type User struct {
 	*IUser
 }
 
-func NewIUserStatics() *IUserStatics {
-	var p *IUserStatics
+func NewIUserStatics2() *IUserStatics2 {
+	var p *IUserStatics2
 	hs := NewHStr("Windows.System.User")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IUserStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IUserStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIUserStatics2() *IUserStatics2 {
-	var p *IUserStatics2
+func NewIUserStatics() *IUserStatics {
+	var p *IUserStatics
 	hs := NewHStr("Windows.System.User")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IUserStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IUserStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p

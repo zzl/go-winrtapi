@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -32,7 +32,6 @@ const (
 	AudioEffectType_SpeakerCompensation      AudioEffectType = 16
 	AudioEffectType_DynamicRangeCompression  AudioEffectType = 17
 	AudioEffectType_FarFieldBeamForming      AudioEffectType = 18
-	AudioEffectType_DeepNoiseSuppression     AudioEffectType = 19
 )
 
 // enum
@@ -1065,8 +1064,8 @@ type IVideoTransformSphericalProjectionInterface interface {
 	Put_ProjectionMode(value SphericalVideoProjectionMode)
 	Get_HorizontalFieldOfViewInDegrees() float64
 	Put_HorizontalFieldOfViewInDegrees(value float64)
-	Get_ViewOrientation() unsafe.Pointer
-	Put_ViewOrientation(value unsafe.Pointer)
+	Get_ViewOrientation() Quaternion
+	Put_ViewOrientation(value Quaternion)
 }
 
 type IVideoTransformSphericalProjectionVtbl struct {
@@ -1139,15 +1138,15 @@ func (this *IVideoTransformSphericalProjection) Put_HorizontalFieldOfViewInDegre
 	_ = _hr
 }
 
-func (this *IVideoTransformSphericalProjection) Get_ViewOrientation() unsafe.Pointer {
-	var _result unsafe.Pointer
+func (this *IVideoTransformSphericalProjection) Get_ViewOrientation() Quaternion {
+	var _result Quaternion
 	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
 	_ = _hr
 	return _result
 }
 
-func (this *IVideoTransformSphericalProjection) Put_ViewOrientation(value unsafe.Pointer) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(value))
+func (this *IVideoTransformSphericalProjection) Put_ViewOrientation(value Quaternion) {
+	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_ViewOrientation, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&value)))
 	_ = _hr
 }
 

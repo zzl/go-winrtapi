@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"log"
 	"syscall"
 	"unsafe"
@@ -110,31 +110,31 @@ type UniversalApiContract struct {
 
 // func types
 
-//A4ED5C81-76C9-40BD-8BE6-B1D90FB20AE7
+// A4ED5C81-76C9-40BD-8BE6-B1D90FB20AE7
 type AsyncActionCompletedHandler func(asyncInfo *IAsyncAction, asyncStatus AsyncStatus) com.Error
 
-//6D844858-0CFF-4590-AE89-95A5A5C8B4B8
+// 6D844858-0CFF-4590-AE89-95A5A5C8B4B8
 type AsyncActionProgressHandler[TProgress any] func(asyncInfo *IAsyncActionWithProgress[TProgress], progressInfo TProgress) com.Error
 
-//9C029F91-CC84-44FD-AC26-0A6C4E555281
+// 9C029F91-CC84-44FD-AC26-0A6C4E555281
 type AsyncActionWithProgressCompletedHandler[TProgress any] func(asyncInfo *IAsyncActionWithProgress[TProgress], asyncStatus AsyncStatus) com.Error
 
-//FCDCF02C-E5D8-4478-915A-4D90B74B83A5
+// FCDCF02C-E5D8-4478-915A-4D90B74B83A5
 type AsyncOperationCompletedHandler[TResult any] func(asyncInfo *IAsyncOperation[TResult], asyncStatus AsyncStatus) com.Error
 
-//55690902-0AAB-421A-8778-F8CE5026D758
+// 55690902-0AAB-421A-8778-F8CE5026D758
 type AsyncOperationProgressHandler[TResult any, TProgress any] func(asyncInfo *IAsyncOperationWithProgress[TResult, TProgress], progressInfo TProgress) com.Error
 
-//E85DF41D-6AA7-46E3-A8E2-F009D840C627
+// E85DF41D-6AA7-46E3-A8E2-F009D840C627
 type AsyncOperationWithProgressCompletedHandler[TResult any, TProgress any] func(asyncInfo *IAsyncOperationWithProgress[TResult, TProgress], asyncStatus AsyncStatus) com.Error
 
-//ED32A372-F3C8-4FAA-9CFB-470148DA3888
+// ED32A372-F3C8-4FAA-9CFB-470148DA3888
 type DeferralCompletedHandler func() com.Error
 
-//9DE1C535-6AE1-11E0-84E1-18A905BCC53F
+// 9DE1C535-6AE1-11E0-84E1-18A905BCC53F
 type EventHandler[T any] func(sender interface{}, args T) com.Error
 
-//9DE1C534-6AE1-11E0-84E1-18A905BCC53F
+// 9DE1C534-6AE1-11E0-84E1-18A905BCC53F
 type TypedEventHandler[TSender any, TResult any] func(sender TSender, args TResult) com.Error
 
 // interfaces

@@ -2,7 +2,7 @@ package winrt
 
 import (
 	"github.com/zzl/go-com/com"
-	"github.com/zzl/go-win32api/win32"
+	"github.com/zzl/go-win32api/v2/win32"
 	"syscall"
 	"unsafe"
 )
@@ -38,24 +38,6 @@ const (
 	ActivityType_Running    ActivityType = 5
 	ActivityType_InVehicle  ActivityType = 6
 	ActivityType_Biking     ActivityType = 7
-)
-
-// enum
-type HumanEngagement int32
-
-const (
-	HumanEngagement_Unknown   HumanEngagement = 0
-	HumanEngagement_Engaged   HumanEngagement = 1
-	HumanEngagement_Unengaged HumanEngagement = 2
-)
-
-// enum
-type HumanPresence int32
-
-const (
-	HumanPresence_Unknown    HumanPresence = 0
-	HumanPresence_Present    HumanPresence = 1
-	HumanPresence_NotPresent HumanPresence = 2
 )
 
 // enum
@@ -2787,520 +2769,6 @@ func (this *IHingeAngleSensorStatics) FromIdAsync(deviceId string) *IAsyncOperat
 	_ = _hr
 	com.AddToScope(_result)
 	return _result
-}
-
-// BDB09FDA-3244-557A-BD29-8B004F59F2CC
-var IID_IHumanPresenceFeatures = syscall.GUID{0xBDB09FDA, 0x3244, 0x557A,
-	[8]byte{0xBD, 0x29, 0x8B, 0x00, 0x4F, 0x59, 0xF2, 0xCC}}
-
-type IHumanPresenceFeaturesInterface interface {
-	win32.IInspectableInterface
-	Get_SensorId() string
-	Get_SupportedWakeOrLockDistancesInMillimeters() *IVectorView[uint32]
-	Get_IsWakeOnApproachSupported() bool
-	Get_IsLockOnLeaveSupported() bool
-	Get_IsAttentionAwareDimmingSupported() bool
-}
-
-type IHumanPresenceFeaturesVtbl struct {
-	win32.IInspectableVtbl
-	Get_SensorId                                  uintptr
-	Get_SupportedWakeOrLockDistancesInMillimeters uintptr
-	Get_IsWakeOnApproachSupported                 uintptr
-	Get_IsLockOnLeaveSupported                    uintptr
-	Get_IsAttentionAwareDimmingSupported          uintptr
-}
-
-type IHumanPresenceFeatures struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceFeatures) Vtbl() *IHumanPresenceFeaturesVtbl {
-	return (*IHumanPresenceFeaturesVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceFeatures) Get_SensorId() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SensorId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHumanPresenceFeatures) Get_SupportedWakeOrLockDistancesInMillimeters() *IVectorView[uint32] {
-	var _result *IVectorView[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SupportedWakeOrLockDistancesInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceFeatures) Get_IsWakeOnApproachSupported() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsWakeOnApproachSupported, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceFeatures) Get_IsLockOnLeaveSupported() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsLockOnLeaveSupported, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceFeatures) Get_IsAttentionAwareDimmingSupported() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsAttentionAwareDimmingSupported, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-// 2116788B-E389-5CC3-9A97-CB17BE1008BD
-var IID_IHumanPresenceSensor = syscall.GUID{0x2116788B, 0xE389, 0x5CC3,
-	[8]byte{0x9A, 0x97, 0xCB, 0x17, 0xBE, 0x10, 0x08, 0xBD}}
-
-type IHumanPresenceSensorInterface interface {
-	win32.IInspectableInterface
-	Get_DeviceId() string
-	Get_MaxDetectableDistanceInMillimeters() *IReference[uint32]
-	Get_MinDetectableDistanceInMillimeters() *IReference[uint32]
-	GetCurrentReading() *IHumanPresenceSensorReading
-	Add_ReadingChanged(handler TypedEventHandler[*IHumanPresenceSensor, *IHumanPresenceSensorReadingChangedEventArgs]) EventRegistrationToken
-	Remove_ReadingChanged(token EventRegistrationToken)
-}
-
-type IHumanPresenceSensorVtbl struct {
-	win32.IInspectableVtbl
-	Get_DeviceId                           uintptr
-	Get_MaxDetectableDistanceInMillimeters uintptr
-	Get_MinDetectableDistanceInMillimeters uintptr
-	GetCurrentReading                      uintptr
-	Add_ReadingChanged                     uintptr
-	Remove_ReadingChanged                  uintptr
-}
-
-type IHumanPresenceSensor struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSensor) Vtbl() *IHumanPresenceSensorVtbl {
-	return (*IHumanPresenceSensorVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSensor) Get_DeviceId() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DeviceId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHumanPresenceSensor) Get_MaxDetectableDistanceInMillimeters() *IReference[uint32] {
-	var _result *IReference[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MaxDetectableDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSensor) Get_MinDetectableDistanceInMillimeters() *IReference[uint32] {
-	var _result *IReference[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_MinDetectableDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSensor) GetCurrentReading() *IHumanPresenceSensorReading {
-	var _result *IHumanPresenceSensorReading
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetCurrentReading, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSensor) Add_ReadingChanged(handler TypedEventHandler[*IHumanPresenceSensor, *IHumanPresenceSensorReadingChangedEventArgs]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_ReadingChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSensor) Remove_ReadingChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_ReadingChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
-}
-
-// 83533BF5-A85A-5D50-8BE4-6072D745A3BB
-var IID_IHumanPresenceSensorReading = syscall.GUID{0x83533BF5, 0xA85A, 0x5D50,
-	[8]byte{0x8B, 0xE4, 0x60, 0x72, 0xD7, 0x45, 0xA3, 0xBB}}
-
-type IHumanPresenceSensorReadingInterface interface {
-	win32.IInspectableInterface
-	Get_Timestamp() DateTime
-	Get_Presence() HumanPresence
-	Get_Engagement() HumanEngagement
-	Get_DistanceInMillimeters() *IReference[uint32]
-}
-
-type IHumanPresenceSensorReadingVtbl struct {
-	win32.IInspectableVtbl
-	Get_Timestamp             uintptr
-	Get_Presence              uintptr
-	Get_Engagement            uintptr
-	Get_DistanceInMillimeters uintptr
-}
-
-type IHumanPresenceSensorReading struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSensorReading) Vtbl() *IHumanPresenceSensorReadingVtbl {
-	return (*IHumanPresenceSensorReadingVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSensorReading) Get_Timestamp() DateTime {
-	var _result DateTime
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Timestamp, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSensorReading) Get_Presence() HumanPresence {
-	var _result HumanPresence
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Presence, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSensorReading) Get_Engagement() HumanEngagement {
-	var _result HumanEngagement
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Engagement, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSensorReading) Get_DistanceInMillimeters() *IReference[uint32] {
-	var _result *IReference[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_DistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// A9DC4583-FD69-5C5E-AB1F-942204EAE2DB
-var IID_IHumanPresenceSensorReadingChangedEventArgs = syscall.GUID{0xA9DC4583, 0xFD69, 0x5C5E,
-	[8]byte{0xAB, 0x1F, 0x94, 0x22, 0x04, 0xEA, 0xE2, 0xDB}}
-
-type IHumanPresenceSensorReadingChangedEventArgsInterface interface {
-	win32.IInspectableInterface
-	Get_Reading() *IHumanPresenceSensorReading
-}
-
-type IHumanPresenceSensorReadingChangedEventArgsVtbl struct {
-	win32.IInspectableVtbl
-	Get_Reading uintptr
-}
-
-type IHumanPresenceSensorReadingChangedEventArgs struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSensorReadingChangedEventArgs) Vtbl() *IHumanPresenceSensorReadingChangedEventArgsVtbl {
-	return (*IHumanPresenceSensorReadingChangedEventArgsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSensorReadingChangedEventArgs) Get_Reading() *IHumanPresenceSensorReading {
-	var _result *IHumanPresenceSensorReading
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_Reading, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// 2AE89842-DBA9-56B2-9F27-EAC69D621004
-var IID_IHumanPresenceSensorStatics = syscall.GUID{0x2AE89842, 0xDBA9, 0x56B2,
-	[8]byte{0x9F, 0x27, 0xEA, 0xC6, 0x9D, 0x62, 0x10, 0x04}}
-
-type IHumanPresenceSensorStaticsInterface interface {
-	win32.IInspectableInterface
-	GetDeviceSelector() string
-	FromIdAsync(sensorId string) *IAsyncOperation[*IHumanPresenceSensor]
-	GetDefaultAsync() *IAsyncOperation[*IHumanPresenceSensor]
-}
-
-type IHumanPresenceSensorStaticsVtbl struct {
-	win32.IInspectableVtbl
-	GetDeviceSelector uintptr
-	FromIdAsync       uintptr
-	GetDefaultAsync   uintptr
-}
-
-type IHumanPresenceSensorStatics struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSensorStatics) Vtbl() *IHumanPresenceSensorStaticsVtbl {
-	return (*IHumanPresenceSensorStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSensorStatics) GetDeviceSelector() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetDeviceSelector, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHumanPresenceSensorStatics) FromIdAsync(sensorId string) *IAsyncOperation[*IHumanPresenceSensor] {
-	var _result *IAsyncOperation[*IHumanPresenceSensor]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().FromIdAsync, uintptr(unsafe.Pointer(this)), NewHStr(sensorId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSensorStatics) GetDefaultAsync() *IAsyncOperation[*IHumanPresenceSensor] {
-	var _result *IAsyncOperation[*IHumanPresenceSensor]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetDefaultAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-// EF4DAF5B-07B7-5EB6-86BB-B7FF49CE44FB
-var IID_IHumanPresenceSettings = syscall.GUID{0xEF4DAF5B, 0x07B7, 0x5EB6,
-	[8]byte{0x86, 0xBB, 0xB7, 0xFF, 0x49, 0xCE, 0x44, 0xFB}}
-
-type IHumanPresenceSettingsInterface interface {
-	win32.IInspectableInterface
-	Get_SensorId() string
-	Put_SensorId(value string)
-	Get_IsWakeOnApproachEnabled() bool
-	Put_IsWakeOnApproachEnabled(value bool)
-	Get_WakeOnApproachDistanceInMillimeters() *IReference[uint32]
-	Put_WakeOnApproachDistanceInMillimeters(value *IReference[uint32])
-	Get_IsLockOnLeaveEnabled() bool
-	Put_IsLockOnLeaveEnabled(value bool)
-	Get_LockOnLeaveDistanceInMillimeters() *IReference[uint32]
-	Put_LockOnLeaveDistanceInMillimeters(value *IReference[uint32])
-	Get_LockOnLeaveTimeout() TimeSpan
-	Put_LockOnLeaveTimeout(value TimeSpan)
-	Get_IsAttentionAwareDimmingEnabled() bool
-	Put_IsAttentionAwareDimmingEnabled(value bool)
-}
-
-type IHumanPresenceSettingsVtbl struct {
-	win32.IInspectableVtbl
-	Get_SensorId                            uintptr
-	Put_SensorId                            uintptr
-	Get_IsWakeOnApproachEnabled             uintptr
-	Put_IsWakeOnApproachEnabled             uintptr
-	Get_WakeOnApproachDistanceInMillimeters uintptr
-	Put_WakeOnApproachDistanceInMillimeters uintptr
-	Get_IsLockOnLeaveEnabled                uintptr
-	Put_IsLockOnLeaveEnabled                uintptr
-	Get_LockOnLeaveDistanceInMillimeters    uintptr
-	Put_LockOnLeaveDistanceInMillimeters    uintptr
-	Get_LockOnLeaveTimeout                  uintptr
-	Put_LockOnLeaveTimeout                  uintptr
-	Get_IsAttentionAwareDimmingEnabled      uintptr
-	Put_IsAttentionAwareDimmingEnabled      uintptr
-}
-
-type IHumanPresenceSettings struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSettings) Vtbl() *IHumanPresenceSettingsVtbl {
-	return (*IHumanPresenceSettingsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSettings) Get_SensorId() string {
-	var _result win32.HSTRING
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_SensorId, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return HStringToStrAndFree(_result)
-}
-
-func (this *IHumanPresenceSettings) Put_SensorId(value string) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_SensorId, uintptr(unsafe.Pointer(this)), NewHStr(value).Ptr)
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_IsWakeOnApproachEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsWakeOnApproachEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_IsWakeOnApproachEnabled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsWakeOnApproachEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_WakeOnApproachDistanceInMillimeters() *IReference[uint32] {
-	var _result *IReference[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_WakeOnApproachDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_WakeOnApproachDistanceInMillimeters(value *IReference[uint32]) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_WakeOnApproachDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_IsLockOnLeaveEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsLockOnLeaveEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_IsLockOnLeaveEnabled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsLockOnLeaveEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_LockOnLeaveDistanceInMillimeters() *IReference[uint32] {
-	var _result *IReference[uint32]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LockOnLeaveDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_LockOnLeaveDistanceInMillimeters(value *IReference[uint32]) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_LockOnLeaveDistanceInMillimeters, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(value)))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_LockOnLeaveTimeout() TimeSpan {
-	var _result TimeSpan
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_LockOnLeaveTimeout, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_LockOnLeaveTimeout(value TimeSpan) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_LockOnLeaveTimeout, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&value)))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettings) Get_IsAttentionAwareDimmingEnabled() bool {
-	var _result bool
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Get_IsAttentionAwareDimmingEnabled, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSettings) Put_IsAttentionAwareDimmingEnabled(value bool) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Put_IsAttentionAwareDimmingEnabled, uintptr(unsafe.Pointer(this)), uintptr(*(*byte)(unsafe.Pointer(&value))))
-	_ = _hr
-}
-
-// 7F343202-E010-52C4-AF0C-04A8F1E033DA
-var IID_IHumanPresenceSettingsStatics = syscall.GUID{0x7F343202, 0xE010, 0x52C4,
-	[8]byte{0xAF, 0x0C, 0x04, 0xA8, 0xF1, 0xE0, 0x33, 0xDA}}
-
-type IHumanPresenceSettingsStaticsInterface interface {
-	win32.IInspectableInterface
-	GetCurrentSettingsAsync() *IAsyncOperation[*IHumanPresenceSettings]
-	GetCurrentSettings() *IHumanPresenceSettings
-	UpdateSettingsAsync(settings *IHumanPresenceSettings) *IAsyncAction
-	UpdateSettings(settings *IHumanPresenceSettings)
-	GetSupportedFeaturesForSensorIdAsync(sensorId string) *IAsyncOperation[*IHumanPresenceFeatures]
-	GetSupportedFeaturesForSensorId(sensorId string) *IHumanPresenceFeatures
-	GetSupportedLockOnLeaveTimeouts() *IVectorView[TimeSpan]
-	Add_SettingsChanged(handler EventHandler[interface{}]) EventRegistrationToken
-	Remove_SettingsChanged(token EventRegistrationToken)
-}
-
-type IHumanPresenceSettingsStaticsVtbl struct {
-	win32.IInspectableVtbl
-	GetCurrentSettingsAsync              uintptr
-	GetCurrentSettings                   uintptr
-	UpdateSettingsAsync                  uintptr
-	UpdateSettings                       uintptr
-	GetSupportedFeaturesForSensorIdAsync uintptr
-	GetSupportedFeaturesForSensorId      uintptr
-	GetSupportedLockOnLeaveTimeouts      uintptr
-	Add_SettingsChanged                  uintptr
-	Remove_SettingsChanged               uintptr
-}
-
-type IHumanPresenceSettingsStatics struct {
-	win32.IInspectable
-}
-
-func (this *IHumanPresenceSettingsStatics) Vtbl() *IHumanPresenceSettingsStaticsVtbl {
-	return (*IHumanPresenceSettingsStaticsVtbl)(unsafe.Pointer(this.IUnknown.LpVtbl))
-}
-
-func (this *IHumanPresenceSettingsStatics) GetCurrentSettingsAsync() *IAsyncOperation[*IHumanPresenceSettings] {
-	var _result *IAsyncOperation[*IHumanPresenceSettings]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetCurrentSettingsAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) GetCurrentSettings() *IHumanPresenceSettings {
-	var _result *IHumanPresenceSettings
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetCurrentSettings, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) UpdateSettingsAsync(settings *IHumanPresenceSettings) *IAsyncAction {
-	var _result *IAsyncAction
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UpdateSettingsAsync, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(settings)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) UpdateSettings(settings *IHumanPresenceSettings) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().UpdateSettings, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(settings)))
-	_ = _hr
-}
-
-func (this *IHumanPresenceSettingsStatics) GetSupportedFeaturesForSensorIdAsync(sensorId string) *IAsyncOperation[*IHumanPresenceFeatures] {
-	var _result *IAsyncOperation[*IHumanPresenceFeatures]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetSupportedFeaturesForSensorIdAsync, uintptr(unsafe.Pointer(this)), NewHStr(sensorId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) GetSupportedFeaturesForSensorId(sensorId string) *IHumanPresenceFeatures {
-	var _result *IHumanPresenceFeatures
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetSupportedFeaturesForSensorId, uintptr(unsafe.Pointer(this)), NewHStr(sensorId).Ptr, uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) GetSupportedLockOnLeaveTimeouts() *IVectorView[TimeSpan] {
-	var _result *IVectorView[TimeSpan]
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().GetSupportedLockOnLeaveTimeouts, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	com.AddToScope(_result)
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) Add_SettingsChanged(handler EventHandler[interface{}]) EventRegistrationToken {
-	var _result EventRegistrationToken
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Add_SettingsChanged, uintptr(unsafe.Pointer(this)), uintptr(unsafe.Pointer(NewTwoArgFuncDelegate(handler))), uintptr(unsafe.Pointer(&_result)))
-	_ = _hr
-	return _result
-}
-
-func (this *IHumanPresenceSettingsStatics) Remove_SettingsChanged(token EventRegistrationToken) {
-	_hr, _, _ := syscall.SyscallN(this.Vtbl().Remove_SettingsChanged, uintptr(unsafe.Pointer(this)), *(*uintptr)(unsafe.Pointer(&token)))
-	_ = _hr
 }
 
 // 2648CA6F-2286-406F-9161-F0C4BD806EBF
@@ -6273,19 +5741,19 @@ type Accelerometer struct {
 	*IAccelerometer
 }
 
-func NewIAccelerometerStatics2() *IAccelerometerStatics2 {
-	var p *IAccelerometerStatics2
+func NewIAccelerometerStatics3() *IAccelerometerStatics3 {
+	var p *IAccelerometerStatics3
 	hs := NewHStr("Windows.Devices.Sensors.Accelerometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccelerometerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccelerometerStatics3, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIAccelerometerStatics3() *IAccelerometerStatics3 {
-	var p *IAccelerometerStatics3
+func NewIAccelerometerStatics2() *IAccelerometerStatics2 {
+	var p *IAccelerometerStatics2
 	hs := NewHStr("Windows.Devices.Sensors.Accelerometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccelerometerStatics3, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IAccelerometerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6406,19 +5874,19 @@ type Compass struct {
 	*ICompass
 }
 
-func NewICompassStatics() *ICompassStatics {
-	var p *ICompassStatics
+func NewICompassStatics2() *ICompassStatics2 {
+	var p *ICompassStatics2
 	hs := NewHStr("Windows.Devices.Sensors.Compass")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICompassStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICompassStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewICompassStatics2() *ICompassStatics2 {
-	var p *ICompassStatics2
+func NewICompassStatics() *ICompassStatics {
+	var p *ICompassStatics
 	hs := NewHStr("Windows.Devices.Sensors.Compass")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICompassStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ICompassStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6472,10 +5940,10 @@ type Inclinometer struct {
 	*IInclinometer
 }
 
-func NewIInclinometerStatics2() *IInclinometerStatics2 {
-	var p *IInclinometerStatics2
+func NewIInclinometerStatics() *IInclinometerStatics {
+	var p *IInclinometerStatics
 	hs := NewHStr("Windows.Devices.Sensors.Inclinometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInclinometerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInclinometerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6499,10 +5967,10 @@ func NewIInclinometerStatics3() *IInclinometerStatics3 {
 	return p
 }
 
-func NewIInclinometerStatics() *IInclinometerStatics {
-	var p *IInclinometerStatics
+func NewIInclinometerStatics2() *IInclinometerStatics2 {
+	var p *IInclinometerStatics2
 	hs := NewHStr("Windows.Devices.Sensors.Inclinometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInclinometerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IInclinometerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6556,19 +6024,19 @@ type Magnetometer struct {
 	*IMagnetometer
 }
 
-func NewIMagnetometerStatics2() *IMagnetometerStatics2 {
-	var p *IMagnetometerStatics2
+func NewIMagnetometerStatics() *IMagnetometerStatics {
+	var p *IMagnetometerStatics
 	hs := NewHStr("Windows.Devices.Sensors.Magnetometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMagnetometerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMagnetometerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIMagnetometerStatics() *IMagnetometerStatics {
-	var p *IMagnetometerStatics
+func NewIMagnetometerStatics2() *IMagnetometerStatics2 {
+	var p *IMagnetometerStatics2
 	hs := NewHStr("Windows.Devices.Sensors.Magnetometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMagnetometerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IMagnetometerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6589,15 +6057,6 @@ type OrientationSensor struct {
 	*IOrientationSensor
 }
 
-func NewIOrientationSensorStatics() *IOrientationSensorStatics {
-	var p *IOrientationSensorStatics
-	hs := NewHStr("Windows.Devices.Sensors.OrientationSensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IOrientationSensorStatics, unsafe.Pointer(&p))
-	win32.ASSERT_SUCCEEDED(hr)
-	com.AddToScope(p)
-	return p
-}
-
 func NewIOrientationSensorStatics3() *IOrientationSensorStatics3 {
 	var p *IOrientationSensorStatics3
 	hs := NewHStr("Windows.Devices.Sensors.OrientationSensor")
@@ -6607,10 +6066,10 @@ func NewIOrientationSensorStatics3() *IOrientationSensorStatics3 {
 	return p
 }
 
-func NewIOrientationSensorStatics2() *IOrientationSensorStatics2 {
-	var p *IOrientationSensorStatics2
+func NewIOrientationSensorStatics() *IOrientationSensorStatics {
+	var p *IOrientationSensorStatics
 	hs := NewHStr("Windows.Devices.Sensors.OrientationSensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IOrientationSensorStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IOrientationSensorStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6620,6 +6079,15 @@ func NewIOrientationSensorStatics4() *IOrientationSensorStatics4 {
 	var p *IOrientationSensorStatics4
 	hs := NewHStr("Windows.Devices.Sensors.OrientationSensor")
 	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IOrientationSensorStatics4, unsafe.Pointer(&p))
+	win32.ASSERT_SUCCEEDED(hr)
+	com.AddToScope(p)
+	return p
+}
+
+func NewIOrientationSensorStatics2() *IOrientationSensorStatics2 {
+	var p *IOrientationSensorStatics2
+	hs := NewHStr("Windows.Devices.Sensors.OrientationSensor")
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IOrientationSensorStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6640,19 +6108,19 @@ type Pedometer struct {
 	*IPedometer
 }
 
-func NewIPedometerStatics() *IPedometerStatics {
-	var p *IPedometerStatics
+func NewIPedometerStatics2() *IPedometerStatics2 {
+	var p *IPedometerStatics2
 	hs := NewHStr("Windows.Devices.Sensors.Pedometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPedometerStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPedometerStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIPedometerStatics2() *IPedometerStatics2 {
-	var p *IPedometerStatics2
+func NewIPedometerStatics() *IPedometerStatics {
+	var p *IPedometerStatics
 	hs := NewHStr("Windows.Devices.Sensors.Pedometer")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPedometerStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IPedometerStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6673,19 +6141,19 @@ type ProximitySensor struct {
 	*IProximitySensor
 }
 
-func NewIProximitySensorStatics() *IProximitySensorStatics {
-	var p *IProximitySensorStatics
+func NewIProximitySensorStatics2() *IProximitySensorStatics2 {
+	var p *IProximitySensorStatics2
 	hs := NewHStr("Windows.Devices.Sensors.ProximitySensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProximitySensorStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProximitySensorStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewIProximitySensorStatics2() *IProximitySensorStatics2 {
-	var p *IProximitySensorStatics2
+func NewIProximitySensorStatics() *IProximitySensorStatics {
+	var p *IProximitySensorStatics
 	hs := NewHStr("Windows.Devices.Sensors.ProximitySensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProximitySensorStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_IProximitySensorStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
@@ -6721,19 +6189,19 @@ type SimpleOrientationSensor struct {
 	*ISimpleOrientationSensor
 }
 
-func NewISimpleOrientationSensorStatics2() *ISimpleOrientationSensorStatics2 {
-	var p *ISimpleOrientationSensorStatics2
+func NewISimpleOrientationSensorStatics() *ISimpleOrientationSensorStatics {
+	var p *ISimpleOrientationSensorStatics
 	hs := NewHStr("Windows.Devices.Sensors.SimpleOrientationSensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISimpleOrientationSensorStatics2, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISimpleOrientationSensorStatics, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
 }
 
-func NewISimpleOrientationSensorStatics() *ISimpleOrientationSensorStatics {
-	var p *ISimpleOrientationSensorStatics
+func NewISimpleOrientationSensorStatics2() *ISimpleOrientationSensorStatics2 {
+	var p *ISimpleOrientationSensorStatics2
 	hs := NewHStr("Windows.Devices.Sensors.SimpleOrientationSensor")
-	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISimpleOrientationSensorStatics, unsafe.Pointer(&p))
+	hr := win32.RoGetActivationFactory(hs.Ptr, &IID_ISimpleOrientationSensorStatics2, unsafe.Pointer(&p))
 	win32.ASSERT_SUCCEEDED(hr)
 	com.AddToScope(p)
 	return p
